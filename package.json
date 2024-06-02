@@ -1,4 +1,29 @@
 {
   "name": "sprint-task-estimates",
-  "packageManager": "yarn@4.0.2"
+  "packageManager": "yarn@4.0.2",
+  "workspaces": [
+    "apps/*"
+  ],
+  "devDependencies": {
+    "@types/node": "^20.13.0",
+    "prettier": "^3.3.0",
+    "prisma": "^5.14.0",
+    "turbo": "^1.13.3",
+    "typescript": "^5.4.5"
+  },
+  "scripts": {
+    "format:fix": "yarn turbo run format:fix",
+    "format:check": "yarn turbo run format:check",
+    "lint": "yarn turbo run lint",
+    "test": "yarn turbo run test",
+    "dev": "yarn turbo run dev",
+    "start": "yarn turbo run start",
+    "build": "yarn turbo run build",
+    "deploy": "yarn turbo run deploy"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.10.4",
+    "@prisma/client": "^5.14.0",
+    "graphql": "^16.8.1"
+  }
 }
