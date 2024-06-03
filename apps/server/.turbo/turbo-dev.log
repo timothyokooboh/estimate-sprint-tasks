@@ -1,0 +1,19 @@
+[33m[nodemon] 3.1.2[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: ts,json[39m
+[32m[nodemon] starting `ts-node src/index.ts`[39m
+TypeError [ERR_UNKNOWN_FILE_EXTENSION]: Unknown file extension ".ts" for /Users/timothyokooboh/Desktop/sprint-task-estimates/apps/server/src/index.ts
+[90m    at new NodeError (node:internal/errors:405:5)[39m
+[90m    at Object.getFileProtocolModuleFormat [as file:] (node:internal/modules/esm/get_format:136:11)[39m
+[90m    at defaultGetFormat (node:internal/modules/esm/get_format:182:36)[39m
+[90m    at defaultLoad (node:internal/modules/esm/load:101:20)[39m
+[90m    at ModuleLoader.load (node:internal/modules/esm/loader:416:13)[39m
+[90m    at ModuleLoader.moduleProvider (node:internal/modules/esm/loader:287:22)[39m
+[90m    at new ModuleJob (node:internal/modules/esm/module_job:63:26)[39m
+[90m    at ModuleLoader.#createModuleJob (node:internal/modules/esm/loader:311:17)[39m
+[90m    at ModuleLoader.getJobFromResolveResult (node:internal/modules/esm/loader:264:34)[39m
+[90m    at ModuleLoader.getModuleJob (node:internal/modules/esm/loader:250:17)[39m {
+  code: [32m'ERR_UNKNOWN_FILE_EXTENSION'[39m
+}
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m

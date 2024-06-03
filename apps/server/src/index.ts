@@ -5,7 +5,6 @@ import { PubSub } from "graphql-subscriptions";
 import { resolvers } from "./resolvers.js";
 import { typeDefs } from "./schema.js";
 import dotenv from "dotenv";
-import { getUserFromToken } from "./helpers/auth.js";
 import { PrismaClient } from "@prisma/client";
 import cors from "cors";
 import express from "express";
@@ -23,7 +22,10 @@ export const pubsub = new PubSub();
 const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
+});
 
+const server = new ApolloServer({
+  schema,
   plugins: [
     // Proper shutdown for HTTP server
     ApolloServerPluginDrainHttpServer({ httpServer }),
@@ -38,12 +40,7 @@ const schema = makeExecutableSchema({
       },
     },
   ],
-});
-
-const server = new ApolloServer({
-  schema,
   introspection: true, // enable introspection
-  schemaDirectives: {},
   formatError(formattedError, err) {
     // log errors to an error service
 
@@ -73,18 +70,15 @@ app.use(
   // expressMiddleware accepts the same arguments:
   // an Apollo Server instance and optional configuration options
   expressMiddleware(server, {
-    async context({ req, res }) {
-      const token = req.headers.authorization || "";
-      const user = getUserFromToken(token.split(" ")[1]);
+    async context() {
       return {
         prisma,
-        user,
       };
     },
   }),
 );
 
-await new Promise((resolve) =>
+await new Promise<void>((resolve) =>
   httpServer.listen({ port: process.env.PORT }, resolve),
 );
 console.log(`🚀 Server ready at http://localhost:${process.env.PORT}/`);

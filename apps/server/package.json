@@ -1,5 +1,7 @@
 {
-  "name": "server",
+  "name": "@ste/server",
+  "private": true,
+  "type": "module",
   "packageManager": "yarn@4.0.2",
   "dependencies": {
     "@apollo/server": "^4.10.4",
@@ -18,13 +20,14 @@
   },
   "devDependencies": {
     "@types/node": "^20.13.0",
+    "nodemon": "^3.1.2",
     "prisma": "^5.14.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   },
   "scripts": {
     "compile": "tsc",
-    "dev": "yarn run compile && nodemon ./dist/index.js",
-    "start": "yarn run compile && node ./dist/index.js",
+    "start": "npm run compile && nodemon ./dist/index.js",
     "prisma:init": "npx prisma init",
     "prisma:format": "npx prisma format",
     "prisma:migrate": "npx prisma migrate dev --name init",

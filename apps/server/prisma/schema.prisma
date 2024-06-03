@@ -13,11 +13,28 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum TASK_STATUS {
+  ACTIVE
+  COMPLETED
+}
+
+enum PARTICIPANT_STATUS {
+  ACTIVE
+  INACTIVE
+}
+
+enum SESSION_STATUS {
+  ACTIVE
+  INACTIVE
+}
+
 model Participant {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   name String @db.VarChar(255)
+  isOwner Boolean @default(false)
+  status PARTICIPANT_STATUS @default(ACTIVE)
   sessionId String
   session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   votes Vote[]
@@ -27,8 +44,8 @@ model Session {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name String @db.VarChar(255)
-  ownerId String
+  title String @db.VarChar(255)
+  status SESSION_STATUS @default(ACTIVE)
   participants Participant[]
   tasks Task[]
 }
@@ -37,7 +54,8 @@ model Task {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  name String @db.VarChar(255)
+  title String @db.VarChar(255)
+  status TASK_STATUS @default(ACTIVE)
   sessionId String
   session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   votes Vote[]
@@ -52,5 +70,6 @@ model Vote {
   task Task @relation(fields: [taskId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   participantId String
   participant Participant @relation(fields: [participantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  time Int
 }
 

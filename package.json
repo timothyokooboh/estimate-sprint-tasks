@@ -1,6 +1,8 @@
 {
-  "name": "sprint-task-estimates",
+  "name": "ste",
   "packageManager": "yarn@4.0.2",
+  "license": "MIT",
+  "private": true,
   "workspaces": [
     "apps/*"
   ],

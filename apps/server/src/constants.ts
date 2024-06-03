@@ -1,0 +1,9 @@
+export const PARTICIPANT_ADDED = "PARTICIPANT_ADDED";
+export const PARTICIPANT_LEFT = "PARTICIPANT_LEFT";
+export const SESSION_ENDED = "SESSION_ENDED";
+export const TASK_CREATED = "TASK_CREATED";
+export const TASK_UPDATED = "TASK_UPDATED";
+export const TASK_DELETED = "TASK_DELETED";
+export const VOTE_CREATED = "VOTE_CREATED";
+export const VOTE_UPDATED = "VOTE_UPDATED";
+export const VOTE_RESET = "VOTE_RESET";
