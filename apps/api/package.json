@@ -1,5 +1,5 @@
 {
-  "name": "@ste/server",
+  "name": "@ste/api",
   "private": true,
   "type": "module",
   "packageManager": "yarn@4.0.2",

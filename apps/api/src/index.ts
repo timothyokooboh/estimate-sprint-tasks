@@ -15,9 +15,9 @@ import { useServer } from "graphql-ws/lib/use/ws";
 
 dotenv.config();
 const app = express();
-const httpServer = http.createServer(app);
 const prisma = new PrismaClient();
 export const pubsub = new PubSub();
+const httpServer = http.createServer(app);
 
 const schema = makeExecutableSchema({
   typeDefs,
