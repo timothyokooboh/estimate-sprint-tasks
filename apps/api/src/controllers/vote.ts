@@ -6,8 +6,8 @@ export async function createVote(_, { input }, { prisma }) {
   try {
     const vote = await prisma.vote.create({
       data: {
-        participantId: input.participantId,
-        taskId: input.taskId,
+        participantId: input.participant,
+        taskId: input.task,
         value: input.value,
         time: input.time,
       },

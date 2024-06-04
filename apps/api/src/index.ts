@@ -12,6 +12,7 @@ import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHt
 import { WebSocketServer } from "ws";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { useServer } from "graphql-ws/lib/use/ws";
+import { sessionActiveDirectiveTransformer } from "./directives.js";
 
 dotenv.config();
 const app = express();
@@ -19,10 +20,12 @@ const prisma = new PrismaClient();
 export const pubsub = new PubSub();
 const httpServer = http.createServer(app);
 
-const schema = makeExecutableSchema({
+let schema = makeExecutableSchema({
   typeDefs,
   resolvers,
 });
+
+schema = sessionActiveDirectiveTransformer(schema, "sessionActive");
 
 const server = new ApolloServer({
   schema,
@@ -70,9 +73,10 @@ app.use(
   // expressMiddleware accepts the same arguments:
   // an Apollo Server instance and optional configuration options
   expressMiddleware(server, {
-    async context() {
+    async context({ req }) {
       return {
         prisma,
+        req,
       };
     },
   }),

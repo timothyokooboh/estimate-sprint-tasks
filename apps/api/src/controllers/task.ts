@@ -34,7 +34,7 @@ export async function createTask(_, { input }, { prisma }) {
     const task = await prisma.task.create({
       data: {
         title: input.title,
-        sessionId: input.sessionId,
+        sessionId: input.session,
       },
     });
 

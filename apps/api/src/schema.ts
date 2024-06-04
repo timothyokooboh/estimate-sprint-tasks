@@ -1,6 +1,8 @@
 import gql from "graphql-tag";
 
 export const typeDefs = gql`
+  directive @sessionActive on FIELD_DEFINITION
+
   enum TASK_STATUS {
     ACTIVE
     COMPLETED
@@ -97,13 +99,13 @@ export const typeDefs = gql`
 
   input CreateParticipantInput {
     name: String!
-    sessionId: ID!
+    session: ID!
     isOwner: Boolean
   }
 
   input TaskCreateInput {
     title: String!
-    sessionId: ID!
+    session: ID!
   }
 
   input TaskUpdateInput {
@@ -113,8 +115,8 @@ export const typeDefs = gql`
   }
 
   input VoteCreateInput {
-    participantId: ID!
-    taskId: ID!
+    participant: ID!
+    task: ID!
     value: String!
     time: Int!
   }
@@ -133,8 +135,9 @@ export const typeDefs = gql`
     createSession(input: CreateSessionInput!): Session
     endSession(id: ID!): Session
     createParticipant(input: CreateParticipantInput!): Participant
-    leaveSession(participantId: ID!): Participant
-    createTask(input: TaskCreateInput!): Task
+      @sessionActive
+    leaveSession(participant: ID!): Participant
+    createTask(input: TaskCreateInput!): Task @sessionActive
     updateTask(input: TaskUpdateInput!): Task
     deleteTask(id: ID!): ID
     createVote(input: VoteCreateInput!): Vote

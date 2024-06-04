@@ -54,7 +54,7 @@ export async function createParticipant(_, { input }, { prisma }) {
     const participant = await prisma.participant.create({
       data: {
         name: input.name,
-        sessionId: input.sessionId,
+        sessionId: input.session,
         isOwner: input.isOwner,
       },
     });
@@ -70,11 +70,11 @@ export async function createParticipant(_, { input }, { prisma }) {
   }
 }
 
-export async function leaveSession(_, { participantId }, { prisma }) {
+export async function leaveSession(_, { participant }, { prisma }) {
   try {
-    const participant = await prisma.participant.update({
+    const data = await prisma.participant.update({
       where: {
-        id: participantId,
+        id: participant,
       },
       data: {
         status: "INACTIVE",
@@ -83,10 +83,10 @@ export async function leaveSession(_, { participantId }, { prisma }) {
 
     // publish participant left
     await pubsub.publish(PARTICIPANT_LEFT, {
-      participantLeft: participant,
+      participantLeft: data,
     });
 
-    return participant;
+    return data;
   } catch (err) {
     throw new Error(err);
   }
