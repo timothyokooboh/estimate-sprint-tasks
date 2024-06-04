@@ -7,6 +7,14 @@ export async function viewTask(_, { id }, { prisma }) {
       where: {
         id,
       },
+      include: {
+        session: {
+          include: {
+            tasks: true,
+          },
+        },
+        votes: true,
+      },
     });
     return task;
   } catch (err) {
@@ -22,6 +30,14 @@ export async function listTasks(_, { input }, { prisma }) {
           id: input.session,
         },
       },
+      include: {
+        session: {
+          include: {
+            tasks: true,
+          },
+        },
+        votes: true,
+      },
     });
     return tasks;
   } catch (err) {
@@ -35,6 +51,15 @@ export async function createTask(_, { input }, { prisma }) {
       data: {
         title: input.title,
         sessionId: input.session,
+      },
+      include: {
+        session: {
+          include: {
+            tasks: true,
+            participants: true,
+          },
+        },
+        votes: true,
       },
     });
 
@@ -58,6 +83,14 @@ export async function updateTask(_, { input }, { prisma }) {
       data: {
         title: input.title,
         status: input.status,
+      },
+      include: {
+        session: {
+          include: {
+            tasks: true,
+          },
+        },
+        votes: true,
       },
     });
 

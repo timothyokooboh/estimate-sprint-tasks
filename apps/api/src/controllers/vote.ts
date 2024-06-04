@@ -11,6 +11,10 @@ export async function createVote(_, { input }, { prisma }) {
         value: input.value,
         time: input.time,
       },
+      include: {
+        participant: true,
+        task: true,
+      },
     });
 
     // publish vote created
@@ -33,6 +37,10 @@ export async function updateVote(_, { input }, { prisma }) {
       data: {
         value: input.value,
         time: input.time,
+      },
+      include: {
+        participant: true,
+        task: true,
       },
     });
 

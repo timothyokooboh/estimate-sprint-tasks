@@ -21,7 +21,7 @@ export const typeDefs = gql`
   type Participant {
     id: ID!
     name: String!
-    isOwner: Boolean
+    isModerator: Boolean
     status: PARTICIPANT_STATUS
     createdAt: String!
     updatedAt: String!
@@ -42,6 +42,7 @@ export const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     participants: [Participant]!
+    moderator: Participant!
     tasks: [Task]
   }
 
@@ -100,7 +101,7 @@ export const typeDefs = gql`
   input CreateParticipantInput {
     name: String!
     session: ID!
-    isOwner: Boolean
+    isModerator: Boolean
   }
 
   input TaskCreateInput {

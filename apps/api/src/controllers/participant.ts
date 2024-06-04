@@ -39,7 +39,11 @@ export async function listParticipants(_, { input }, { prisma }) {
       },
       include: {
         votes: true,
-        session: true,
+        session: {
+          include: {
+            tasks: true,
+          },
+        },
       },
     });
 
@@ -55,7 +59,15 @@ export async function createParticipant(_, { input }, { prisma }) {
       data: {
         name: input.name,
         sessionId: input.session,
-        isOwner: input.isOwner,
+        isModerator: input.isModerator,
+      },
+      include: {
+        session: {
+          include: {
+            tasks: true,
+          },
+        },
+        votes: true,
       },
     });
 

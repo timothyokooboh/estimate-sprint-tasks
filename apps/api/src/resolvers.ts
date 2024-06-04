@@ -62,6 +62,14 @@ export const resolvers = {
     updateVote: updateVote,
     resetVotes: resetVotes,
   },
+  Session: {
+    moderator(session) {
+      const owner = session.participants.find(
+        (participant) => participant.isModerator,
+      );
+      return owner;
+    },
+  },
   Participant: {
     vote: viewVoteField,
   },
