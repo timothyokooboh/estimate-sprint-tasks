@@ -28,7 +28,7 @@
   "scripts": {
     "compile": "tsc",
     "start": "yarn run compile && nodemon ./dist/index.js",
-    "deploy": "yarn run compile && yarn run prisma:init && node ./dist/index.js",
+    "deploy": "npx prisma generate && yarn run compile && node ./dist/index.js",
     "prisma:init": "npx prisma init",
     "prisma:format": "npx prisma format",
     "prisma:migrate": "npx prisma migrate dev --name init",
