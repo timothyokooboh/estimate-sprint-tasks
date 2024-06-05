@@ -43,20 +43,16 @@ const server = new ApolloServer({
       },
     },
   ],
-  introspection: true, // enable introspection
+  introspection: true,
   formatError(formattedError, err) {
     // log errors to an error service
-
     return formattedError;
   },
 });
 
 // Creating the WebSocket server
 const wsServer = new WebSocketServer({
-  // This is the `httpServer` we created in a previous step.
   server: httpServer,
-  // Pass a different path here if app.use
-  // serves expressMiddleware at a different path
   path: "/subscriptions",
 });
 
@@ -70,8 +66,6 @@ app.use(
   "/",
   cors(),
   express.json(),
-  // expressMiddleware accepts the same arguments:
-  // an Apollo Server instance and optional configuration options
   expressMiddleware(server, {
     async context({ req }) {
       return {
@@ -85,4 +79,7 @@ app.use(
 await new Promise<void>((resolve) =>
   httpServer.listen({ port: process.env.PORT }, resolve),
 );
-console.log(`🚀 Server ready at http://localhost:${process.env.PORT}/`);
+
+if (process.env.NODE_ENV === "development") {
+  console.log(`🚀 Server ready at http://localhost:${process.env.PORT}/`);
+}

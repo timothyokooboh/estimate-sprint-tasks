@@ -9,6 +9,10 @@
       "dependsOn": ["build"]
     },
     "dev": {},
+    "compile": {},
+    "start": {
+      "dependsOn": ["^compile"]
+    },
     "build": {
       "dependsOn": ["^build"]
     },

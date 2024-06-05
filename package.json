@@ -20,6 +20,7 @@
     "test": "yarn turbo run test",
     "dev": "yarn turbo run dev",
     "start": "yarn turbo run start",
+    "compile": "yarn turbo run compile",
     "build": "yarn turbo run build",
     "deploy": "yarn turbo run deploy"
   },

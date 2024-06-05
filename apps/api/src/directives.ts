@@ -19,7 +19,6 @@ export function sessionActiveDirectiveTransformer(schema, directiveName) {
         fieldConfig.resolve = async function (source, args, context, info) {
           const sessionId = context.req?.body?.variables?.input?.session;
 
-          const result = await resolve(source, args, context, info);
           const session = await context.prisma.session.findUnique({
             where: {
               id: sessionId,
@@ -32,9 +31,10 @@ export function sessionActiveDirectiveTransformer(schema, directiveName) {
                 code: "FORBIDDEN",
               },
             });
+          } else {
+            const result = await resolve(source, args, context, info);
+            return result;
           }
-
-          return result;
         };
         return fieldConfig;
       }

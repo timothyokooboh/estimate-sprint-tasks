@@ -109,6 +109,11 @@ export const typeDefs = gql`
     session: ID!
   }
 
+  input BulkCreateTasksInput {
+    tasks: [String!]
+    session: ID!
+  }
+
   input TaskUpdateInput {
     id: ID!
     title: String
@@ -139,6 +144,7 @@ export const typeDefs = gql`
       @sessionActive
     leaveSession(participant: ID!): Participant
     createTask(input: TaskCreateInput!): Task @sessionActive
+    bulkCreateTasks(input: BulkCreateTasksInput!): [Task] @sessionActive
     updateTask(input: TaskUpdateInput!): Task
     deleteTask(id: ID!): ID
     createVote(input: VoteCreateInput!): Vote
@@ -150,7 +156,7 @@ export const typeDefs = gql`
     participantAdded: Participant
     participantLeft: Participant
     sessionEnded: Session
-    taskCreated: Task
+    taskCreated: [Task]
     taskUpdated: Task
     taskDeleted: ID
     voteCreated: Vote

@@ -27,6 +27,7 @@ import {
 } from "./controllers/participant.js";
 
 import {
+  bulkCreateTasks,
   createTask,
   deleteTask,
   listTasks,
@@ -56,6 +57,7 @@ export const resolvers = {
     createSession: createSession,
     endSession: endSession,
     createTask: createTask,
+    bulkCreateTasks: bulkCreateTasks,
     updateTask: updateTask,
     deleteTask: deleteTask,
     createVote: createVote,

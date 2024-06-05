@@ -11,9 +11,14 @@ export async function viewTask(_, { id }, { prisma }) {
         session: {
           include: {
             tasks: true,
+            participants: true,
           },
         },
-        votes: true,
+        votes: {
+          include: {
+            participant: true,
+          },
+        },
       },
     });
     return task;
@@ -34,9 +39,14 @@ export async function listTasks(_, { input }, { prisma }) {
         session: {
           include: {
             tasks: true,
+            participants: true,
           },
         },
-        votes: true,
+        votes: {
+          include: {
+            participant: true,
+          },
+        },
       },
     });
     return tasks;
@@ -65,10 +75,41 @@ export async function createTask(_, { input }, { prisma }) {
 
     // publish task created
     await pubsub.publish(TASK_CREATED, {
-      taskCreated: task,
+      taskCreated: [task],
     });
 
     return task;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
+export async function bulkCreateTasks(_, { input }, { prisma }) {
+  try {
+    const payload = input.tasks.map((task) => ({
+      title: task,
+      sessionId: input.session,
+    }));
+
+    const tasks = await prisma.task.createManyAndReturn({
+      data: payload,
+      include: {
+        session: {
+          include: {
+            tasks: true,
+            participants: true,
+          },
+        },
+        // votes: true,
+      },
+    });
+
+    // publish task created
+    await pubsub.publish(TASK_CREATED, {
+      taskCreated: tasks,
+    });
+
+    return tasks;
   } catch (err) {
     throw new Error(err);
   }
@@ -88,6 +129,7 @@ export async function updateTask(_, { input }, { prisma }) {
         session: {
           include: {
             tasks: true,
+            participants: true,
           },
         },
         votes: true,
