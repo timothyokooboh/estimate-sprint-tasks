@@ -2,7 +2,6 @@
   "name": "@ste/api",
   "private": true,
   "type": "module",
-  "packageManager": "yarn@4.0.2",
   "dependencies": {
     "@apollo/server": "^4.10.4",
     "@graphql-tools/schema": "^10.0.4",
