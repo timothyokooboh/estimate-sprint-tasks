@@ -80,6 +80,4 @@ await new Promise<void>((resolve) =>
   httpServer.listen({ port: process.env.PORT }, resolve),
 );
 
-if (process.env.NODE_ENV === "development") {
-  console.log(`🚀 Server ready at http://localhost:${process.env.PORT}/`);
-}
+console.log(`🚀 Server ready at http://localhost:${process.env.PORT}/`);
