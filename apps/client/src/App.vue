@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
+import Toaster from '@/components/ui/toast/Toaster.vue'
 </script>
 
 <template>
   <div class="min-h-screen bg-brand-bg">
+    <Toaster />
     <p
       class="fixed top-[10px] left-[20px] text-white font-mono font-extrabold sm:top-[20px] sm:left-[30px]"
     >

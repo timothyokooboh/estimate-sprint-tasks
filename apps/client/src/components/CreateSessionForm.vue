@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -12,9 +14,15 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
-import { useStartSessionFormValidation } from '@/composables/useStartSessionFormValidation'
-import { useStartSessionForm } from '@/composables/useStartSessionForm'
+import { useToast } from '@/components/ui/toast/use-toast'
 import { Loader2 } from 'lucide-vue-next'
+
+import { useCreateSessionFormValidation } from '@/composables/useCreateSessionFormValidation'
+import { useCreateSessionForm } from '@/composables/useCreateSessionForm'
+import { useAddParticipant } from '@/composables/useAddParticipant'
+import { useHandleRememberSessionTitle } from '@/composables/useHandleRememberSessionTitle'
+
+const { toast } = useToast()
 
 const {
   sessionTitle,
@@ -28,13 +36,36 @@ const {
   errors,
   values,
   handleSubmit
-} = useStartSessionFormValidation()
+} = useCreateSessionFormValidation()
 
-const { mutate, loading } = useStartSessionForm()
+const { createSession, creatingSession, onCreatedSession } = useCreateSessionForm()
+
+const { handleRememberSessionTitle } = useHandleRememberSessionTitle()
+
+const {
+  addParticipant: addModerator,
+  addingParticipant: addingModerator,
+  onAddedParticipant: onAddedModerator
+} = useAddParticipant()
 
 const startSession = handleSubmit((values) => {
-  mutate({ input: { title: values.sessionTitle } })
+  createSession({ input: { title: values.sessionTitle } })
 })
+
+onCreatedSession((result) => {
+  const { createSession: session } = result.data
+  handleRememberSessionTitle(values.rememberSessionTitle!, sessionTitle.value)
+  addModerator({ input: { name: values.moderatorName, session: session.id, isModerator: true } })
+})
+
+onAddedModerator(() => {
+  toast({
+    title: 'Success',
+    description: 'Your session has been created'
+  })
+})
+
+const loading = computed(() => creatingSession.value || addingModerator.value)
 </script>
 
 <template>
@@ -44,8 +75,8 @@ const startSession = handleSubmit((values) => {
         >Start a session 🚀</Button
       >
     </DialogTrigger>
+
     <DialogContent class="sm:max-w-[425px]" backdrop-bg="bg-transparent">
-      <pre>{{ values }}</pre>
       <DialogHeader>
         <DialogTitle class="mb-3">Start a session</DialogTitle>
         <DialogDescription> Enter your name and a title for the session. </DialogDescription>
@@ -99,6 +130,7 @@ const startSession = handleSubmit((values) => {
             </div>
           </div>
         </div>
+
         <DialogFooter>
           <Button
             type="submit"

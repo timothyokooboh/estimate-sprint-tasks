@@ -1,8 +1,12 @@
 import { useMutation } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 
-export const useStartSessionForm = () => {
-  const { mutate, loading, onDone } = useMutation(gql`
+export const useCreateSessionForm = () => {
+  const {
+    mutate: createSession,
+    loading,
+    onDone
+  } = useMutation(gql`
     mutation createSession($input: CreateSessionInput!) {
       createSession(input: $input) {
         id
@@ -11,10 +15,9 @@ export const useStartSessionForm = () => {
     }
   `)
 
-  onDone((result) => console.log(result.data))
-
   return {
-    mutate,
-    loading
+    createSession,
+    creatingSession: loading,
+    onCreatedSession: onDone
   }
 }

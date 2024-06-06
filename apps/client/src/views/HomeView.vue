@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { Mail } from 'lucide-vue-next'
-import { Button } from '@/components/ui/button'
-import StartSessionForm from '@/components/StartSessionForm.vue'
+import CreateSessionForm from '@/components/CreateSessionForm.vue'
 </script>
 
 <template>
@@ -15,7 +13,7 @@ import StartSessionForm from '@/components/StartSessionForm.vue'
           Collaborate with your agile team mates realtime to provide estimates for sprint tasks.
         </p>
 
-        <StartSessionForm />
+        <CreateSessionForm />
       </div>
     </div>
   </main>
