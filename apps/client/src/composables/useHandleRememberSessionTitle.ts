@@ -1,23 +1,20 @@
-import { REMEMBER_SESSION_TITLE } from '@/constants'
-import { useStorage } from '@vueuse/core'
+import { SESSION_TITLE } from '@/constants'
 
 export const useHandleRememberSessionTitle = () => {
-  const handleRememberSessionTitle = (remember: boolean, title?: string) => {
-    if (remember && title) {
+  const handleRememberSessionTitle = (remember: boolean, title: string) => {
+    if (remember) {
       saveTitle(title)
-    }
-
-    if (!remember) {
-      forgetSessionTitle()
+    } else {
+      forgetTitle()
     }
   }
 
   const saveTitle = (sessionTitle: string) => {
-    localStorage.setItem(REMEMBER_SESSION_TITLE, sessionTitle)
+    localStorage.setItem(SESSION_TITLE, sessionTitle)
   }
 
-  const forgetSessionTitle = () => {
-    localStorage.removeItem(REMEMBER_SESSION_TITLE)
+  const forgetTitle = () => {
+    localStorage.removeItem(SESSION_TITLE)
   }
 
   return {

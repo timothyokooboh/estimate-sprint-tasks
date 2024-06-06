@@ -21,6 +21,7 @@ import { useCreateSessionFormValidation } from '@/composables/useCreateSessionFo
 import { useCreateSessionForm } from '@/composables/useCreateSessionForm'
 import { useAddParticipant } from '@/composables/useAddParticipant'
 import { useHandleRememberSessionTitle } from '@/composables/useHandleRememberSessionTitle'
+import { useHandleRememberParticipantName } from '@/composables/useHandleRememberParticipantName'
 
 const { toast } = useToast()
 
@@ -41,6 +42,7 @@ const {
 const { createSession, creatingSession, onCreatedSession } = useCreateSessionForm()
 
 const { handleRememberSessionTitle } = useHandleRememberSessionTitle()
+const { handleRememberParticipantName } = useHandleRememberParticipantName()
 
 const {
   addParticipant: addModerator,
@@ -54,8 +56,9 @@ const startSession = handleSubmit((values) => {
 
 onCreatedSession((result) => {
   const { createSession: session } = result.data
-  handleRememberSessionTitle(values.rememberSessionTitle!, sessionTitle.value)
   addModerator({ input: { name: values.moderatorName, session: session.id, isModerator: true } })
+  handleRememberSessionTitle(values.rememberSessionTitle!, sessionTitle.value!)
+  handleRememberParticipantName(values.rememberModeratorName!, moderatorName.value!)
 })
 
 onAddedModerator(() => {

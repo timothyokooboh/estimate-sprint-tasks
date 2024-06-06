@@ -1,7 +1,7 @@
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { z } from 'zod'
-import { REMEMBER_SESSION_TITLE } from '@/constants'
+import { PARTICIPANT_NAME, SESSION_TITLE } from '@/constants'
 
 export const useCreateSessionFormValidation = () => {
   // Creates a typed schema for vee-validate
@@ -10,15 +10,14 @@ export const useCreateSessionFormValidation = () => {
       sessionTitle: z
         .string({ message: 'Kindly enter the session title' })
         .min(1, { message: 'Kindly enter the session title' })
-        .default(localStorage.getItem(REMEMBER_SESSION_TITLE) || ''),
+        .default(localStorage.getItem(SESSION_TITLE) ?? ''),
 
-      rememberSessionTitle: z
-        .boolean()
-        .default(!!localStorage.getItem(REMEMBER_SESSION_TITLE) || false),
+      rememberSessionTitle: z.boolean().default(!!localStorage.getItem(SESSION_TITLE) ?? false),
       moderatorName: z
         .string({ message: 'Kindly enter your name' })
-        .min(1, { message: 'Kindly enter your name' }),
-      rememberModeratorName: z.boolean().default(false)
+        .min(1, { message: 'Kindly enter your name' })
+        .default(localStorage.getItem(PARTICIPANT_NAME) ?? ''),
+      rememberModeratorName: z.boolean().default(!!localStorage.getItem(PARTICIPANT_NAME) ?? false)
     })
   )
 
