@@ -4,14 +4,12 @@ import Toaster from '@/components/ui/toast/Toaster.vue'
 </script>
 
 <template>
-  <div class="min-h-screen bg-brand-bg">
-    <Toaster />
-    <p
-      class="fixed top-[10px] left-[20px] text-white font-mono font-extrabold sm:top-[20px] sm:left-[30px]"
-    >
-      SprintPoker🚀
-    </p>
-    <RouterView />
+  <div class="min-h-screen bg-brand-bg text-white">
+    <div class="min-h-screen max-w-[1200px] mx-auto py-3 px-4 sm:py-4 sm:px-5">
+      <Toaster />
+      <h1 class="text-white font-mono font-extrabold">SprintPoker🚀</h1>
+      <RouterView />
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -24,6 +25,7 @@ import { useHandleRememberSessionTitle } from '@/composables/useHandleRememberSe
 import { useHandleRememberParticipantName } from '@/composables/useHandleRememberParticipantName'
 
 const { toast } = useToast()
+const router = useRouter()
 
 const {
   sessionTitle,
@@ -40,7 +42,6 @@ const {
 } = useCreateSessionFormValidation()
 
 const { createSession, creatingSession, onCreatedSession } = useCreateSessionForm()
-
 const { handleRememberSessionTitle } = useHandleRememberSessionTitle()
 const { handleRememberParticipantName } = useHandleRememberParticipantName()
 
@@ -49,7 +50,6 @@ const {
   addingParticipant: addingModerator,
   onAddedParticipant: onAddedModerator
 } = useAddParticipant()
-
 const startSession = handleSubmit((values) => {
   createSession({ input: { title: values.sessionTitle } })
 })
@@ -57,14 +57,20 @@ const startSession = handleSubmit((values) => {
 onCreatedSession((result) => {
   const { createSession: session } = result.data
   addModerator({ input: { name: values.moderatorName, session: session.id, isModerator: true } })
-  handleRememberSessionTitle(values.rememberSessionTitle!, sessionTitle.value!)
-  handleRememberParticipantName(values.rememberModeratorName!, moderatorName.value!)
+  handleRememberSessionTitle(rememberSessionTitle.value!, sessionTitle.value!)
+  handleRememberParticipantName(rememberModeratorName.value!, moderatorName.value!)
 })
 
-onAddedModerator(() => {
+onAddedModerator((result) => {
   toast({
     title: 'Success',
     description: 'Your session has been created'
+  })
+
+  const { createParticipant: participant } = result.data
+  router.push({
+    name: 'SessionView',
+    params: { sessionId: participant.session.id, participantId: participant.id }
   })
 })
 

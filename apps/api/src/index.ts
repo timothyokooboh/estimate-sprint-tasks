@@ -16,9 +16,9 @@ import { sessionActiveDirectiveTransformer } from "./directives.js";
 
 dotenv.config();
 const app = express();
+const httpServer = http.createServer(app);
 const prisma = new PrismaClient();
 export const pubsub = new PubSub();
-const httpServer = http.createServer(app);
 
 let schema = makeExecutableSchema({
   typeDefs,

@@ -10,6 +10,9 @@ export const useAddParticipant = () => {
     mutation createParticipant($input: CreateParticipantInput!) {
       createParticipant(input: $input) {
         id
+        session {
+          id
+        }
         name
         isModerator
       }
