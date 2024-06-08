@@ -29,6 +29,7 @@ schema = sessionActiveDirectiveTransformer(schema, "sessionActive");
 
 const server = new ApolloServer({
   schema,
+  introspection: true,
   plugins: [
     // Proper shutdown for HTTP server
     ApolloServerPluginDrainHttpServer({ httpServer }),
