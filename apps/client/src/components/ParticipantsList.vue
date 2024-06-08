@@ -1,19 +1,13 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
-import { Button } from '@/components/ui/button'
-import { UserCheck, UserCheckIcon, ChevronDown } from 'lucide-vue-next'
+import InviteParticipant from '@/components/InviteParticipant.vue'
+import { UserCheck, UserCheckIcon } from 'lucide-vue-next'
 import type { Participant } from '@/types'
-
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 
 defineProps<{
   participants: Participant[]
   isModerator: boolean
 }>()
-
-const route = useRoute()
-const inviteURL = `localhost:5173/session/${route.params.sessionId}/invite`
 </script>
 
 <template>
@@ -43,29 +37,7 @@ const inviteURL = `localhost:5173/session/${route.params.sessionId}/invite`
       </div>
     </div>
 
-    <Collapsible>
-      <CollapsibleTrigger class="w-full mb-3">
-        <div class="flex justify-between items-center">
-          <p>Invite a teammate</p>
-          <button>
-            <ChevronDown />
-            <span class="sr-only">Toggle</span>
-          </button>
-        </div>
-      </CollapsibleTrigger>
-
-      <CollapsibleContent class="space-y-2">
-        <div class="flex flex-wrap gap-y-[10px] items-center justify-between gap-x-[20px]">
-          <input
-            readonly
-            :value="inviteURL"
-            class="bg-transparent outline-none grow border border-[#283244] py-2 px-3 rounded-[5px]"
-          />
-
-          <Button variant="ghost">Copy URL</Button>
-        </div>
-      </CollapsibleContent>
-    </Collapsible>
+    <InviteParticipant />
   </div>
 </template>
 

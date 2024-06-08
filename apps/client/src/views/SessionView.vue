@@ -5,13 +5,18 @@ import { useSessionView } from '@/composables/useSessionView'
 import ParticipantsList from '@/components/ParticipantsList.vue'
 const { session, loading, currentUser, isModerator } = useSessionView()
 import NoTask from '@/components/NoTask.vue'
+import InviteParticipant from '@/components/InviteParticipant.vue'
 </script>
 
 <template>
   <!-- TODO: USE SKELETON LOADER FOR LOADING STATE-->
-  <div class="mt-5">
-    <p class="text-white text-[18px] sm:text-2xl">Hello, {{ currentUser?.name }}!</p>
-    <p class="text-white">Welcome to {{ session?.session?.title }}</p>
+  <div class="mt-5 flex flex-col gap-y-[20px] sm:flex-row sm:justify-between sm:items-center">
+    <div>
+      <p class="text-white text-[18px] sm:text-2xl">Hello, {{ currentUser?.name }}!</p>
+      <p class="text-white">Welcome to {{ session?.session?.title }}</p>
+    </div>
+
+    <InviteParticipant class="sm:w-[300px]" />
   </div>
 
   <div class="mt-5 grid gap-x-[40px] gap-y-[20px] md:grid-cols-2">
