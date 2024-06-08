@@ -92,7 +92,7 @@ const loading = computed(() => creatingSession.value || addingModerator.value)
       </DialogHeader>
 
       <form @submit="startSession">
-        <div class="grid gap-x-4 gap-y-5 py-4">
+        <div class="grid gap-x-4 gap-y-6 py-4">
           <div class="">
             <Label for="session-name" class="block mb-2"> Title of session </Label>
             <Input
@@ -100,7 +100,7 @@ const loading = computed(() => creatingSession.value || addingModerator.value)
               v-model="sessionTitle"
               v-bind="sessionTitleAttrs"
               placeholder="e.g. Dev sprint planning"
-              class="col-span-3 mb-2"
+              class="mb-2"
             />
             <p class="text-xs text-red-500 mb-2">{{ errors['sessionTitle'] }}</p>
             <div class="flex items-center space-x-2">
@@ -123,7 +123,7 @@ const loading = computed(() => creatingSession.value || addingModerator.value)
               v-model="moderatorName"
               v-bind="moderatorNameAttrs"
               placeholder="e.g. John Doe"
-              class="col-span-3 mb-2"
+              class="mb-2"
             />
             <p class="text-xs text-red-500 mb-2">{{ errors['moderatorName'] }}</p>
             <div class="flex items-center space-x-2">
