@@ -27,7 +27,8 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "start": "npx prisma generate && yarn run build && node ./dist/index.js",
+    "dev": "npx prisma generate && yarn run build && nodemon ./dist/index.js",
+    "start": "npx prisma generate && node ./dist/index.js",
     "prisma:init": "npx prisma init",
     "prisma:format": "npx prisma format",
     "prisma:migrate": "npx prisma migrate dev --name init",

@@ -7,7 +7,7 @@ import { DefaultApolloClient } from '@vue/apollo-composable'
 
 const httpLink = createHttpLink({
   // You should use an absolute URL here
-  uri: 'http://localhost:4000'
+  uri: 'https://estimate-sprint-tasks.onrender.com/' //'http://localhost:4000'
 })
 
 // Cache implementation

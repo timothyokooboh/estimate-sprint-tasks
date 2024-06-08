@@ -1,4 +1,3 @@
-import { GraphQLError } from "graphql";
 import { pubsub } from "./index.js";
 import {
   PARTICIPANT_ADDED,

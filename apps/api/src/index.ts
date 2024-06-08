@@ -43,7 +43,6 @@ const server = new ApolloServer({
       },
     },
   ],
-  introspection: true,
   formatError(formattedError, err) {
     // log errors to an error service
     return formattedError;
