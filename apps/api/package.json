@@ -26,9 +26,8 @@
     "typescript": "^5.4.5"
   },
   "scripts": {
-    "compile": "tsc",
-    "start": "npx prisma generate && yarn run compile && node ./dist/index.js",
-    "deploy": "npx prisma generate && yarn run compile && node ./dist/index.js",
+    "build": "tsc -p tsconfig.json",
+    "start": "npx prisma generate && yarn run build && node ./dist/index.js",
     "prisma:init": "npx prisma init",
     "prisma:format": "npx prisma format",
     "prisma:migrate": "npx prisma migrate dev --name init",
