@@ -17,21 +17,21 @@ const route = useRoute()
 const { getInputProps, getRootProps, isDragActive, fileName, loading } = useBulkUploadTask(
   route.params.sessionId as string
 )
+
+const props = defineProps<{
+  isOpen: boolean
+}>()
 </script>
 
 <template>
-  <Dialog>
-    <DialogTrigger as-child>
-      <Button variant="outline" class="grow"> Bulk Upload Task </Button>
-    </DialogTrigger>
-
-    <DialogContent class="w-[90%] max-w-[425px]" backdrop-bg="bg-transparent">
+  <Dialog :open="props.isOpen" @update:open="$emit('close:modal')">
+    <DialogContent class="w-[90%] max-w-[425px]">
       <DialogHeader>
         <DialogTitle class="mb-3">Bulk Upload Task</DialogTitle>
         <DialogDescription></DialogDescription>
       </DialogHeader>
 
-      <button v-bind="getRootProps()" class="border border-dashed border-[#283244] rounded-md">
+      <button v-bind="getRootProps()" class="border border-dashed rounded-md mb-2">
         <input v-bind="getInputProps()" />
         <p v-if="isDragActive">Drop the files here ...</p>
         <div class="flex flex-col items-center justify-center py-4">
@@ -60,7 +60,7 @@ const { getInputProps, getRootProps, isDragActive, fileName, loading } = useBulk
       </div>
 
       <div class="text-center">
-        <Button variant="link">Download a template</Button>
+        <Button variant="link" class="text-white">Download a template</Button>
       </div>
     </DialogContent>
   </Dialog>

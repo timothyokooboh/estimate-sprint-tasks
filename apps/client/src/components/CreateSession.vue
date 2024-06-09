@@ -39,7 +39,7 @@ const {
       >
     </DialogTrigger>
 
-    <DialogContent backdrop-bg="bg-transparent">
+    <DialogContent class="w-[90%] max-w-[425px]">
       <DialogHeader>
         <DialogTitle class="mb-3">Start a session</DialogTitle>
         <DialogDescription> Enter your name and a title for the session. </DialogDescription>
@@ -54,9 +54,9 @@ const {
               v-model="sessionTitle"
               v-bind="sessionTitleAttrs"
               placeholder="e.g. Dev sprint planning"
-              class="mb-2"
+              class="mb-2 bg-transparent"
             />
-            <p class="text-xs text-red-500 mb-2">{{ errors['sessionTitle'] }}</p>
+            <p class="text-xs text-[#94A3B8] mb-2">{{ errors['sessionTitle'] }}</p>
             <div class="flex items-center space-x-2">
               <Checkbox
                 type="checkbox"
@@ -77,9 +77,9 @@ const {
               v-model="moderatorName"
               v-bind="moderatorNameAttrs"
               placeholder="e.g. John Doe"
-              class="mb-2"
+              class="mb-2 bg-transparent"
             />
-            <p class="text-xs text-red-500 mb-2">{{ errors['moderatorName'] }}</p>
+            <p class="text-xs text-[#94A3B8] mb-2">{{ errors['moderatorName'] }}</p>
             <div class="flex items-center space-x-2">
               <Checkbox
                 type="checkbox"

@@ -14,15 +14,15 @@ import { useCreateTask } from '@/composables/useCreateTask'
 import { Loader2 } from 'lucide-vue-next'
 
 const { loading, title, titleAttrs, createNewTask, formValidationError, apiError } = useCreateTask()
+
+const props = defineProps<{
+  isOpen: boolean
+}>()
 </script>
 
 <template>
-  <Dialog>
-    <DialogTrigger as-child>
-      <Button class="grow">Add Task</Button>
-    </DialogTrigger>
-
-    <DialogContent class="w-[90%] max-w-[425px]" backdrop-bg="bg-transparent">
+  <Dialog :open="props.isOpen" @update:open="$emit('close:modal')">
+    <DialogContent class="w-[90%] max-w-[425px]">
       <DialogHeader>
         <DialogTitle class="mb-3">Add a task</DialogTitle>
       </DialogHeader>
@@ -33,12 +33,12 @@ const { loading, title, titleAttrs, createNewTask, formValidationError, apiError
             <Label for="session-name" class="block mb-3"> Title of task </Label>
             <Input
               id="session-name"
+              class="bg-transparent mb-2"
               placeholder="e.g. Integrate API endpoint to user list preferences"
-              class="mb-2"
               v-model="title"
               v-bind="titleAttrs"
             />
-            <p v-if="formValidationError['title']" class="text-xs text-red-500 mb-2">
+            <p v-if="formValidationError['title']" class="text-xs text-[#94A3B8] mb-2">
               {{ formValidationError['title'] }}
             </p>
           </div>

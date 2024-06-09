@@ -1,6 +1,11 @@
 <script lang="ts" setup>
 import CreateTask from '@/components/CreateTask.vue'
 import BulkUploadTask from '@/components/BulkUploadTask.vue'
+import Button from './ui/button/Button.vue'
+import { ref } from 'vue'
+
+const isCreateTaskModalOpen = ref(false)
+const isBulkUploadModalOpen = ref(false)
 </script>
 
 <template>
@@ -9,8 +14,13 @@ import BulkUploadTask from '@/components/BulkUploadTask.vue'
   >
     <p class="mb-5">You are yet to create any tasks</p>
     <div class="flex flex-wrap items-center justify-center gap-[10px]">
-      <CreateTask />
-      <BulkUploadTask />
+      <Button class="grow" @click="isCreateTaskModalOpen = true">Add Task</Button>
+      <Button variant="outline" class="grow" @click="isBulkUploadModalOpen = true">
+        Bulk Upload Task
+      </Button>
     </div>
+
+    <CreateTask :is-open="isCreateTaskModalOpen" @close:modal="isCreateTaskModalOpen = false" />
+    <BulkUploadTask :is-open="isBulkUploadModalOpen" @close:modal="isBulkUploadModalOpen = false" />
   </div>
 </template>
