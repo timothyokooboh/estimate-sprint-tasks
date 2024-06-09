@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button'
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -11,6 +10,10 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useCreateTask } from '@/composables/useCreateTask'
+import { Loader2 } from 'lucide-vue-next'
+
+const { loading, title, titleAttrs, createNewTask, formValidationError, apiError } = useCreateTask()
 </script>
 
 <template>
@@ -19,30 +22,31 @@ import { Label } from '@/components/ui/label'
       <Button class="grow">Add Task</Button>
     </DialogTrigger>
 
-    <DialogContent class="sm:max-w-[425px]" backdrop-bg="bg-transparent">
+    <DialogContent class="w-[90%] max-w-[425px]" backdrop-bg="bg-transparent">
       <DialogHeader>
         <DialogTitle class="mb-3">Add a task</DialogTitle>
       </DialogHeader>
 
-      <form>
-        <div class="grid gap-x-4 gap-y-6 py-4">
+      <form @submit.prevent="createNewTask">
+        <div class="mb-5 py-4">
           <div class="">
-            <Label for="session-name" class="block mb-2"> Title of task </Label>
+            <Label for="session-name" class="block mb-3"> Title of task </Label>
             <Input
               id="session-name"
               placeholder="e.g. Integrate API endpoint to user list preferences"
               class="mb-2"
+              v-model="title"
+              v-bind="titleAttrs"
             />
-            <p class="text-xs text-red-500 mb-2"></p>
+            <p v-if="formValidationError['title']" class="text-xs text-red-500 mb-2">
+              {{ formValidationError['title'] }}
+            </p>
           </div>
         </div>
 
         <DialogFooter>
-          <Button
-            type="submit"
-            class="transition-all duration-300 hover:bg-primary hover:translate-y-[-1px]"
-          >
-            <Loader2 v-if="false" class="w-4 h-4 mr-2 animate-spin" />
+          <Button type="submit">
+            <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
             Add Task
           </Button>
         </DialogFooter>

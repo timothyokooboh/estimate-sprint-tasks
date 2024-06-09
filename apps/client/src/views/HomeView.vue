@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import CreateSessionForm from '@/components/CreateSessionForm.vue'
+import CreateSession from '@/components/CreateSession.vue'
 </script>
 
 <template>
@@ -13,7 +13,7 @@ import CreateSessionForm from '@/components/CreateSessionForm.vue'
           Collaborate in realtime with your product teammates to provide estimates for sprint tasks.
         </p>
 
-        <CreateSessionForm />
+        <CreateSession />
       </div>
     </div>
   </main>

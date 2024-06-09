@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRouter } from 'vue-router'
-
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -15,66 +12,23 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
-import { useToast } from '@/components/ui/toast/use-toast'
 import { Loader2 } from 'lucide-vue-next'
-
-import { useCreateSessionFormValidation } from '@/composables/useCreateSessionFormValidation'
-import { useCreateSessionForm } from '@/composables/useCreateSessionForm'
-import { useAddParticipant } from '@/composables/useAddParticipant'
-import { useHandleRememberSessionTitle } from '@/composables/useHandleRememberSessionTitle'
-import { useHandleRememberParticipantName } from '@/composables/useHandleRememberParticipantName'
-
-const { toast } = useToast()
-const router = useRouter()
+import { useCreateSession } from '@/composables/useCreateSession'
 
 const {
+  startSession,
+  loading,
   sessionTitle,
   sessionTitleAttrs,
-  moderatorName,
-  moderatorNameAttrs,
   rememberSessionTitle,
   rememberSessionTitleAttrs,
   rememberModeratorName,
   rememberModeratorNameAttrs,
+  moderatorName,
+  moderatorNameAttrs,
   errors,
-  values,
-  handleSubmit
-} = useCreateSessionFormValidation()
-
-const { createSession, creatingSession, onCreatedSession } = useCreateSessionForm()
-const { handleRememberSessionTitle } = useHandleRememberSessionTitle()
-const { handleRememberParticipantName } = useHandleRememberParticipantName()
-
-const {
-  addParticipant: addModerator,
-  addingParticipant: addingModerator,
-  onAddedParticipant: onAddedModerator
-} = useAddParticipant()
-const startSession = handleSubmit((values) => {
-  createSession({ input: { title: values.sessionTitle } })
-})
-
-onCreatedSession((result) => {
-  const { createSession: session } = result.data
-  addModerator({ input: { name: values.moderatorName, session: session.id, isModerator: true } })
-  handleRememberSessionTitle(rememberSessionTitle.value!, sessionTitle.value!)
-  handleRememberParticipantName(rememberModeratorName.value!, moderatorName.value!)
-})
-
-onAddedModerator((result) => {
-  toast({
-    title: 'Success',
-    description: 'Your session has been created'
-  })
-
-  const { createParticipant: participant } = result.data
-  router.push({
-    name: 'SessionView',
-    params: { sessionId: participant.session.id, participantId: participant.id }
-  })
-})
-
-const loading = computed(() => creatingSession.value || addingModerator.value)
+  isModalOpen
+} = useCreateSession()
 </script>
 
 <template>
@@ -91,10 +45,10 @@ const loading = computed(() => creatingSession.value || addingModerator.value)
         <DialogDescription> Enter your name and a title for the session. </DialogDescription>
       </DialogHeader>
 
-      <form @submit="startSession">
+      <form @submit.prevent="startSession">
         <div class="grid gap-x-4 gap-y-6 py-4">
           <div class="">
-            <Label for="session-name" class="block mb-2"> Title of session </Label>
+            <Label for="session-name" class="block mb-3"> Title of session </Label>
             <Input
               id="session-name"
               v-model="sessionTitle"
@@ -117,7 +71,7 @@ const loading = computed(() => creatingSession.value || addingModerator.value)
           </div>
 
           <div>
-            <Label for="username" class="block mb-2"> Your name </Label>
+            <Label for="username" class="block mb-3"> Your name </Label>
             <Input
               id="username"
               v-model="moderatorName"
@@ -141,11 +95,7 @@ const loading = computed(() => creatingSession.value || addingModerator.value)
         </div>
 
         <DialogFooter>
-          <Button
-            type="submit"
-            :disabled="loading"
-            class="transition-all duration-300 hover:bg-primary hover:translate-y-[-1px]"
-          >
+          <Button type="submit" :disabled="loading">
             <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
             Start Session
           </Button>

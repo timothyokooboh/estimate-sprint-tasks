@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { Button } from '@/components/ui/button'
 import CreateTask from '@/components/CreateTask.vue'
+import BulkUploadTask from '@/components/BulkUploadTask.vue'
 </script>
 
 <template>
@@ -10,7 +10,7 @@ import CreateTask from '@/components/CreateTask.vue'
     <p class="mb-5">You are yet to create any tasks</p>
     <div class="flex flex-wrap items-center justify-center gap-[10px]">
       <CreateTask />
-      <Button variant="outline" class="grow"> Bulk Upload Task </Button>
+      <BulkUploadTask />
     </div>
   </div>
 </template>

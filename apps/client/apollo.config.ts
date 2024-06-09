@@ -1,9 +1,9 @@
 export default {
   client: {
     service: {
-      name: 'my-app',
+      name: 'SprintPoker',
       // URL to the GraphQL API
-      url: 'http://localhost:3000/graphql'
+      url: 'https://estimate-sprint-tasks.onrender.com'
     },
     // Files processed by the extension
     includes: ['src/**/*.vue', 'src/**/*.js']

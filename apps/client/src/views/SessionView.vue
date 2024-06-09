@@ -3,9 +3,10 @@ import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useSessionView } from '@/composables/useSessionView'
 import ParticipantsList from '@/components/ParticipantsList.vue'
-const { session, loading, currentUser, isModerator } = useSessionView()
 import NoTask from '@/components/NoTask.vue'
 import InviteParticipant from '@/components/InviteParticipant.vue'
+
+const { session, participants, loading, currentUser, isModerator } = useSessionView()
 </script>
 
 <template>
@@ -20,10 +21,11 @@ import InviteParticipant from '@/components/InviteParticipant.vue'
   </div>
 
   <div class="mt-5 grid gap-x-[40px] gap-y-[20px] md:grid-cols-2">
-    <NoTask v-if="isModerator && session?.session?.tasks?.length === 0" />
+    <!-- <NoTask v-if="isModerator && session?.session?.tasks?.length === 0" /> -->
+    <NoTask  />
 
     <!-- Participants-->
-    <ParticipantsList :participants="session?.session?.participants" :is-moderator="isModerator" />
+    <ParticipantsList :participants="participants" :is-moderator="isModerator" />
   </div>
 
   <!-- TASKS -->

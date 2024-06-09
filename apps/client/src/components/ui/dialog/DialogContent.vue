@@ -28,8 +28,6 @@ const backdropBg = computed(() => {
   if (props.backdropBg) return { [props.backdropBg]: true }
   return { 'bg-black/80': true }
 })
-
-console.log(props.backdropBg)
 </script>
 
 <template>

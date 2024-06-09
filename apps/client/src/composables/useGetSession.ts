@@ -39,10 +39,6 @@ export const useGetSession = (id: string) => {
     }
   )
 
-  watchEffect(() => {
-    console.log(result.value)
-  })
-
   return {
     loading,
     session: result

@@ -1497,6 +1497,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/papaparse@npm:^5.3.14":
+  version: 5.3.14
+  resolution: "@types/papaparse@npm:5.3.14"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: feb4d215903b67442feaa9836a6a5771e78dc6a9da24781e399c6f891622fa82245cd783ab2613c5be43e4a2d6a94da52325538e4485af258166864576ecd0d8
+  languageName: node
+  linkType: hard
+
 "@types/qs@npm:*":
   version: 6.9.15
   resolution: "@types/qs@npm:6.9.15"
@@ -2366,6 +2375,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"attr-accept@npm:^2.2.2":
+  version: 2.2.2
+  resolution: "attr-accept@npm:2.2.2"
+  checksum: f77c073ac9616a783f2df814a56f65f1c870193e8da6097139e30b3be84ecc19fb835b93e81315d1da4f19e80721f14e8c8075014205e00abd37b856fe030b80
+  languageName: node
+  linkType: hard
+
 "autoprefixer@npm:^10.4.19":
   version: 10.4.19
   resolution: "autoprefixer@npm:10.4.19"
@@ -2627,6 +2643,7 @@ __metadata:
     "@tsconfig/node20": "npm:^20.1.4"
     "@types/jsdom": "npm:^21.1.6"
     "@types/node": "npm:^20.14.2"
+    "@types/papaparse": "npm:^5.3.14"
     "@vee-validate/zod": "npm:^4.13.0"
     "@vitejs/plugin-vue": "npm:^5.0.4"
     "@vue/apollo-composable": "npm:^4.0.2"
@@ -2638,6 +2655,7 @@ __metadata:
     autoprefixer: "npm:^10.4.19"
     class-variance-authority: "npm:^0.7.0"
     clsx: "npm:^2.1.1"
+    dropzone-vue: "npm:^0.1.11"
     eslint: "npm:^8.57.0"
     eslint-plugin-vue: "npm:^9.23.0"
     graphql: "npm:^16.8.1"
@@ -2645,6 +2663,7 @@ __metadata:
     jsdom: "npm:^24.0.0"
     lucide-vue-next: "npm:^0.383.0"
     npm-run-all2: "npm:^6.1.2"
+    papaparse: "npm:^5.4.1"
     postcss: "npm:^8.4.38"
     prettier: "npm:^3.2.5"
     radix-vue: "npm:^1.8.3"
@@ -2658,6 +2677,7 @@ __metadata:
     vue: "npm:^3.4.21"
     vue-router: "npm:^4.3.0"
     vue-tsc: "npm:^2.0.11"
+    vue3-dropzone: "npm:^2.2.1"
   languageName: unknown
   linkType: soft
 
@@ -3001,6 +3021,16 @@ __metadata:
   version: 16.4.5
   resolution: "dotenv@npm:16.4.5"
   checksum: 48d92870076832af0418b13acd6e5a5a3e83bb00df690d9812e94b24aff62b88ade955ac99a05501305b8dc8f1b0ee7638b18493deb6fe93d680e5220936292f
+  languageName: node
+  linkType: hard
+
+"dropzone-vue@npm:^0.1.11":
+  version: 0.1.11
+  resolution: "dropzone-vue@npm:0.1.11"
+  peerDependencies:
+    core-js: ^3.9.1
+    vue: ^3.0.5
+  checksum: 64ccbb8d2a092aec05d8c60505a77e71346a5550ebcf968518ebacf6a0eb9aadde7aeda078f3c7fe7bf6e7dd5c7a8cf2e056ff868ab40ecbad31164ea6444fc9
   languageName: node
   linkType: hard
 
@@ -3522,6 +3552,15 @@ __metadata:
   dependencies:
     flat-cache: "npm:^3.0.4"
   checksum: 58473e8a82794d01b38e5e435f6feaf648e3f36fdb3a56e98f417f4efae71ad1c0d4ebd8a9a7c50c3ad085820a93fc7494ad721e0e4ebc1da3573f4e1c3c7cdd
+  languageName: node
+  linkType: hard
+
+"file-selector@npm:^0.2.4":
+  version: 0.2.4
+  resolution: "file-selector@npm:0.2.4"
+  dependencies:
+    tslib: "npm:^2.0.3"
+  checksum: f43a8c370e69897c5c060dcfdeacb8828ccbdacdd2a255723c28fd16f230098ba079526de2dd0e7e519e4d9e72a06f2be0bbaee7ab8e09bed8f05b619f3fba94
   languageName: node
   linkType: hard
 
@@ -5101,6 +5140,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"papaparse@npm:^5.4.1":
+  version: 5.4.1
+  resolution: "papaparse@npm:5.4.1"
+  checksum: 201f37c4813453fed5bfb4c01816696b099d2db9ff1e8fb610acc4771fdde91d2a22b6094721edb0fedb21ca3c46f04263f68be4beb3e35b8c72278f0cedc7b7
+  languageName: node
+  linkType: hard
+
 "parent-module@npm:^1.0.0":
   version: 1.0.1
   resolution: "parent-module@npm:1.0.1"
@@ -6380,7 +6426,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.0, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.6.2":
+"tslib@npm:^2.0.0, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.4.0, tslib@npm:^2.6.2":
   version: 2.6.3
   resolution: "tslib@npm:2.6.3"
   checksum: 2598aef53d9dbe711af75522464b2104724d6467b26a60f2bdac8297d2b5f1f6b86a71f61717384aa8fd897240467aaa7bcc36a0700a0faf751293d1331db39a
@@ -6852,6 +6898,18 @@ __metadata:
   bin:
     vue-tsc: bin/vue-tsc.js
   checksum: bbc58f9990bf2e5094fba6aea453d2eb09557c3f3681adb33fdcfdf104abeab7b30c0d6722fbbce85c1560c228c5e90a3b9b82445986760aa764ab112c25f6cd
+  languageName: node
+  linkType: hard
+
+"vue3-dropzone@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "vue3-dropzone@npm:2.2.1"
+  dependencies:
+    attr-accept: "npm:^2.2.2"
+    file-selector: "npm:^0.2.4"
+  peerDependencies:
+    vue: ">=3"
+  checksum: fb3b021d1efa83018fcbd570f602c1b2af65ffe9037812862b71fa6ca4aaaf6319372c15357b6af1c82290bc8bbb588a107aae80654bb342fc93e85ef17c3e79
   languageName: node
   linkType: hard
 

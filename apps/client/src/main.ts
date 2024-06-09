@@ -1,4 +1,5 @@
 import './index.css'
+import 'dropzone-vue/dist/dropzone-vue.common.css'
 import { createApp, provide, h } from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -7,7 +8,10 @@ import { DefaultApolloClient } from '@vue/apollo-composable'
 
 const httpLink = createHttpLink({
   // You should use an absolute URL here
-  uri: 'https://estimate-sprint-tasks.onrender.com/' //'http://localhost:4000'
+  uri:
+    process.env.NODE_ENV === 'development'
+      ? 'http://localhost:4000'
+      : 'https://estimate-sprint-tasks.onrender.com/'
 })
 
 // Cache implementation
@@ -27,5 +31,4 @@ const app = createApp({
 })
 
 app.use(router)
-
 app.mount('#app')

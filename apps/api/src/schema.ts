@@ -104,7 +104,7 @@ export const typeDefs = gql`
     isModerator: Boolean
   }
 
-  input TaskCreateInput {
+  input CreateTaskInput {
     title: String!
     session: ID!
   }
@@ -143,7 +143,7 @@ export const typeDefs = gql`
     createParticipant(input: CreateParticipantInput!): Participant
       @sessionActive
     leaveSession(participant: ID!): Participant
-    createTask(input: TaskCreateInput!): Task @sessionActive
+    createTask(input: CreateTaskInput!): Task @sessionActive
     bulkCreateTasks(input: BulkCreateTasksInput!): [Task] @sessionActive
     updateTask(input: TaskUpdateInput!): Task
     deleteTask(id: ID!): ID
