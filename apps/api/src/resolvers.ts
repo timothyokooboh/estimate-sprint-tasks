@@ -29,9 +29,9 @@ import {
   bulkCreateTasks,
   createTask,
   deleteTask,
+  viewTask,
   listTasks,
   updateTask,
-  viewTask,
 } from "./controllers/task.js";
 
 import {
@@ -43,12 +43,12 @@ import {
 
 export const resolvers = {
   Query: {
-    session: viewSession,
-    sessions: listSessions,
-    participant: viewParticipant,
-    participants: listParticipants,
-    task: viewTask,
-    tasks: listTasks,
+    viewSession: viewSession,
+    listSessions: listSessions,
+    viewParticipant: viewParticipant,
+    listParticipants: listParticipants,
+    viewTask: viewTask,
+    listTasks: listTasks,
   },
   Mutation: {
     createParticipant: createParticipant,

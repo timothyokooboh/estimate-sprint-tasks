@@ -1,17 +1,17 @@
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { useGetSession } from './useGetSession'
+import { useViewSession } from './useViewSession'
 
 export const useSessionView = () => {
   const route = useRoute()
-  const { session, loading } = useGetSession(route.params.sessionId as string)
+  const { session, loading } = useViewSession(route.params.sessionId as string)
 
   const participants = computed(() => {
-    return session.value?.session.participants || []
+    return session.value?.viewSession.participants || []
   })
 
   const tasks = computed(() => {
-    return session.value?.session.tasks || []
+    return session.value?.viewSession.tasks || []
   })
 
   const currentUser = computed(() => {
@@ -21,7 +21,7 @@ export const useSessionView = () => {
   })
 
   const isModerator = computed(() => {
-    return session.value?.session.moderator.id === currentUser.value?.id
+    return session.value?.viewSession.moderator.id === currentUser.value?.id
   })
 
   return {

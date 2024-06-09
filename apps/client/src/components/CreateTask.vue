@@ -17,7 +17,7 @@ const { loading, title, titleAttrs, createNewTask, formValidationError, apiError
 </script>
 
 <template>
-  <Dialog class="backdrop-opacity-0 backdrop-brightness-0">
+  <Dialog>
     <DialogTrigger as-child>
       <Button class="grow">Add Task</Button>
     </DialogTrigger>

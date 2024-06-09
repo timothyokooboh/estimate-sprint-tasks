@@ -8,7 +8,7 @@ import {
   DialogTrigger,
   DialogDescription
 } from '@/components/ui/dialog'
-import { UploadCloud, Loader, Loader2, LoaderPinwheel } from 'lucide-vue-next'
+import { UploadCloud, Loader2 } from 'lucide-vue-next'
 import { useBulkUploadTask } from '@/composables/useBulkUploadTask'
 import { useRoute } from 'vue-router'
 import BaseTransition from './BaseTransition.vue'
@@ -20,7 +20,7 @@ const { getInputProps, getRootProps, isDragActive, fileName, loading } = useBulk
 </script>
 
 <template>
-  <Dialog class="backdrop-opacity-0 backdrop-brightness-0">
+  <Dialog>
     <DialogTrigger as-child>
       <Button variant="outline" class="grow"> Bulk Upload Task </Button>
     </DialogTrigger>
@@ -65,5 +65,3 @@ const { getInputProps, getRootProps, isDragActive, fileName, loading } = useBulk
     </DialogContent>
   </Dialog>
 </template>
-
-<style scoped></style>

@@ -1,12 +1,11 @@
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
-import { watchEffect } from 'vue'
 
-export const useGetSession = (id: string) => {
+export const useViewSession = (id: string) => {
   const { result, loading } = useQuery(
     gql`
       query getSession($id: ID!) {
-        session(id: $id) {
+        viewSession(id: $id) {
           title
           status
           tasks {

@@ -1,0 +1,94 @@
+[2mEnvironment variables loaded from .env[22m
+[2mPrisma schema loaded from prisma/schema.prisma[22m
+
+✔ Generated [1mPrisma Client[22m (v5.15.0)[2m to ./../../node_modules/@prisma/client[22m in 112ms
+
+Start using Prisma Client in Node.js (See: [4mhttps://pris.ly/d/client[24m)
+[2m```[22m
+[36mimport[39m [34m{[39m PrismaClient [34m}[39m [36mfrom[39m [1m[32m'@prisma/client'[39m[22m
+[36mconst[39m prisma = [36mnew[39m PrismaClient[34m([39m[34m)[39m
+[2m```[22m
+or start using Prisma Client at the edge (See: [4mhttps://pris.ly/d/accelerate[24m)
+[2m```[22m
+[36mimport[39m [34m{[39m PrismaClient [34m}[39m [36mfrom[39m [1m[32m'@prisma/client/edge'[39m[22m
+[36mconst[39m prisma = [36mnew[39m PrismaClient[34m([39m[34m)[39m
+[2m```[22m
+
+See other ways of importing Prisma Client: [4mhttp://pris.ly/d/importing-client[24m
+
+[90m[90m┌─[39m[90m[90m────────────────────────────────────────────────────────────┐[39m[90m
+[90m│[39m[90m  [0mDeploying your app to serverless or edge functions?[0m        [90m│[39m[90m
+[90m│[39m[90m  [0mTry Prisma Accelerate for connection pooling and caching.[0m  [90m│[39m[90m
+[90m│[39m[90m  [0m[4mhttps://pris.ly/cli/--accelerate[24m[0m                           [90m│[39m[90m
+└─────────────────────────────────────────────────────────────┘[39m
+
+[33m[nodemon] 3.1.3[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,cjs,json[39m
+[32m[nodemon] starting `node ./dist/index.js`[39m
+🚀 Server ready at http://localhost:4000/
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./dist/index.js`[39m
+Internal error emitted on the WebSocket server. Please check your implementation. Error: listen EADDRINUSE: address already in use :::4000
+[90m    at Server.setupListenHandle [as _listen2] (node:net:1817:16)[39m
+[90m    at listenInCluster (node:net:1865:12)[39m
+[90m    at Server.listen (node:net:1953:7)[39m
+    at [90mfile:///Users/timothyokooboh/Desktop/sprint-task-estimates/apps/api/[39mdist/index.js:65:43
+    at new Promise (<anonymous>)
+    at [90mfile:///Users/timothyokooboh/Desktop/sprint-task-estimates/apps/api/[39mdist/index.js:65:7 {
+  code: [32m'EADDRINUSE'[39m,
+  errno: [33m-48[39m,
+  syscall: [32m'listen'[39m,
+  address: [32m'::'[39m,
+  port: [33m4000[39m
+}
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./dist/index.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./dist/index.js`[39m
+🚀 Server ready at http://localhost:4000/
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./dist/index.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node ./dist/index.js`[39m
+🚀 Server ready at http://localhost:4000/

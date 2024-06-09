@@ -30,6 +30,9 @@ export async function viewTask(_, { id }, { prisma }) {
 export async function listTasks(_, { input }, { prisma }) {
   try {
     const tasks = await prisma.task.findMany({
+      orderBy: {
+        createdAt: "desc",
+      },
       where: {
         session: {
           id: input.session,

@@ -70,28 +70,28 @@ export const typeDefs = gql`
     time: Int
   }
 
-  input ParticipantsInput {
+  input listParticipantsInput {
     session: ID!
     task: ID
   }
 
-  input ParticipantInput {
+  input viewParticipantInput {
     id: ID!
     task: ID
   }
 
-  input TaskInput {
+  input listTasksInput {
     session: ID!
     status: TASK_STATUS
   }
 
   type Query {
-    participants(input: ParticipantsInput!): [Participant]
-    participant(input: ParticipantInput!): Participant
-    sessions: [Session]
-    session(id: ID!): Session
-    tasks(input: TaskInput): [Task]
-    task(id: ID!): Task
+    listParticipants(input: listParticipantsInput!): [Participant]
+    viewParticipant(input: viewParticipantInput!): Participant
+    listSessions: [Session]
+    viewSession(id: ID!): Session
+    listTasks(input: listTasksInput): [Task]
+    viewTask(id: ID!): Task
   }
 
   input CreateSessionInput {

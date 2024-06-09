@@ -39,7 +39,7 @@ const {
       >
     </DialogTrigger>
 
-    <DialogContent class="sm:max-w-[425px]" backdrop-bg="bg-transparent">
+    <DialogContent backdrop-bg="bg-transparent">
       <DialogHeader>
         <DialogTitle class="mb-3">Start a session</DialogTitle>
         <DialogDescription> Enter your name and a title for the session. </DialogDescription>

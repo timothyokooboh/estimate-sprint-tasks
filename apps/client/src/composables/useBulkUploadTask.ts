@@ -113,7 +113,7 @@ export const useBulkUploadTask = (session: string) => {
   onDone(() => {
     toast({
       title: 'Success',
-      description: 'Task uploaded successfully'
+      description: 'Tasks uploaded successfully'
     })
   })
 
