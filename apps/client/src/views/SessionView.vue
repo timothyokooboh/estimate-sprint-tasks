@@ -1,12 +1,17 @@
 <script lang="ts" setup>
 import { Button } from '@/components/ui/button'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { useSessionView } from '@/composables/useSessionView'
+import { useViewSession } from '@/composables/useViewSession'
 import ParticipantsList from '@/components/ParticipantsList.vue'
 import NoTask from '@/components/NoTask.vue'
 import InviteParticipant from '@/components/InviteParticipant.vue'
+import TasksList from '@/components/TasksList.vue'
+import { useRoute } from 'vue-router'
 
-const { session, participants, loading, currentUser, isModerator } = useSessionView()
+const route = useRoute()
+const { session, participants, loading, currentUser, isModerator } = useViewSession(
+  route.params.sessionId as string,
+  route.params.participantId as string
+)
 </script>
 
 <template>
@@ -22,7 +27,7 @@ const { session, participants, loading, currentUser, isModerator } = useSessionV
 
   <div class="mt-5 grid gap-x-[40px] gap-y-[20px] md:grid-cols-2">
     <!-- <NoTask v-if="isModerator && session?.session?.tasks?.length === 0" /> -->
-    <NoTask  />
+    <NoTask />
 
     <!-- Participants-->
     <ParticipantsList :participants="participants" :is-moderator="isModerator" />
@@ -35,15 +40,6 @@ const { session, participants, loading, currentUser, isModerator } = useSessionV
       <Button variant="ghost">+ New</Button>
     </div>
 
-    <Tabs default-value="account" class="mt-5">
-      <TabsList class="bg-transparent">
-        <TabsTrigger value="account"> Active </TabsTrigger>
-        <TabsTrigger value="password"> Completed </TabsTrigger>
-        <TabsTrigger value="all"> All </TabsTrigger>
-      </TabsList>
-      <TabsContent value="account"> Make changes to your account here. </TabsContent>
-      <TabsContent value="password"> Change your password here. </TabsContent>
-      <TabsContent value="all"> Change your password here. </TabsContent>
-    </Tabs>
+    <TasksList />
   </div>
 </template>
