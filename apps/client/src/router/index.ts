@@ -13,6 +13,11 @@ const router = createRouter({
       path: '/session/:sessionId/participant/:participantId',
       name: 'SessionView',
       component: () => import('@/views/SessionView.vue')
+    },
+    {
+      path: '/session/:sessionId/join',
+      name: 'JoinSession',
+      component: () => import('@/views/JoinSession.vue')
     }
   ]
 })

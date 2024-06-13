@@ -12,22 +12,34 @@ import { UploadCloud, Loader2 } from 'lucide-vue-next'
 import { useBulkUploadTask } from '@/composables/useBulkUploadTask'
 import { useRoute } from 'vue-router'
 import BaseTransition from './BaseTransition.vue'
+import { useToast } from '@/components/ui/toast'
 
 const route = useRoute()
-const { getInputProps, getRootProps, isDragActive, fileName, loading } = useBulkUploadTask(
+const { getInputProps, getRootProps, isDragActive, fileName, loading, onDone } = useBulkUploadTask(
   route.params.sessionId as string
 )
 
 const props = defineProps<{
   isOpen: boolean
 }>()
+
+const { toast } = useToast()
+const emit = defineEmits(['close:modal'])
+
+onDone(() => {
+  emit('close:modal')
+  toast({
+    title: 'Success',
+    description: 'Tasks uploaded successfully'
+  })
+})
 </script>
 
 <template>
   <Dialog :open="props.isOpen" @update:open="$emit('close:modal')">
     <DialogContent class="w-[90%] max-w-[425px]">
       <DialogHeader>
-        <DialogTitle class="mb-3">Bulk Upload Task</DialogTitle>
+        <DialogTitle class="mb-3">Bulk Upload Tasks</DialogTitle>
         <DialogDescription></DialogDescription>
       </DialogHeader>
 

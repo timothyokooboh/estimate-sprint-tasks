@@ -1,15 +1,17 @@
 import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 
 export const useViewSession = (sessionId: string, participantId?: string) => {
-  const { result, loading } = useQuery(
+  const { result, loading, refetch } = useQuery(
     gql`
       query getSession($id: ID!) {
         viewSession(id: $id) {
+          id
           title
           status
+          currentTaskId
           tasks {
             id
             title
@@ -25,10 +27,15 @@ export const useViewSession = (sessionId: string, participantId?: string) => {
             id
             name
             status
+            isModerator
+            vote {
+              id
+              value
+              taskId
+            }
             votes {
               id
               value
-              time
               taskId
             }
           }
@@ -40,28 +47,26 @@ export const useViewSession = (sessionId: string, participantId?: string) => {
     }
   )
 
+  const session = computed(() => result.value?.viewSession)
+
   const participants = computed(() => {
-    return result.value?.viewSession.participants || []
+    return session.value?.participants || []
   })
 
   const tasks = computed(() => {
-    return result.value?.viewSession.tasks || []
+    return session.value?.tasks || []
   })
 
   const currentUser = computed(() => {
     return participants.value.find((participant: { id: string }) => participant.id == participantId)
   })
 
-  const isModerator = computed(() => {
-    return result.value?.viewSession.moderator.id === currentUser.value?.id
-  })
-
   return {
     loading,
-    session: result,
+    refetch,
+    session,
     participants,
     tasks,
-    isModerator,
     currentUser
   }
 }

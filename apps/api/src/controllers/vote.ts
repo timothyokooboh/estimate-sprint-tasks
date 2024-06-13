@@ -1,5 +1,10 @@
 import { pubsub } from "../index.js";
-import { VOTE_CREATED, VOTE_RESET, VOTE_UPDATED } from "../constants.js";
+import {
+  VOTE_CREATED,
+  VOTES_RESET,
+  VOTE_UPDATED,
+  VOTING_STARTED,
+} from "../constants.js";
 import { GraphQLError } from "graphql";
 
 export async function createVote(_, { input }, { prisma }) {
@@ -9,7 +14,6 @@ export async function createVote(_, { input }, { prisma }) {
         participantId: input.participant,
         taskId: input.task,
         value: input.value,
-        time: input.time,
       },
       include: {
         participant: true,
@@ -36,7 +40,6 @@ export async function updateVote(_, { input }, { prisma }) {
       },
       data: {
         value: input.value,
-        time: input.time,
       },
       include: {
         participant: true,
@@ -65,8 +68,8 @@ export async function resetVotes(_, { input }, { prisma }) {
     });
 
     // publish vote reset
-    await pubsub.publish(VOTE_RESET, {
-      voteReset: input.votes,
+    await pubsub.publish(VOTES_RESET, {
+      votesReset: input.votes,
     });
 
     return input.votes;
@@ -75,20 +78,40 @@ export async function resetVotes(_, { input }, { prisma }) {
   }
 }
 
-export function viewVoteField(participant) {
-  if (!participant.task) {
-    throw new GraphQLError(
-      "In order to get vote for the current task, you must provide a task id",
-      {
-        extensions: {
-          code: "BAD_USER_INPUT",
-          argumentName: "vote",
-        },
+export async function viewVoteField(participant, _, { prisma }) {
+  try {
+    const session = await prisma.session.findUnique({
+      where: {
+        id: participant.sessionId,
       },
-    );
-  }
+    });
 
-  return participant.votes.filter(
-    (vote) => vote.taskId === participant.task.id,
-  )[0];
+    if (!session.currentTaskId) return null;
+
+    const vote = participant.votes.find(
+      (item) => item.taskId === session.currentTaskId,
+    );
+
+    return vote ? vote : null;
+  } catch (err) {
+    throw new Error(err);
+  }
 }
+
+export const startVoting = async (_, { input }, { prisma }) => {
+  try {
+    const session = await prisma.session.update({
+      where: {
+        id: input.sessionId,
+      },
+      data: {
+        currentTaskId: input.taskId,
+      },
+    });
+
+    pubsub.publish(VOTING_STARTED, { votingStarted: input.taskId });
+    return session;
+  } catch (err) {
+    throw new Error(err);
+  }
+};

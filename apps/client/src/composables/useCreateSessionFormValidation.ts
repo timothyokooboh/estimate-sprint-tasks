@@ -12,12 +12,14 @@ export const useCreateSessionFormValidation = () => {
         .min(1, { message: 'Kindly enter the session title' })
         .default(localStorage.getItem(SESSION_TITLE) ?? ''),
 
-      rememberSessionTitle: z.boolean().default(!!localStorage.getItem(SESSION_TITLE) ?? false),
+      rememberSessionTitle: z.boolean().default(localStorage.getItem(SESSION_TITLE) ? true : false),
       moderatorName: z
         .string({ message: 'Kindly enter your name' })
         .min(1, { message: 'Kindly enter your name' })
         .default(localStorage.getItem(PARTICIPANT_NAME) ?? ''),
-      rememberModeratorName: z.boolean().default(!!localStorage.getItem(PARTICIPANT_NAME) ?? false)
+      rememberModeratorName: z
+        .boolean()
+        .default(localStorage.getItem(PARTICIPANT_NAME) ? true : false)
     })
   )
 

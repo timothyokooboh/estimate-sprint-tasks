@@ -1,4 +1,4 @@
-import { PARTICIPANT_ADDED, PARTICIPANT_LEFT } from "../constants.js";
+import { PARTICIPANT_JOINED, PARTICIPANT_LEFT } from "../constants.js";
 import { pubsub } from "../index.js";
 
 export async function viewParticipant(_, { input }, { prisma }) {
@@ -9,11 +9,7 @@ export async function viewParticipant(_, { input }, { prisma }) {
       },
       include: {
         votes: true,
-        session: {
-          include: {
-            tasks: true,
-          },
-        },
+        session: true,
       },
     });
 
@@ -53,7 +49,7 @@ export async function listParticipants(_, { input }, { prisma }) {
   }
 }
 
-export async function createParticipant(_, { input }, { prisma }) {
+export async function joinSession(_, { input }, { prisma }) {
   try {
     const participant = await prisma.participant.create({
       data: {
@@ -72,7 +68,7 @@ export async function createParticipant(_, { input }, { prisma }) {
     });
 
     // publish participant added
-    await pubsub.publish(PARTICIPANT_ADDED, {
+    await pubsub.publish(PARTICIPANT_JOINED, {
       participantAdded: participant,
     });
 

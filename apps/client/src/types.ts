@@ -20,6 +20,7 @@ export type Participant = {
   name: string
   vote: Vote
   status: TASK_STATUS
+  isModerator: boolean
   votes: Vote[]
 }
 

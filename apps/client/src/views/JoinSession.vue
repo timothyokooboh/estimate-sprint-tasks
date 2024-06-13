@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import CreateSessionModal from '@/components/CreateSessionModal.vue'
-import Button from '@/components/ui/button/Button.vue'
 import { ref } from 'vue'
+import CreateSession from '@/components/CreateSessionModal.vue'
+import Button from '@/components/ui/button/Button.vue'
+import JoinSessionModal from '@/components/JoinSessionModal.vue'
 
 const isModalOpen = ref(false)
 </script>
@@ -17,9 +18,9 @@ const isModalOpen = ref(false)
           Collaborate in realtime with your product teammates to provide estimates for sprint tasks.
         </p>
 
-        <Button @click="isModalOpen = true">Start Session 🚀</Button>
+        <Button @click="isModalOpen = true">Join Session 🚀</Button>
 
-        <CreateSessionModal :is-open="isModalOpen" @close:modal="isModalOpen = false" />
+        <JoinSessionModal :is-open="isModalOpen" @close:modal="isModalOpen = false" />
       </div>
     </div>
   </main>

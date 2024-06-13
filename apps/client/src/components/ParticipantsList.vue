@@ -1,18 +1,41 @@
 <script setup lang="ts">
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import InviteParticipant from '@/components/InviteParticipant.vue'
-import { UserCheck, UserCheckIcon } from 'lucide-vue-next'
-import type { Participant } from '@/types'
+import { User, UserCheck, Settings } from 'lucide-vue-next'
+import type { Participant, Task } from '@/types'
+import { computed } from 'vue'
+import { getObjectProperty } from '@/helpers'
 
-defineProps<{
+const props = defineProps<{
   participants: Participant[]
-  isModerator: boolean
+  currentTaskId: null | string
+  tasks: Task[]
 }>()
+
+const currentTask = computed(() => {
+  return props.tasks?.find((task: Task) => task.id === props.currentTaskId)
+})
+
+const isVotingOngoing = computed(() => {
+  if (!currentTask.value) return false
+  return currentTask.value.status === 'ACTIVE'
+})
+
+const numberOfParticipantsYetToVote = computed(() => {
+  return props.participants?.filter((participant: Participant) => participant.vote == null).length
+})
 </script>
 
 <template>
-  <div class="border border-[#283244] rounded-[5px] py-8 px-4">
-    <h3 class="mb-3 border-b-[1px] border-b-[#283244] pb-3">Participants</h3>
+  <div class="max-h-[350px] overflow-auto">
+    <div class="mb-3 border-b-[1px] border-b-[#283244] pb-3">
+      <h3>Participants</h3>
+      <p v-if="isVotingOngoing && numberOfParticipantsYetToVote > 0" class="text-[#64748B] mt-2">
+        {{ numberOfParticipantsYetToVote }}
+        {{ numberOfParticipantsYetToVote === 1 ? 'participant is' : 'participants are' }} yet to
+        vote
+      </p>
+    </div>
 
     <div
       v-for="participant in participants"
@@ -20,10 +43,10 @@ defineProps<{
       class="flex justify-between items-center border-b-[1px] border-b-[#283244] pb-3 mb-3"
     >
       <div class="flex items-center">
-        <TooltipProvider v-if="isModerator">
+        <TooltipProvider v-if="participant.isModerator">
           <Tooltip>
             <TooltipTrigger>
-              <UserCheck :size="30" class="mr-2" />
+              <Settings :size="20" class="mr-2 text-[#64748B]" />
             </TooltipTrigger>
             <TooltipContent>
               <p>Moderator</p>
@@ -31,10 +54,11 @@ defineProps<{
           </Tooltip>
         </TooltipProvider>
 
-        <UserCheck v-else :size="30" class="mr-2" />
+        <User v-if="!participant.isModerator" :size="20" class="mr-2 text-[#64748B]" />
 
-        <span>{{ participant.name }}</span>
+        <span class="text-[#64748B]">{{ participant.name }}</span>
       </div>
+      <p class="text-lg">{{ getObjectProperty(participant, 'vote.value', null) }}</p>
     </div>
 
     <InviteParticipant />

@@ -110,18 +110,12 @@ export const useBulkUploadTask = (session: string) => {
     }
   }
 
-  onDone(() => {
-    toast({
-      title: 'Success',
-      description: 'Tasks uploaded successfully'
-    })
-  })
-
   return {
     getRootProps,
     getInputProps,
     isDragActive,
     fileName: file.value?.name,
-    loading
+    loading,
+    onDone
   }
 }

@@ -48,6 +48,7 @@ model Session {
   status SESSION_STATUS @default(ACTIVE)
   participants Participant[]
   tasks Task[]
+  currentTaskId String @default("") // ID of the current task being voted for
 }
 
 model Task {
@@ -70,6 +71,5 @@ model Vote {
   task Task @relation(fields: [taskId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   participantId String
   participant Participant @relation(fields: [participantId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  time Int
 }
 

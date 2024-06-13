@@ -1,7 +1,7 @@
 import { useMutation } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 import { useCreateSessionFormValidation } from '@/composables/useCreateSessionFormValidation'
-import { useAddParticipant } from '@/composables/useAddParticipant'
+import { useJoinSessionMutation } from '@/composables/useJoinSessionMutation'
 import { useHandleRememberSessionTitle } from '@/composables/useHandleRememberSessionTitle'
 import { useHandleRememberParticipantName } from '@/composables/useHandleRememberParticipantName'
 import { useToast } from '@/components/ui/toast/use-toast'
@@ -44,10 +44,10 @@ export const useCreateSession = () => {
   `)
 
   const {
-    addParticipant: addModerator,
-    addingParticipant: addingModerator,
-    onAddedParticipant: onAddedModerator
-  } = useAddParticipant()
+    joinSession: addModerator,
+    joiningSession: addingModerator,
+    onJoinedSession: onAddedModerator
+  } = useJoinSessionMutation()
 
   const startSession = handleSubmit((values) => {
     createSession({ input: { title: values.sessionTitle } })

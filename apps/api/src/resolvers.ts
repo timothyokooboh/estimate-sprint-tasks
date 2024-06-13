@@ -1,14 +1,15 @@
 import { pubsub } from "./index.js";
 import {
-  PARTICIPANT_ADDED,
+  PARTICIPANT_JOINED,
   PARTICIPANT_LEFT,
   SESSION_ENDED,
   TASK_CREATED,
   TASK_DELETED,
   TASK_UPDATED,
   VOTE_CREATED,
-  VOTE_RESET,
+  VOTES_RESET,
   VOTE_UPDATED,
+  VOTING_STARTED,
 } from "./constants.js";
 
 import {
@@ -19,7 +20,7 @@ import {
 } from "./controllers/session.js";
 
 import {
-  createParticipant,
+  joinSession,
   leaveSession,
   listParticipants,
   viewParticipant,
@@ -37,6 +38,7 @@ import {
 import {
   createVote,
   resetVotes,
+  startVoting,
   updateVote,
   viewVoteField,
 } from "./controllers/vote.js";
@@ -51,7 +53,7 @@ export const resolvers = {
     listTasks: listTasks,
   },
   Mutation: {
-    createParticipant: createParticipant,
+    joinSession: joinSession,
     leaveSession: leaveSession,
     createSession: createSession,
     endSession: endSession,
@@ -62,6 +64,7 @@ export const resolvers = {
     createVote: createVote,
     updateVote: updateVote,
     resetVotes: resetVotes,
+    startVoting: startVoting,
   },
   Session: {
     moderator(session) {
@@ -75,9 +78,9 @@ export const resolvers = {
     vote: viewVoteField,
   },
   Subscription: {
-    participantAdded: {
+    participantJoined: {
       subscribe() {
-        return pubsub.asyncIterator([PARTICIPANT_ADDED]);
+        return pubsub.asyncIterator([PARTICIPANT_JOINED]);
       },
     },
     participantLeft: {
@@ -115,9 +118,14 @@ export const resolvers = {
         return pubsub.asyncIterator([VOTE_UPDATED]);
       },
     },
-    voteReset: {
+    votesReset: {
       subscribe() {
-        return pubsub.asyncIterator([VOTE_RESET]);
+        return pubsub.asyncIterator([VOTES_RESET]);
+      },
+    },
+    votingStarted: {
+      subscribe() {
+        return pubsub.asyncIterator([VOTING_STARTED]);
       },
     },
   },

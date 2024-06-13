@@ -15,6 +15,12 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Loader2 } from 'lucide-vue-next'
 import { useCreateSession } from '@/composables/useCreateSession'
 
+const props = defineProps<{
+  isOpen: boolean
+}>()
+
+defineEmits(['close:modal'])
+
 const {
   startSession,
   loading,
@@ -32,13 +38,11 @@ const {
 </script>
 
 <template>
-  <Dialog class="backdrop-opacity-0 backdrop-brightness-0">
-    <DialogTrigger as-child>
-      <Button class="transition-all duration-300 hover:bg-primary hover:translate-y-[-1px]"
-        >Start a session 🚀</Button
-      >
-    </DialogTrigger>
-
+  <Dialog
+    :open="props.isOpen"
+    @update:open="$emit('close:modal')"
+    class="backdrop-opacity-0 backdrop-brightness-0"
+  >
     <DialogContent class="w-[90%] max-w-[425px]">
       <DialogHeader>
         <DialogTitle class="mb-3">Start a session</DialogTitle>

@@ -25,12 +25,9 @@ export const typeDefs = gql`
     status: PARTICIPANT_STATUS
     createdAt: String!
     updatedAt: String!
+    sessionId: String!
     session: Session!
     votes: [Vote]
-
-    #represents the current task for this participant
-    task: Task
-
     #represents the vote for this participant for the current task
     vote: Vote
   }
@@ -43,6 +40,7 @@ export const typeDefs = gql`
     updatedAt: String!
     participants: [Participant]!
     moderator: Participant!
+    currentTaskId: ID
     tasks: [Task]
   }
 
@@ -67,7 +65,6 @@ export const typeDefs = gql`
     participant: Participant!
     taskId: ID!
     task: Task!
-    time: Int
   }
 
   input listParticipantsInput {
@@ -98,7 +95,7 @@ export const typeDefs = gql`
     title: String!
   }
 
-  input CreateParticipantInput {
+  input JoinSessionInput {
     name: String!
     session: ID!
     isModerator: Boolean
@@ -120,40 +117,43 @@ export const typeDefs = gql`
     status: TASK_STATUS
   }
 
-  input VoteCreateInput {
+  input CreateVoteInput {
     participant: ID!
     task: ID!
     value: String!
-    time: Int!
   }
 
-  input VoteUpdateInput {
+  input UpdateVoteInput {
     id: ID!
     value: String!
-    time: Int!
   }
 
-  input VoteResetInput {
+  input ResetVotesInput {
     votes: [ID!]
+  }
+
+  input StartVotingInput {
+    sessionId: ID!
+    taskId: ID!
   }
 
   type Mutation {
     createSession(input: CreateSessionInput!): Session
     endSession(id: ID!): Session
-    createParticipant(input: CreateParticipantInput!): Participant
-      @sessionActive
+    joinSession(input: JoinSessionInput!): Participant @sessionActive
     leaveSession(participant: ID!): Participant
     createTask(input: CreateTaskInput!): Task @sessionActive
     bulkCreateTasks(input: BulkCreateTasksInput!): [Task] @sessionActive
     updateTask(input: TaskUpdateInput!): Task
     deleteTask(id: ID!): ID
-    createVote(input: VoteCreateInput!): Vote
-    updateVote(input: VoteUpdateInput!): Vote
-    resetVotes(input: VoteResetInput!): [ID]
+    createVote(input: CreateVoteInput!): Vote
+    updateVote(input: UpdateVoteInput!): Vote
+    resetVotes(input: ResetVotesInput!): [ID]
+    startVoting(input: StartVotingInput): Session
   }
 
   type Subscription {
-    participantAdded: Participant
+    participantJoined: Participant
     participantLeft: Participant
     sessionEnded: Session
     taskCreated: [Task]
@@ -161,6 +161,7 @@ export const typeDefs = gql`
     taskDeleted: ID
     voteCreated: Vote
     voteUpdated: Vote
-    voteReset: [ID]
+    votesReset: [ID]
+    votingStarted: ID # ID of the task being voted for
   }
 `;

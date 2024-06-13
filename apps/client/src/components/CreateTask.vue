@@ -13,18 +13,25 @@ import { Label } from '@/components/ui/label'
 import { useCreateTask } from '@/composables/useCreateTask'
 import { Loader2 } from 'lucide-vue-next'
 
-const { loading, title, titleAttrs, createNewTask, formValidationError, apiError } = useCreateTask()
+const { loading, title, titleAttrs, createNewTask, formValidationError, onDone, apiError } =
+  useCreateTask()
 
 const props = defineProps<{
   isOpen: boolean
 }>()
+
+const emit = defineEmits(['close:modal'])
+
+onDone(() => {
+  emit('close:modal')
+})
 </script>
 
 <template>
   <Dialog :open="props.isOpen" @update:open="$emit('close:modal')">
     <DialogContent class="w-[90%] max-w-[425px]">
       <DialogHeader>
-        <DialogTitle class="mb-3">Add a task</DialogTitle>
+        <DialogTitle class="mb-3">Add Task</DialogTitle>
       </DialogHeader>
 
       <form @submit.prevent="createNewTask">
@@ -34,7 +41,7 @@ const props = defineProps<{
             <Input
               id="session-name"
               class="bg-transparent mb-2"
-              placeholder="e.g. Integrate API endpoint to user list preferences"
+              placeholder="e.g. Integrate API endpoint to list user settings"
               v-model="title"
               v-bind="titleAttrs"
             />
@@ -45,7 +52,7 @@ const props = defineProps<{
         </div>
 
         <DialogFooter>
-          <Button type="submit">
+          <Button type="submit" :disabled="loading">
             <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
             Add Task
           </Button>

@@ -35,13 +35,6 @@ export const useCreateTask = () => {
     createTask({ input: { title: userInput.title, session: route.params.sessionId } })
   })
 
-  onDone(() => {
-    toast({
-      title: 'Success',
-      description: 'Task created successfully'
-    })
-  })
-
   return {
     formValidationError,
     values,
@@ -49,6 +42,7 @@ export const useCreateTask = () => {
     titleAttrs,
     createNewTask,
     loading,
-    apiError
+    apiError,
+    onDone
   }
 }
