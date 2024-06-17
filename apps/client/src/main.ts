@@ -24,7 +24,7 @@ const wsLink = new GraphQLWsLink(
     url:
       process.env.NODE_ENV === 'development'
         ? 'ws://localhost:4000/subscriptions'
-        : 'ws://estimate-sprint-tasks.onrender.com/subscriptions'
+        : 'wss://estimate-sprint-tasks.onrender.com/subscriptions'
   })
 )
 

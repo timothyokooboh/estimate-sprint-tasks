@@ -9,6 +9,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import CreateTask from '@/components/CreateTask.vue'
 import BulkUploadTask from '@/components/BulkUploadTask.vue'
+import { MoreVertical } from 'lucide-vue-next'
 import { useTasksList } from '@/composables/useTasksList'
 import { getObjectProperty } from '@/helpers'
 import type { Participant } from '@/types'
@@ -53,9 +54,25 @@ const isBulkUploadModalOpen = ref(false)
           There are no active tasks
         </p>
 
-        <p v-for="task in activeTasks" :key="task.id" class="bg-[#212121] py-3 px-4 mb-2">
-          {{ task.title }}
-        </p>
+        <div
+          v-for="task in activeTasks"
+          :key="task.id"
+          class="flex justify-between items-center bg-[#212121] py-3 px-4 mb-2"
+        >
+          <p>
+            {{ task.title }}
+          </p>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <MoreVertical :size="20" tabindex="0" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem class="cursor-pointer">Commence voting</DropdownMenuItem>
+              <DropdownMenuItem class="cursor-pointer">Edit</DropdownMenuItem>
+              <DropdownMenuItem class="cursor-pointer">Delete</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </TabsContent>
 
       <TabsContent value="completed" class="max-h-[200px] overflow-auto">
