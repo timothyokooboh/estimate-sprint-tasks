@@ -1,10 +1,13 @@
-import { useQuery } from '@vue/apollo-composable'
+import { PARTICIPANT_STATUS, type Participant } from '@/types'
+import { useLazyQuery, useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
-import { computed, watch } from 'vue'
+import { computed, watch, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-export const useViewSession = (sessionId: string, participantId?: string) => {
-  const { result, loading, refetch } = useQuery(
+export const useViewSession = (sessionId: string) => {
+  const route = useRoute()
+  // const enabled = ref(false)
+  const { result, loading, refetch, variables } = useQuery(
     gql`
       query getSession($id: ID!) {
         viewSession(id: $id) {
@@ -53,19 +56,29 @@ export const useViewSession = (sessionId: string, participantId?: string) => {
     return session.value?.participants || []
   })
 
+  const activeParticipants = computed(() => {
+    return participants.value?.filter(
+      (participant: Participant) => participant.status === PARTICIPANT_STATUS['ACTIVE']
+    )
+  })
+
   const tasks = computed(() => {
     return session.value?.tasks || []
   })
 
   const currentUser = computed(() => {
-    return participants.value.find((participant: { id: string }) => participant.id == participantId)
+    return participants.value.find(
+      (participant: { id: string }) => participant.id == route.params.participantId
+    )
   })
 
   return {
+    variables,
     loading,
     refetch,
     session,
     participants,
+    activeParticipants,
     tasks,
     currentUser
   }

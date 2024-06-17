@@ -55,7 +55,7 @@ export const useCreateSession = () => {
 
   onCreatedSession((result) => {
     const { createSession: session } = result.data
-    addModerator({ input: { name: moderatorName.value, session: session.id, isModerator: true } })
+    addModerator({ input: { name: moderatorName.value, sessionId: session.id, isModerator: true } })
     handleRememberSessionTitle(rememberSessionTitle.value!, sessionTitle.value!)
     handleRememberParticipantName(rememberModeratorName.value!, moderatorName.value!)
   })
@@ -66,7 +66,7 @@ export const useCreateSession = () => {
       description: 'Your session has been created'
     })
 
-    const { createParticipant: participant } = result.data
+    const { joinSession: participant } = result.data
     router.push({
       name: 'SessionView',
       params: { sessionId: participant.session.id, participantId: participant.id }

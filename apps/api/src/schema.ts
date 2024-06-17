@@ -53,14 +53,14 @@ export const typeDefs = gql`
     sessionId: ID!
     session: Session!
     votes: [Vote]
-    averageVote: Int
+    averageVote: String
   }
 
   type Vote {
     id: ID!
     createdAt: String!
     updatedAt: String!
-    value: String!
+    value: Float!
     participantId: ID!
     participant: Participant!
     taskId: ID!
@@ -68,17 +68,17 @@ export const typeDefs = gql`
   }
 
   input listParticipantsInput {
-    session: ID!
-    task: ID
+    sessionId: ID!
+    taskId: ID
   }
 
   input viewParticipantInput {
     id: ID!
-    task: ID
+    taskId: ID
   }
 
   input listTasksInput {
-    session: ID!
+    sessionId: ID!
     status: TASK_STATUS
   }
 
@@ -97,35 +97,35 @@ export const typeDefs = gql`
 
   input JoinSessionInput {
     name: String!
-    session: ID!
+    sessionId: ID!
     isModerator: Boolean
   }
 
   input CreateTaskInput {
     title: String!
-    session: ID!
+    sessionId: ID!
   }
 
   input BulkCreateTasksInput {
     tasks: [String!]
-    session: ID!
+    sessionId: ID!
   }
 
-  input TaskUpdateInput {
+  input UpdateTaskInput {
     id: ID!
     title: String
     status: TASK_STATUS
   }
 
   input CreateVoteInput {
-    participant: ID!
-    task: ID!
-    value: String!
+    participantId: ID!
+    taskId: ID!
+    value: Float!
   }
 
   input UpdateVoteInput {
     id: ID!
-    value: String!
+    value: Float!
   }
 
   input ResetVotesInput {
@@ -144,12 +144,12 @@ export const typeDefs = gql`
     leaveSession(participant: ID!): Participant
     createTask(input: CreateTaskInput!): Task @sessionActive
     bulkCreateTasks(input: BulkCreateTasksInput!): [Task] @sessionActive
-    updateTask(input: TaskUpdateInput!): Task
+    updateTask(input: UpdateTaskInput!): Task
     deleteTask(id: ID!): ID
     createVote(input: CreateVoteInput!): Vote
     updateVote(input: UpdateVoteInput!): Vote
     resetVotes(input: ResetVotesInput!): [ID]
-    startVoting(input: StartVotingInput): Session
+    startVoting(input: StartVotingInput): Session @sessionActive
   }
 
   type Subscription {

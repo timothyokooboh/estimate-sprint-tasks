@@ -17,12 +17,12 @@ export const useJoinSession = () => {
   const { joinSession, joiningSession, onJoinedSession } = useJoinSessionMutation()
 
   const submit = handleSubmit((values) => {
-    joinSession({ input: { name: values['name'], session: route.params.sessionId } })
+    joinSession({ input: { name: values['name'], sessionId: route.params.sessionId } })
     handleRememberParticipantName(values['rememberName'], values['name'])
   })
 
   onJoinedSession((result) => {
-    const { createParticipant: participant } = result.data
+    const { joinSession: participant } = result.data
     router.push({
       name: 'SessionView',
       params: { sessionId: route.params.sessionId, participantId: participant.id }

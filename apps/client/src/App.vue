@@ -6,6 +6,10 @@ import { useVotingStartedSubscription } from '@/composables/useVotingStartedSubs
 import { useTaskCreatedSubscription } from '@/composables/useTaskCreatedSubscription'
 import { useVoteCastedSubscription } from '@/composables/useVoteCastedSubscription'
 import { useVotesResetSubscription } from '@/composables/useVotesResetSubscription'
+import { useTaskUpdatedSubscription } from '@/composables/useTaskUpdatedSubscription'
+import TheHeader from '@/components/TheHeader.vue'
+import { useLeaveSessionSubscription } from '@/composables/useLeaveSessionSubscription'
+import { useEndSessionSubscription } from '@/composables/useEndSessionSubscription'
 
 // subscriptions
 useParticipantJoinedSubscription()
@@ -13,13 +17,16 @@ useVotingStartedSubscription()
 useTaskCreatedSubscription()
 useVoteCastedSubscription()
 useVotesResetSubscription()
+useTaskUpdatedSubscription()
+useLeaveSessionSubscription()
+useEndSessionSubscription()
 </script>
 
 <template>
   <div class="min-h-screen text-white">
-    <div class="max-w-[1200px] mx-auto py-3 px-4 sm:py-4 sm:px-5">
+    <div class="max-w-[1200px] mx-auto py-5 px-4 sm:py-10 sm:px-6">
       <Toaster />
-      <h1 class="text-white font-mono font-extrabold">SprintPoker🚀</h1>
+      <TheHeader />
       <RouterView />
     </div>
   </div>

@@ -1,13 +1,22 @@
 import { useRoute } from 'vue-router'
 import { useViewSession } from './useViewSession'
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { TASK_STATUS, type Task } from '@/types'
 
 export const useTasksList = () => {
   const route = useRoute()
-  const { tasks } = useViewSession(
-    route.params.sessionId as string,
-    route.params.participantId as string
+  const { tasks, variables } = useViewSession(route.params.sessionId as string)
+
+  watch(
+    () => route.params.sessionId,
+    (newValue) => {
+      if (newValue) {
+        variables.value = { id: newValue as string }
+      }
+    },
+    {
+      immediate: true
+    }
   )
 
   const activeTasks = computed(() => {

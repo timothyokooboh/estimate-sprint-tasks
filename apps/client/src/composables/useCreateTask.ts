@@ -32,7 +32,7 @@ export const useCreateTask = () => {
   `)
 
   const createNewTask = handleSubmit((userInput) => {
-    createTask({ input: { title: userInput.title, session: route.params.sessionId } })
+    createTask({ input: { title: userInput.title, sessionId: route.params.sessionId } })
   })
 
   return {

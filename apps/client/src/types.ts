@@ -8,9 +8,24 @@ export enum PARTICIPANT_STATUS {
   INACTIVE = 'INACTIVE'
 }
 
+export enum SESSION_STATUS {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE'
+}
+
+export type Session = {
+  id: string
+  title: string
+  status: SESSION_STATUS
+  tasks: Task[]
+  participants: Participant[]
+  moderator: Participant
+  votes: Vote[]
+  currentTaskId: string | null
+}
 export type Vote = {
   id: string
-  value: string
+  value: number
   participantId: string
   taskId: string
 }
@@ -19,7 +34,7 @@ export type Participant = {
   id: string
   name: string
   vote: Vote
-  status: TASK_STATUS
+  status: PARTICIPANT_STATUS
   isModerator: boolean
   votes: Vote[]
 }

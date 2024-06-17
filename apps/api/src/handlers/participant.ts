@@ -13,8 +13,8 @@ export async function viewParticipant(_, { input }, { prisma }) {
       },
     });
 
-    if (input.task) {
-      const task = await this.task(_, { id: input.task }, { prisma });
+    if (input.taskId) {
+      const task = await this.task(_, { id: input.taskId }, { prisma });
 
       participant.task = task;
     }
@@ -30,7 +30,7 @@ export async function listParticipants(_, { input }, { prisma }) {
     const participants = await prisma.participant.findMany({
       where: {
         session: {
-          id: input.session,
+          id: input.sessionId,
         },
       },
       include: {
@@ -54,7 +54,7 @@ export async function joinSession(_, { input }, { prisma }) {
     const participant = await prisma.participant.create({
       data: {
         name: input.name,
-        sessionId: input.session,
+        sessionId: input.sessionId,
         isModerator: input.isModerator,
       },
       include: {
@@ -69,7 +69,7 @@ export async function joinSession(_, { input }, { prisma }) {
 
     // publish participant added
     await pubsub.publish(PARTICIPANT_JOINED, {
-      participantAdded: participant,
+      participantJoined: participant,
     });
 
     return participant;

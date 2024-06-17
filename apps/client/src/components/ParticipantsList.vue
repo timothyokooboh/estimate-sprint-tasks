@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import InviteParticipant from '@/components/InviteParticipant.vue'
-import { User, UserCheck, Settings } from 'lucide-vue-next'
-import type { Participant, Task } from '@/types'
+import { User, UserCheck, Check, Settings } from 'lucide-vue-next'
+import { PARTICIPANT_STATUS, TASK_STATUS, type Participant, type Task } from '@/types'
 import { computed } from 'vue'
 import { getObjectProperty } from '@/helpers'
 
@@ -22,7 +22,7 @@ const isVotingOngoing = computed(() => {
 })
 
 const numberOfParticipantsYetToVote = computed(() => {
-  return props.participants?.filter((participant: Participant) => participant.vote == null).length
+  return props.participants.filter((participant: Participant) => participant.vote == null).length
 })
 </script>
 
@@ -35,6 +35,9 @@ const numberOfParticipantsYetToVote = computed(() => {
         {{ numberOfParticipantsYetToVote === 1 ? 'participant is' : 'participants are' }} yet to
         vote
       </p>
+      <p v-if="isVotingOngoing && numberOfParticipantsYetToVote === 0" class="text-[#64748B] mt-2">
+        Everyone has voted
+      </p>
     </div>
 
     <div
@@ -42,7 +45,7 @@ const numberOfParticipantsYetToVote = computed(() => {
       :key="participant.id"
       class="flex justify-between items-center border-b-[1px] border-b-[#283244] pb-3 mb-3"
     >
-      <div class="flex items-center">
+      <div class="flex items-center relative">
         <TooltipProvider v-if="participant.isModerator">
           <Tooltip>
             <TooltipTrigger>
@@ -54,11 +57,15 @@ const numberOfParticipantsYetToVote = computed(() => {
           </Tooltip>
         </TooltipProvider>
 
-        <User v-if="!participant.isModerator" :size="20" class="mr-2 text-[#64748B]" />
-
-        <span class="text-[#64748B]">{{ participant.name }}</span>
+        <User v-else :size="20" class="mr-2 text-[#64748B]" />
+        <div class="flex items-center">
+          <span class="text-[#64748B] mr-2">{{ participant.name }}</span>
+          <Check v-if="getObjectProperty(participant, 'vote.value', null) != null" :size="17" />
+        </div>
       </div>
-      <p class="text-lg">{{ getObjectProperty(participant, 'vote.value', null) }}</p>
+      <p v-if="currentTask?.status === TASK_STATUS['COMPLETED']" class="text-lg">
+        {{ getObjectProperty(participant, 'vote.value', null) }}
+      </p>
     </div>
 
     <InviteParticipant />

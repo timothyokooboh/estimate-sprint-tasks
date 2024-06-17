@@ -17,7 +17,7 @@ export function sessionActiveDirectiveTransformer(schema, directiveName) {
         const { resolve = defaultFieldResolver } = fieldConfig;
 
         fieldConfig.resolve = async function (source, args, context, info) {
-          const sessionId = context.req?.body?.variables?.input?.session;
+          const sessionId = context.req?.body?.variables?.input?.sessionId;
 
           const session = await context.prisma.session.findUnique({
             where: {

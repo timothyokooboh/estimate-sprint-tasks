@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+
 import CreateSessionModal from '@/components/CreateSessionModal.vue'
 import Button from '@/components/ui/button/Button.vue'
-import { ref } from 'vue'
 
 const isModalOpen = ref(false)
 </script>

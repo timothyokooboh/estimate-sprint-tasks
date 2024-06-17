@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import CreateSession from '@/components/CreateSessionModal.vue'
+
 import Button from '@/components/ui/button/Button.vue'
 import JoinSessionModal from '@/components/JoinSessionModal.vue'
 

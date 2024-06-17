@@ -35,7 +35,7 @@ export async function listTasks(_, { input }, { prisma }) {
       },
       where: {
         session: {
-          id: input.session,
+          id: input.sessionId,
         },
       },
       include: {
@@ -63,7 +63,7 @@ export async function createTask(_, { input }, { prisma }) {
     const task = await prisma.task.create({
       data: {
         title: input.title,
-        sessionId: input.session,
+        sessionId: input.sessionId,
       },
       include: {
         session: {
@@ -91,7 +91,7 @@ export async function bulkCreateTasks(_, { input }, { prisma }) {
   try {
     const payload = input.tasks.map((task) => ({
       title: task,
-      sessionId: input.session,
+      sessionId: input.sessionId,
     }));
 
     const tasks = await prisma.task.createManyAndReturn({

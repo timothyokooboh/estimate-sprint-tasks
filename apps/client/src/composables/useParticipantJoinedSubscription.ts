@@ -15,24 +15,15 @@ export const useParticipantJoinedSubscription = () => {
       participantJoined {
         id
         name
-        status
-        isModerator
         session {
           id
-          title
-        }
-        votes {
-          id
-          value
-          time
-          taskId
         }
       }
     }
   `)
 
   watch(result, (data) => {
-    const newParticipant = data.participantAdded
+    const newParticipant = data.participantJoined
     refetch({ id: newParticipant?.session?.id })
     toast({
       title: 'New Member',

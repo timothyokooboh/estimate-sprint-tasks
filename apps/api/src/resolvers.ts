@@ -17,14 +17,14 @@ import {
   endSession,
   listSessions,
   viewSession,
-} from "./controllers/session.js";
+} from "./handlers/session.js";
 
 import {
   joinSession,
   leaveSession,
   listParticipants,
   viewParticipant,
-} from "./controllers/participant.js";
+} from "./handlers/participant.js";
 
 import {
   bulkCreateTasks,
@@ -33,7 +33,7 @@ import {
   viewTask,
   listTasks,
   updateTask,
-} from "./controllers/task.js";
+} from "./handlers/task.js";
 
 import {
   createVote,
@@ -41,7 +41,7 @@ import {
   startVoting,
   updateVote,
   viewVoteField,
-} from "./controllers/vote.js";
+} from "./handlers/vote.js";
 
 export const resolvers = {
   Query: {
@@ -76,6 +76,14 @@ export const resolvers = {
   },
   Participant: {
     vote: viewVoteField,
+  },
+  Task: {
+    averageVote(task, _, { prisma }) {
+      const votes = task.votes.map((vote) => vote.value);
+      const sum = votes.reduce((a, b) => Number(a) + Number(b), 0);
+      const average = votes.length ? sum / votes.length : 0;
+      return average;
+    },
   },
   Subscription: {
     participantJoined: {

@@ -89,7 +89,7 @@ export const useBulkUploadTask = (session: string) => {
   }
 
   const executeBulkUploadTask = () => {
-    bulkUploadTaskMutation({ input: { tasks: tasks.value, session } })
+    bulkUploadTaskMutation({ input: { tasks: tasks.value, sessionId: session } })
   }
 
   async function onDrop(acceptedFiles: File[]) {

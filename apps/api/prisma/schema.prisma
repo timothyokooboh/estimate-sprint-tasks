@@ -66,7 +66,7 @@ model Vote {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  value String
+  value Float
   taskId String
   task Task @relation(fields: [taskId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   participantId String

@@ -40,6 +40,7 @@ const isBulkUploadModalOpen = ref(false)
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
+
     <Tabs default-value="active" class="mt-5">
       <TabsList class="bg-transparent">
         <TabsTrigger value="active"> Active </TabsTrigger>
