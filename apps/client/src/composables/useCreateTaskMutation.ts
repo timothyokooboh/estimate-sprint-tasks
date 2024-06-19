@@ -4,17 +4,8 @@ import { useCreateTaskFormValidation } from '@/composables/useCreateTaskFormVali
 import gql from 'graphql-tag'
 import { useToast } from '@/components/ui/toast/use-toast'
 
-export const useCreateTask = () => {
+export const useCreateTaskMutation = () => {
   const route = useRoute()
-  const { toast } = useToast()
-
-  const {
-    errors: formValidationError,
-    values,
-    title,
-    titleAttrs,
-    handleSubmit
-  } = useCreateTaskFormValidation()
 
   const {
     mutate: createTask,
@@ -31,16 +22,8 @@ export const useCreateTask = () => {
     }
   `)
 
-  const createNewTask = handleSubmit((userInput) => {
-    createTask({ input: { title: userInput.title, sessionId: route.params.sessionId } })
-  })
-
   return {
-    formValidationError,
-    values,
-    title,
-    titleAttrs,
-    createNewTask,
+    createTask,
     loading,
     apiError,
     onDone

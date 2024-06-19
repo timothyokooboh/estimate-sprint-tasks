@@ -12,7 +12,7 @@ import BulkUploadTask from '@/components/BulkUploadTask.vue'
 import { MoreVertical } from 'lucide-vue-next'
 import { useTasksList } from '@/composables/useTasksList'
 import { getObjectProperty } from '@/helpers'
-import type { Participant } from '@/types'
+import type { Participant, Task } from '@/types'
 
 defineProps<{
   currentUser: Participant
@@ -22,6 +22,19 @@ const { tasks, activeTasks, completedTasks } = useTasksList()
 
 const isCreateTaskModalOpen = ref(false)
 const isBulkUploadModalOpen = ref(false)
+const selectedTask = ref<Task | undefined>(undefined)
+const isEditing = ref(false)
+
+const openModalToEditTask = (task: Task) => {
+  isEditing.value = true
+  selectedTask.value = task
+  isCreateTaskModalOpen.value = true
+}
+
+const closeModal = () => {
+  isEditing.value = false
+  isCreateTaskModalOpen.value = false
+}
 </script>
 
 <template>
@@ -68,7 +81,9 @@ const isBulkUploadModalOpen = ref(false)
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem class="cursor-pointer">Commence voting</DropdownMenuItem>
-              <DropdownMenuItem class="cursor-pointer">Edit</DropdownMenuItem>
+              <DropdownMenuItem class="cursor-pointer" @click="openModalToEditTask(task)"
+                >Edit</DropdownMenuItem
+              >
               <DropdownMenuItem class="cursor-pointer">Delete</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -97,7 +112,12 @@ const isBulkUploadModalOpen = ref(false)
     </Tabs>
   </div>
 
-  <CreateTask :is-open="isCreateTaskModalOpen" @close:modal="isCreateTaskModalOpen = false" />
+  <CreateTask
+    :is-editing="isEditing"
+    :is-open="isCreateTaskModalOpen"
+    @close:modal="closeModal"
+    :default-task="selectedTask"
+  />
   <BulkUploadTask :is-open="isBulkUploadModalOpen" @close:modal="isBulkUploadModalOpen = false" />
 </template>
 

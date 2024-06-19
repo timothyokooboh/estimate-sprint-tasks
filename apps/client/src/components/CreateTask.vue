@@ -10,19 +10,62 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { useCreateTask } from '@/composables/useCreateTask'
+import { useCreateTaskMutation } from '@/composables/useCreateTaskMutation'
+import { useCreateTaskFormValidation } from '@/composables/useCreateTaskFormValidation'
 import { Loader2 } from 'lucide-vue-next'
-
-const { loading, title, titleAttrs, createNewTask, formValidationError, onDone, apiError } =
-  useCreateTask()
+import { computed, watch } from 'vue'
+import { useUpdateTaskMutation } from '@/composables/useUpdateTaskMutation'
+import type { Task } from '@/types'
+import { useRoute } from 'vue-router'
 
 const props = defineProps<{
   isOpen: boolean
+  isEditing?: boolean
+  defaultTask?: Task
 }>()
 
 const emit = defineEmits(['close:modal'])
+const route = useRoute()
 
-onDone(() => {
+const {
+  errors: formValidationError,
+  title,
+  titleAttrs,
+  handleSubmit
+} = useCreateTaskFormValidation()
+
+const {
+  loading: creatingTask,
+  createTask,
+  onDone: onCreatedTask,
+  apiError
+} = useCreateTaskMutation()
+const { loading: updatingTask, updateTask, onUpdatedTask } = useUpdateTaskMutation()
+const loading = computed(() => creatingTask.value || updatingTask.value)
+
+watch(
+  () => props.defaultTask?.title,
+  () => {
+    title.value = props.defaultTask?.title
+  },
+  {
+    immediate: true
+  }
+)
+
+const submitForm = handleSubmit((values) => {
+  if (props.isEditing) {
+    updateTask({ input: { id: props.defaultTask?.id, title: values.title } })
+  } else {
+    createTask({ input: { title: values.title, sessionId: route.params.sessionId } })
+  }
+})
+
+onCreatedTask(() => {
+  emit('close:modal')
+})
+
+onUpdatedTask(() => {
   emit('close:modal')
 })
 </script>
@@ -34,7 +77,7 @@ onDone(() => {
         <DialogTitle class="mb-3">Add Task</DialogTitle>
       </DialogHeader>
 
-      <form @submit.prevent="createNewTask">
+      <form @submit.prevent="submitForm">
         <div class="mb-5 py-4">
           <div class="">
             <Label for="session-name" class="block mb-3"> Title of task </Label>
