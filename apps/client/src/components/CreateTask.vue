@@ -83,12 +83,12 @@ onUpdatedTask(() => {
             <Label for="session-name" class="block mb-3"> Title of task </Label>
             <Input
               id="session-name"
-              class="bg-transparent mb-2"
+              class="mb-2"
               placeholder="e.g. Integrate API endpoint to list user settings"
               v-model="title"
               v-bind="titleAttrs"
             />
-            <p v-if="formValidationError['title']" class="text-xs text-[#94A3B8] mb-2">
+            <p v-if="formValidationError['title']" class="text-xs text-red-500 mb-2">
               {{ formValidationError['title'] }}
             </p>
           </div>

@@ -10,6 +10,7 @@ import { useTaskUpdatedSubscription } from '@/composables/useTaskUpdatedSubscrip
 import TheHeader from '@/components/TheHeader.vue'
 import { useLeaveSessionSubscription } from '@/composables/useLeaveSessionSubscription'
 import { useEndSessionSubscription } from '@/composables/useEndSessionSubscription'
+import { useDeleteTaskSubscription } from '@/composables/useDeleteTaskSubscription'
 
 // subscriptions
 useParticipantJoinedSubscription()
@@ -20,6 +21,7 @@ useVotesResetSubscription()
 useTaskUpdatedSubscription()
 useLeaveSessionSubscription()
 useEndSessionSubscription()
+useDeleteTaskSubscription()
 </script>
 
 <template>

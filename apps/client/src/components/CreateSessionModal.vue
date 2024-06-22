@@ -60,7 +60,7 @@ const {
               placeholder="e.g. Dev sprint planning"
               class="mb-2 bg-transparent"
             />
-            <p class="text-xs text-[#94A3B8] mb-2">{{ errors['sessionTitle'] }}</p>
+            <p class="text-xs text-red-500 mb-2">{{ errors['sessionTitle'] }}</p>
             <div class="flex items-center space-x-2">
               <Checkbox
                 type="checkbox"
@@ -83,7 +83,7 @@ const {
               placeholder="e.g. John Doe"
               class="mb-2 bg-transparent"
             />
-            <p class="text-xs text-[#94A3B8] mb-2">{{ errors['moderatorName'] }}</p>
+            <p class="text-xs text-red-500 mb-2">{{ errors['moderatorName'] }}</p>
             <div class="flex items-center space-x-2">
               <Checkbox
                 type="checkbox"

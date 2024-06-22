@@ -1,7 +1,7 @@
 [2mEnvironment variables loaded from .env[22m
 [2mPrisma schema loaded from prisma/schema.prisma[22m
 
-✔ Generated [1mPrisma Client[22m (v5.15.0)[2m to ./../../node_modules/@prisma/client[22m in 112ms
+✔ Generated [1mPrisma Client[22m (v5.15.0)[2m to ./../../node_modules/@prisma/client[22m in 79ms
 
 Start using Prisma Client in Node.js (See: [4mhttps://pris.ly/d/client[24m)
 [2m```[22m
@@ -26,69 +26,5 @@ See other ways of importing Prisma Client: [4mhttp://pris.ly/d/importing-client
 [33m[nodemon] to restart at any time, enter `rs`[39m
 [33m[nodemon] watching path(s): *.*[39m
 [33m[nodemon] watching extensions: js,mjs,cjs,json[39m
-[32m[nodemon] starting `node ./dist/index.js`[39m
-🚀 Server ready at http://localhost:4000/
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `node ./dist/index.js`[39m
-Internal error emitted on the WebSocket server. Please check your implementation. Error: listen EADDRINUSE: address already in use :::4000
-[90m    at Server.setupListenHandle [as _listen2] (node:net:1817:16)[39m
-[90m    at listenInCluster (node:net:1865:12)[39m
-[90m    at Server.listen (node:net:1953:7)[39m
-    at [90mfile:///Users/timothyokooboh/Desktop/sprint-task-estimates/apps/api/[39mdist/index.js:65:43
-    at new Promise (<anonymous>)
-    at [90mfile:///Users/timothyokooboh/Desktop/sprint-task-estimates/apps/api/[39mdist/index.js:65:7 {
-  code: [32m'EADDRINUSE'[39m,
-  errno: [33m-48[39m,
-  syscall: [32m'listen'[39m,
-  address: [32m'::'[39m,
-  port: [33m4000[39m
-}
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `node ./dist/index.js`[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `node ./dist/index.js`[39m
-🚀 Server ready at http://localhost:4000/
-[31m[nodemon] app crashed - waiting for file changes before starting...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] starting `node ./dist/index.js`[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
-[32m[nodemon] restarting due to changes...[39m
 [32m[nodemon] starting `node ./dist/index.js`[39m
 🚀 Server ready at http://localhost:4000/

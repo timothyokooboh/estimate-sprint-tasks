@@ -9,10 +9,12 @@ import {
 } from '@/components/ui/dropdown-menu'
 import CreateTask from '@/components/CreateTask.vue'
 import BulkUploadTask from '@/components/BulkUploadTask.vue'
+import DeleteTaskConfirmationModal from '@/components/DeleteTaskConfirmationModal.vue'
 import { MoreVertical } from 'lucide-vue-next'
 import { useTasksList } from '@/composables/useTasksList'
 import { getObjectProperty } from '@/helpers'
 import type { Participant, Task } from '@/types'
+import { useDeleteTaskMutation } from '@/composables/useDeleteTaskMutation'
 
 defineProps<{
   currentUser: Participant
@@ -22,6 +24,7 @@ const { tasks, activeTasks, completedTasks } = useTasksList()
 
 const isCreateTaskModalOpen = ref(false)
 const isBulkUploadModalOpen = ref(false)
+const isDeleteTaskModalOpen = ref(false)
 const selectedTask = ref<Task | undefined>(undefined)
 const isEditing = ref(false)
 
@@ -29,6 +32,12 @@ const openModalToEditTask = (task: Task) => {
   isEditing.value = true
   selectedTask.value = task
   isCreateTaskModalOpen.value = true
+}
+
+const openModalToDeleteTask = (task: Task) => {
+  console.log('delete task')
+  selectedTask.value = task
+  isDeleteTaskModalOpen.value = true
 }
 
 const closeModal = () => {
@@ -59,7 +68,6 @@ const closeModal = () => {
       <TabsList class="bg-transparent">
         <TabsTrigger value="active"> Active </TabsTrigger>
         <TabsTrigger value="completed"> Completed </TabsTrigger>
-        <TabsTrigger value="all"> All </TabsTrigger>
       </TabsList>
 
       <TabsContent value="active" class="max-h-[200px] overflow-auto">
@@ -75,6 +83,7 @@ const closeModal = () => {
           <p>
             {{ task.title }}
           </p>
+
           <DropdownMenu>
             <DropdownMenuTrigger>
               <MoreVertical :size="20" tabindex="0" />
@@ -84,7 +93,9 @@ const closeModal = () => {
               <DropdownMenuItem class="cursor-pointer" @click="openModalToEditTask(task)"
                 >Edit</DropdownMenuItem
               >
-              <DropdownMenuItem class="cursor-pointer">Delete</DropdownMenuItem>
+              <DropdownMenuItem class="cursor-pointer" @click="openModalToDeleteTask(task)"
+                >Delete</DropdownMenuItem
+              >
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -95,19 +106,26 @@ const closeModal = () => {
           There are no completed tasks
         </p>
 
-        <p v-for="task in completedTasks" :key="task.id" class="bg-[#212121] py-3 px-4 mb-2">
-          {{ task.title }}
-        </p>
-      </TabsContent>
+        <div
+          v-for="task in completedTasks"
+          :key="task.id"
+          class="flex justify-between items-center bg-[#212121] py-3 px-4 mb-2"
+        >
+          <p>
+            {{ task.title }}
+          </p>
 
-      <TabsContent value="all" class="max-h-[200px] overflow-auto">
-        <p v-if="tasks.length === 0" class="bg-[#212121] py-3 px-4 mb-2 text-center">
-          There are no tasks
-        </p>
-
-        <p v-for="task in tasks" :key="task.id" class="bg-[#212121] py-3 px-4 mb-2">
-          {{ task.title }}
-        </p>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <MoreVertical :size="20" tabindex="0" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem class="cursor-pointer" @click="openModalToDeleteTask(task)"
+                >Delete</DropdownMenuItem
+              >
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       </TabsContent>
     </Tabs>
   </div>
@@ -118,7 +136,12 @@ const closeModal = () => {
     @close:modal="closeModal"
     :default-task="selectedTask"
   />
-  <BulkUploadTask :is-open="isBulkUploadModalOpen" @close:modal="isBulkUploadModalOpen = false" />
-</template>
 
-<style scoped></style>
+  <BulkUploadTask :is-open="isBulkUploadModalOpen" @close:modal="isBulkUploadModalOpen = false" />
+
+  <DeleteTaskConfirmationModal
+    :is-open="isDeleteTaskModalOpen"
+    :task="selectedTask!"
+    @close:modal="isDeleteTaskModalOpen = false"
+  />
+</template>
