@@ -74,7 +74,7 @@ onUpdatedTask(() => {
   <Dialog :open="props.isOpen" @update:open="$emit('close:modal')">
     <DialogContent class="w-[90%] max-w-[425px]">
       <DialogHeader>
-        <DialogTitle class="mb-3">Add Task</DialogTitle>
+        <DialogTitle class="mb-3">{{ isEditing ? 'Update Task' : 'Add Task' }}</DialogTitle>
       </DialogHeader>
 
       <form @submit.prevent="submitForm">
@@ -97,7 +97,7 @@ onUpdatedTask(() => {
         <DialogFooter>
           <Button type="submit" :disabled="loading">
             <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
-            Add Task
+            {{ isEditing ? 'Update Task' : ' Add Task' }}
           </Button>
         </DialogFooter>
       </form>
