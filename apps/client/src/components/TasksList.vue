@@ -15,18 +15,31 @@ import { useTasksList } from '@/composables/useTasksList'
 import { getObjectProperty } from '@/helpers'
 import type { Participant, Task } from '@/types'
 import { useDeleteTaskMutation } from '@/composables/useDeleteTaskMutation'
+import { useStartVoting } from '@/composables/useStartVoting'
+import { useRoute } from 'vue-router'
 
 defineProps<{
   currentUser: Participant
 }>()
 
+const route = useRoute()
 const { tasks, activeTasks, completedTasks } = useTasksList()
+const { startVoting, loading: comencingVoting } = useStartVoting()
 
 const isCreateTaskModalOpen = ref(false)
 const isBulkUploadModalOpen = ref(false)
 const isDeleteTaskModalOpen = ref(false)
 const selectedTask = ref<Task | undefined>(undefined)
 const isEditing = ref(false)
+
+const commenceVoting = (task: Task) => {
+  startVoting({
+    input: {
+      taskId: task.id,
+      sessionId: route.params.sessionId
+    }
+  })
+}
 
 const openModalToEditTask = (task: Task) => {
   isEditing.value = true
@@ -89,7 +102,9 @@ const closeModal = () => {
               <MoreVertical :size="20" tabindex="0" />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-              <DropdownMenuItem class="cursor-pointer">Commence voting</DropdownMenuItem>
+              <DropdownMenuItem class="cursor-pointer" @click="commenceVoting(task)"
+                >Commence voting</DropdownMenuItem
+              >
               <DropdownMenuItem class="cursor-pointer" @click="openModalToEditTask(task)"
                 >Edit</DropdownMenuItem
               >

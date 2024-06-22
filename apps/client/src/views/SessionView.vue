@@ -21,12 +21,39 @@ import { useTasksList } from '@/composables/useTasksList'
 
 import { getObjectProperty } from '@/helpers'
 import { SESSION_STATUS, TASK_STATUS, type Participant, type Task } from '@/types'
+import { useStartVoting } from '@/composables/useStartVoting'
 
 const router = useRouter()
 const route = useRoute()
 const { toast } = useToast()
 const { variables, session, activeParticipants, loading, currentUser, tasks, refetch } =
   useViewSession(route.params.sessionId as string)
+const { activeTasks } = useTasksList()
+const { updateTask, loading: updatingTask } = useUpdateTaskMutation()
+const { resetVotes, loading: resettingVotes } = useResetVotesMutation()
+const { startVoting, loading: nextTaskLoading } = useStartVoting()
+
+const isModerator = computed(() => getObjectProperty(currentUser.value, 'isModerator', false))
+const showNoTasks = computed(() => isModerator.value && tasks.value?.length === 0)
+const showVotingStartPrompt = computed(() => {
+  return isModerator.value && tasks.value?.length > 0 && !currentTask.value
+})
+const isWaitingForModerator = computed(() => !isModerator.value && !currentTask.value)
+const isVotingOngoing = computed(() => {
+  if (!currentTask.value) return false
+  return currentTask.value.status === 'ACTIVE'
+})
+const showNextTaskButton = computed(() => {
+  return (
+    currentUser.value?.isModerator &&
+    activeTasks.value.length > 0 &&
+    currentTask.value?.status === TASK_STATUS['COMPLETED']
+  )
+})
+
+const currentTask = computed(() => {
+  return tasks.value?.find((task: Task) => task.id === session.value?.currentTaskId)
+})
 
 watch(
   () => route.params.sessionId,
@@ -60,14 +87,6 @@ watch(
   }
 )
 
-const { activeTasks } = useTasksList()
-const { updateTask, loading: updatingTask } = useUpdateTaskMutation()
-const { resetVotes, loading: resettingVotes } = useResetVotesMutation()
-
-const currentTask = computed(() => {
-  return tasks.value?.find((task: Task) => task.id === session.value?.currentTaskId)
-})
-
 const handleResetVotes = () => {
   const votes = activeParticipants.value
     ?.filter((participant: Participant) => participant.vote != null)
@@ -81,23 +100,14 @@ const handleResetVotes = () => {
   resetVotes({ input: { votes } })
 }
 
-const isModerator = computed(() => getObjectProperty(currentUser.value, 'isModerator', false))
-const showNoTasks = computed(() => isModerator.value && tasks.value?.length === 0)
-const showVotingStartPrompt = computed(() => {
-  return isModerator.value && tasks.value?.length > 0 && !currentTask.value
-})
-const isWaitingForModerator = computed(() => !isModerator.value && !currentTask.value)
-const isVotingOngoing = computed(() => {
-  if (!currentTask.value) return false
-  return currentTask.value.status === 'ACTIVE'
-})
-const showNextTaskButton = computed(() => {
-  return (
-    currentUser.value?.isModerator &&
-    activeTasks.value.length > 0 &&
-    currentTask.value?.status === TASK_STATUS['COMPLETED']
-  )
-})
+const setNextTask = () => {
+  startVoting({
+    input: {
+      taskId: activeTasks.value[0].id,
+      sessionId: route.params.sessionId
+    }
+  })
+}
 </script>
 
 <template>
@@ -166,8 +176,8 @@ const showNextTaskButton = computed(() => {
             Clear votes
           </Button>
 
-          <Button v-if="showNextTaskButton" variant="outline">
-            <Loader2 v-if="false" class="w-4 h-4 mr-2 animate-spin" />
+          <Button v-if="showNextTaskButton" variant="outline" @click="setNextTask">
+            <Loader2 v-if="nextTaskLoading" class="w-4 h-4 mr-2 animate-spin" />
             Next Task
           </Button>
         </div>

@@ -20,7 +20,7 @@ export const useEndSessionSubscription = () => {
   watch(result, () => {
     toast({
       title: 'Session Ended',
-      description: 'Moderator has ended session has ended.'
+      description: 'Moderator has ended the session.'
     })
 
     setTimeout(() => {
