@@ -22,6 +22,7 @@ import { useTasksList } from '@/composables/useTasksList'
 import { getObjectProperty } from '@/helpers'
 import { SESSION_STATUS, TASK_STATUS, type Participant, type Task } from '@/types'
 import { useStartVoting } from '@/composables/useStartVoting'
+import TheHeader from '@/components/TheHeader.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -115,7 +116,8 @@ const setNextTask = () => {
 </script>
 
 <template>
-  <div>
+  <div class="p-4 md:p-8">
+    <TheHeader />
     <!-- TODO: USE SKELETON LOADER FOR LOADING STATE-->
     <div class="mt-5 flex flex-col gap-y-[20px] sm:flex-row sm:justify-between sm:items-center">
       <div>

@@ -6,6 +6,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
+  DialogClose,
   DialogTrigger
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
@@ -73,17 +74,19 @@ onUpdatedTask(() => {
 <template>
   <Dialog :open="props.isOpen" @update:open="$emit('close:modal')">
     <DialogContent class="w-[90%] max-w-[425px]">
-      <DialogHeader>
-        <DialogTitle class="mb-3">{{ isEditing ? 'Update Task' : 'Add Task' }}</DialogTitle>
+      <DialogHeader class="text-white">
+        <DialogTitle class="mb-3 font-normal">{{
+          isEditing ? 'Update Task' : 'Add Task'
+        }}</DialogTitle>
       </DialogHeader>
 
       <form @submit.prevent="submitForm">
         <div class="mb-5 py-4">
           <div class="">
-            <Label for="session-name" class="block mb-3"> Title of task </Label>
+            <Label for="session-name" class="block mb-3 text-white"> Title of task </Label>
             <Input
               id="session-name"
-              class="mb-2"
+              class="mb-2 bg-transparent text-white"
               placeholder="e.g. Integrate API endpoint to list user settings"
               v-model="title"
               v-bind="titleAttrs"

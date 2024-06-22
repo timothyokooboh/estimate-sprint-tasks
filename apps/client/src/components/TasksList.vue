@@ -84,14 +84,14 @@ const closeModal = () => {
       </TabsList>
 
       <TabsContent value="active" class="max-h-[200px] overflow-auto">
-        <p v-if="activeTasks.length === 0" class="bg-[#212121] py-3 px-4 mb-2 text-center">
+        <p v-if="activeTasks.length === 0" class="bg-gray-800 py-3 px-4 mb-2 text-center">
           There are no active tasks
         </p>
 
         <div
           v-for="task in activeTasks"
           :key="task.id"
-          class="flex justify-between items-center bg-[#212121] py-3 px-4 mb-2"
+          class="flex justify-between items-center bg-gray-800 py-3 px-4 mb-2"
         >
           <p>
             {{ task.title }}
@@ -117,14 +117,14 @@ const closeModal = () => {
       </TabsContent>
 
       <TabsContent value="completed" class="max-h-[200px] overflow-auto">
-        <p v-if="completedTasks.length === 0" class="bg-[#212121] py-3 px-4 mb-2 text-center">
+        <p v-if="completedTasks.length === 0" class="bg-gray-800 py-3 px-4 mb-2 text-center">
           There are no completed tasks
         </p>
 
         <div
           v-for="task in completedTasks"
           :key="task.id"
-          class="flex justify-between items-center bg-[#212121] py-3 px-4 mb-2"
+          class="flex justify-between items-center bg-gray-800 py-3 px-4 mb-2"
         >
           <p>
             {{ task.title }}
