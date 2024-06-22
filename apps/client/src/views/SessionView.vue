@@ -29,7 +29,7 @@ const { toast } = useToast()
 const { variables, session, activeParticipants, loading, currentUser, tasks, refetch } =
   useViewSession(route.params.sessionId as string)
 const { activeTasks } = useTasksList()
-const { updateTask, loading: updatingTask } = useUpdateTaskMutation()
+const { updateTask, loading: updatingTask, onUpdatedTask } = useUpdateTaskMutation()
 const { resetVotes, loading: resettingVotes } = useResetVotesMutation()
 const { startVoting, loading: nextTaskLoading } = useStartVoting()
 
@@ -96,8 +96,12 @@ const handleResetVotes = () => {
 
   if (currentTask.value?.status === TASK_STATUS['COMPLETED']) {
     updateTask({ input: { id: currentTask.value.id, status: TASK_STATUS['ACTIVE'] } })
+    onUpdatedTask(() => {
+      resetVotes({ input: { votes } })
+    })
+  } else {
+    resetVotes({ input: { votes } })
   }
-  resetVotes({ input: { votes } })
 }
 
 const setNextTask = () => {
@@ -146,7 +150,7 @@ const setNextTask = () => {
 
       <BarChart
         v-if="currentTask?.status === TASK_STATUS['COMPLETED']"
-        :current-task-id="currentTask?.id"
+        :current-task="currentTask"
         :participants="activeParticipants"
         :average-vote="Number(currentTask?.averageVote)"
         class="mt-3"

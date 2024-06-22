@@ -12,13 +12,13 @@ import {
 } from 'chart.js'
 import { Bar } from 'vue-chartjs'
 
-import type { Participant } from '@/types'
+import type { Participant, Task } from '@/types'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const props = defineProps<{
   averageVote: number
-  currentTaskId: string
+  currentTask: Task
   participants: Participant[]
 }>()
 
@@ -29,7 +29,7 @@ const labels = computed(() =>
 const values = computed(() => {
   return props.participants?.map((participant) => {
     const votes = participant.votes
-    const score = votes.find((vote) => vote.taskId === props.currentTaskId)?.value
+    const score = votes.find((vote) => vote.taskId === props.currentTask?.id)?.value
     return score
   })
 })
@@ -59,6 +59,7 @@ const options = ref({
 
 <template>
   <div>
+    <p>{{ currentTask.title }}</p>
     <p class="text-[#64748B]">Average vote: {{ averageVote }}</p>
     <Bar :data="data" :options="options" />
   </div>
