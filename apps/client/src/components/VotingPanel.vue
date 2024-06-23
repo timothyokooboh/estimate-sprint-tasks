@@ -82,7 +82,7 @@ const castVote = (score: number) => {
         @click="handleCastVote(value)"
         class="h-[50px] w-[50px] flex flex-col justify-center items-center border border-[#283244] rounded-[5px] text-sm hover:bg-gray-800 duration-200"
         :class="{
-          'bg-primary text-[24px]': value == selectedVote
+          'bg-primary text-[23px]': value == selectedVote
         }"
       >
         {{ value }}
