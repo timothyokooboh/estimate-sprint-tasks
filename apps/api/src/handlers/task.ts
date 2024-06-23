@@ -1,5 +1,10 @@
 import { pubsub } from "../index.js";
-import { TASK_CREATED, TASK_DELETED, TASK_UPDATED } from "../constants.js";
+import {
+  TASK_CREATED,
+  TASK_DELETED,
+  TASK_RESET,
+  TASK_UPDATED,
+} from "../constants.js";
 
 export async function viewTask(_, { id }, { prisma }) {
   try {
@@ -164,6 +169,39 @@ export async function deleteTask(_, { id }, { prisma }) {
     });
 
     return id;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
+export async function resetTask(_, { id }, { prisma }) {
+  try {
+    const task = await prisma.task.update({
+      where: {
+        id,
+      },
+      data: {
+        status: "ACTIVE",
+        votes: {
+          deleteMany: {},
+        },
+      },
+      include: {
+        session: {
+          include: {
+            tasks: true,
+            participants: true,
+          },
+        },
+        votes: true,
+      },
+    });
+
+    await pubsub.publish(TASK_RESET, {
+      taskReset: task,
+    });
+
+    return task;
   } catch (err) {
     throw new Error(err);
   }

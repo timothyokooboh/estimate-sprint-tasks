@@ -15,7 +15,7 @@ import VotingPanel from '@/components/VotingPanel.vue'
 
 import { Loader2 } from 'lucide-vue-next'
 import { useViewSession } from '@/composables/useViewSession'
-import { useResetVotesMutation } from '@/composables/useResetVotesMutation'
+import { useResetTaskMutation } from '@/composables/useResetTaskMutation'
 import { useUpdateTaskMutation } from '@/composables/useUpdateTaskMutation'
 import { useTasksList } from '@/composables/useTasksList'
 
@@ -31,7 +31,7 @@ const { variables, session, activeParticipants, loading, currentUser, tasks, ref
   useViewSession(route.params.sessionId as string)
 const { activeTasks } = useTasksList()
 const { updateTask, loading: updatingTask, onUpdatedTask } = useUpdateTaskMutation()
-const { resetVotes, loading: resettingVotes } = useResetVotesMutation()
+const { resetTask, loading: resettingTask } = useResetTaskMutation()
 const { startVoting, loading: nextTaskLoading } = useStartVoting()
 
 const isModerator = computed(() => getObjectProperty(currentUser.value, 'isModerator', false))
@@ -55,6 +55,11 @@ const showNextTaskButton = computed(() => {
 const currentTask = computed(() => {
   return tasks.value?.find((task: Task) => task.id === session.value?.currentTaskId)
 })
+
+const test = () => {
+  console.log('please')
+  resetTask({ id: currentTask.value.id })
+}
 
 watch(
   () => route.params.sessionId,
@@ -87,23 +92,6 @@ watch(
     immediate: true
   }
 )
-
-const handleResetVotes = () => {
-  const votes = activeParticipants.value
-    ?.filter((participant: Participant) => participant.vote != null)
-    .map((participant: Participant) => {
-      return participant.vote.id
-    })
-
-  if (currentTask.value?.status === TASK_STATUS['COMPLETED']) {
-    updateTask({ input: { id: currentTask.value.id, status: TASK_STATUS['ACTIVE'] } })
-    onUpdatedTask(() => {
-      resetVotes({ input: { votes } })
-    })
-  } else {
-    resetVotes({ input: { votes } })
-  }
-}
 
 const setNextTask = () => {
   startVoting({
@@ -175,10 +163,10 @@ const setNextTask = () => {
           <Button
             v-if="currentUser?.isModerator && currentTask"
             variant="outline"
-            @click="handleResetVotes"
-            :disabled="resettingVotes"
+            @click="test"
+            :disabled="resettingTask"
           >
-            <Loader2 v-if="resettingVotes" class="w-4 h-4 mr-2 animate-spin" />
+            <Loader2 v-if="resettingTask" class="w-4 h-4 mr-2 animate-spin" />
             Clear votes
           </Button>
 
@@ -190,6 +178,7 @@ const setNextTask = () => {
 
         <ParticipantsList
           :participants="activeParticipants"
+          :is-moderator="isModerator"
           :tasks="tasks"
           :current-task-id="getObjectProperty(session, 'currentTaskId', null)"
         />

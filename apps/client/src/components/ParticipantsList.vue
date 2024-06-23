@@ -8,6 +8,7 @@ import { getObjectProperty } from '@/helpers'
 
 const props = defineProps<{
   participants: Participant[]
+  isModerator: boolean
   currentTaskId: null | string
   tasks: Task[]
 }>()
@@ -35,8 +36,15 @@ const numberOfParticipantsYetToVote = computed(() => {
         {{ numberOfParticipantsYetToVote === 1 ? 'participant is' : 'participants are' }} yet to
         vote
       </p>
-      <p v-if="isVotingOngoing && numberOfParticipantsYetToVote === 0" class="text-[#64748B] mt-2">
-        Everyone has voted
+      <p
+        v-if="isVotingOngoing && numberOfParticipantsYetToVote === 0"
+        class="text-[#64748B] text-sm mt-2"
+      >
+        <span v-if="isModerator"
+          >Everyone has voted. End voting to reveal the votes or clear votes to restart
+          voting.</span
+        >
+        <span v-else>Everyone has voted.</span>
       </p>
     </div>
 

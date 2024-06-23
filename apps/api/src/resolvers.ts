@@ -7,9 +7,9 @@ import {
   TASK_DELETED,
   TASK_UPDATED,
   VOTE_CREATED,
-  VOTES_RESET,
   VOTE_UPDATED,
   VOTING_STARTED,
+  TASK_RESET,
 } from "./constants.js";
 
 import {
@@ -33,11 +33,11 @@ import {
   viewTask,
   listTasks,
   updateTask,
+  resetTask,
 } from "./handlers/task.js";
 
 import {
   createVote,
-  resetVotes,
   startVoting,
   updateVote,
   viewVoteField,
@@ -53,18 +53,18 @@ export const resolvers = {
     listTasks: listTasks,
   },
   Mutation: {
-    joinSession: joinSession,
-    leaveSession: leaveSession,
-    createSession: createSession,
-    endSession: endSession,
-    createTask: createTask,
-    bulkCreateTasks: bulkCreateTasks,
-    updateTask: updateTask,
-    deleteTask: deleteTask,
-    createVote: createVote,
-    updateVote: updateVote,
-    resetVotes: resetVotes,
-    startVoting: startVoting,
+    joinSession,
+    leaveSession,
+    createSession,
+    endSession,
+    createTask,
+    bulkCreateTasks,
+    updateTask,
+    deleteTask,
+    resetTask,
+    createVote,
+    updateVote,
+    startVoting,
   },
   Session: {
     moderator(session) {
@@ -116,6 +116,11 @@ export const resolvers = {
         return pubsub.asyncIterator([TASK_DELETED]);
       },
     },
+    taskReset: {
+      subscribe() {
+        return pubsub.asyncIterator([TASK_RESET]);
+      },
+    },
     voteCreated: {
       subscribe() {
         return pubsub.asyncIterator([VOTE_CREATED]);
@@ -124,11 +129,6 @@ export const resolvers = {
     voteUpdated: {
       subscribe() {
         return pubsub.asyncIterator([VOTE_UPDATED]);
-      },
-    },
-    votesReset: {
-      subscribe() {
-        return pubsub.asyncIterator([VOTES_RESET]);
       },
     },
     votingStarted: {

@@ -1,10 +1,5 @@
 import { pubsub } from "../index.js";
-import {
-  VOTE_CREATED,
-  VOTES_RESET,
-  VOTE_UPDATED,
-  VOTING_STARTED,
-} from "../constants.js";
+import { VOTE_CREATED, VOTE_UPDATED, VOTING_STARTED } from "../constants.js";
 import { GraphQLError } from "graphql";
 
 export async function createVote(_, { input }, { prisma }) {
@@ -52,27 +47,6 @@ export async function updateVote(_, { input }, { prisma }) {
       voteUpdated: vote,
     });
     return vote;
-  } catch (err) {
-    throw new Error(err);
-  }
-}
-
-export async function resetVotes(_, { input }, { prisma }) {
-  try {
-    const votes = await prisma.vote.deleteMany({
-      where: {
-        id: {
-          in: input.votes,
-        },
-      },
-    });
-
-    // publish vote reset
-    await pubsub.publish(VOTES_RESET, {
-      votesReset: input.votes,
-    });
-
-    return input.votes;
   } catch (err) {
     throw new Error(err);
   }

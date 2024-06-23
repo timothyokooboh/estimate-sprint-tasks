@@ -146,9 +146,9 @@ export const typeDefs = gql`
     bulkCreateTasks(input: BulkCreateTasksInput!): [Task] @sessionActive
     updateTask(input: UpdateTaskInput!): Task
     deleteTask(id: ID!): ID
+    resetTask(id: ID!): Task
     createVote(input: CreateVoteInput!): Vote
     updateVote(input: UpdateVoteInput!): Vote
-    resetVotes(input: ResetVotesInput!): [ID]
     startVoting(input: StartVotingInput): Session @sessionActive
   }
 
@@ -159,9 +159,9 @@ export const typeDefs = gql`
     taskCreated: [Task]
     taskUpdated: Task
     taskDeleted: ID
+    taskReset: Task
     voteCreated: Vote
     voteUpdated: Vote
-    votesReset: [ID]
     votingStarted: ID # ID of the task being voted for
   }
 `;

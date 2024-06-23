@@ -5,9 +5,8 @@ import { useParticipantJoinedSubscription } from '@/composables/useParticipantJo
 import { useVotingStartedSubscription } from '@/composables/useVotingStartedSubscription'
 import { useTaskCreatedSubscription } from '@/composables/useTaskCreatedSubscription'
 import { useVoteCastedSubscription } from '@/composables/useVoteCastedSubscription'
-import { useVotesResetSubscription } from '@/composables/useVotesResetSubscription'
+import { useResetTaskSubscription } from '@/composables/useResetTaskSubscription'
 import { useTaskUpdatedSubscription } from '@/composables/useTaskUpdatedSubscription'
-import TheHeader from '@/components/TheHeader.vue'
 import { useLeaveSessionSubscription } from '@/composables/useLeaveSessionSubscription'
 import { useEndSessionSubscription } from '@/composables/useEndSessionSubscription'
 import { useDeleteTaskSubscription } from '@/composables/useDeleteTaskSubscription'
@@ -17,7 +16,7 @@ useParticipantJoinedSubscription()
 useVotingStartedSubscription()
 useTaskCreatedSubscription()
 useVoteCastedSubscription()
-useVotesResetSubscription()
+useResetTaskSubscription()
 useTaskUpdatedSubscription()
 useLeaveSessionSubscription()
 useEndSessionSubscription()

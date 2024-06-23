@@ -1,48 +1,16 @@
-<template>
-  <header class="flex justify-between items-center mb-[50px]">
-    <h1 class="text-white font-mono font-extrabold">SprintPoker🚀</h1>
-    <Button
-      v-if="currentUser && currentUser.isModerator"
-      variant="destructive"
-      :disabled="endingSession"
-      @click="
-        endSession({
-          id: route.params.sessionId as string
-        })
-      "
-    >
-      <Loader2 v-if="endingSession" class="w-4 h-4 mr-2 animate-spin" />
-      End session
-    </Button>
-    <Button
-      v-else-if="currentUser && !currentUser.isModerator"
-      variant="destructive"
-      :disabled="loading"
-      @click="
-        leaveSession({
-          participant: route.params.participantId as string
-        })
-      "
-    >
-      <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
-      Leave session
-    </Button>
-  </header>
-</template>
-
 <script setup lang="ts">
-import { Button } from '@/components/ui/button'
-import { useEndSessionMutation } from '@/composables/useEndSessionMutation'
-import { useLeaveSessionMutation } from '@/composables/useLeaveSessionMutation'
-import { useViewSession } from '@/composables/useViewSession'
-import { Loader2 } from 'lucide-vue-next'
-import { onMounted, ref, watch } from 'vue'
+import { watch, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { Button } from '@/components/ui/button'
+import { useViewSession } from '@/composables/useViewSession'
+import LeaveSessionConfirmationModal from '@/components/LeaveSessionConfirmationModal.vue'
+import EndSessionConfirmationModal from '@/components/EndSessionConfirmationModal.vue'
 
 const route = useRoute()
 const { currentUser, variables } = useViewSession(route.params.sessionId as string)
-const { leaveSession, loading } = useLeaveSessionMutation()
-const { endSession, loading: endingSession } = useEndSessionMutation()
+
+const isLeaveSessionModalOpen = ref(false)
+const isEndSessionModalOpen = ref(false)
 
 watch(
   () => route.params.sessionId,
@@ -57,4 +25,34 @@ watch(
 )
 </script>
 
-<style scoped></style>
+<template>
+  <div>
+    <header class="flex justify-between items-center mb-[50px]">
+      <h1 class="text-white font-mono font-extrabold">SprintPoker🚀</h1>
+      <Button
+        v-if="currentUser && currentUser.isModerator"
+        variant="destructive"
+        @click="isEndSessionModalOpen = true"
+      >
+        End session
+      </Button>
+      <Button
+        v-else-if="currentUser && !currentUser.isModerator"
+        variant="destructive"
+        @click="isLeaveSessionModalOpen = true"
+      >
+        Leave session
+      </Button>
+    </header>
+
+    <LeaveSessionConfirmationModal
+      :is-open="isLeaveSessionModalOpen"
+      @close:modal="isLeaveSessionModalOpen = false"
+    />
+
+    <EndSessionConfirmationModal
+      :is-open="isEndSessionModalOpen"
+      @close:modal="isEndSessionModalOpen = false"
+    />
+  </div>
+</template>
