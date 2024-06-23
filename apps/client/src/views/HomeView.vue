@@ -24,7 +24,7 @@ const isModalOpen = ref(false)
               sprint tasks.
             </p>
 
-            <Button @click="isModalOpen = true">Start Session 🚀</Button>
+            <Button @click="isModalOpen = true">Start a session 🚀</Button>
 
             <CreateSessionModal :is-open="isModalOpen" @close:modal="isModalOpen = false" />
           </div>
