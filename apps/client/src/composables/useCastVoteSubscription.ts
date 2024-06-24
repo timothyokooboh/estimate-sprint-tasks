@@ -4,13 +4,13 @@ import { useSubscription } from '@vue/apollo-composable'
 import { watch } from 'vue'
 import gql from 'graphql-tag'
 
-export const useVoteCastedSubscription = () => {
+export const useCastVoteSubscription = () => {
   const route = useRoute()
   const { refetch } = useViewSession(route.params.sessionId as string)
 
-  const { result: resultOfCreation } = useSubscription(gql`
+  const { result } = useSubscription(gql`
     subscription {
-      voteCreated {
+      voteCasted {
         id
         value
         participantId
@@ -19,18 +19,7 @@ export const useVoteCastedSubscription = () => {
     }
   `)
 
-  const { result: resultOfUpdate } = useSubscription(gql`
-    subscription {
-      voteUpdated {
-        id
-        value
-        participantId
-        taskId
-      }
-    }
-  `)
-
-  watch([resultOfCreation, resultOfUpdate], () => {
+  watch(result, () => {
     refetch({ id: route.params.sessionId as string })
   })
 }

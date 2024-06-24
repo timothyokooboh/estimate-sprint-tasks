@@ -4,7 +4,7 @@ import Toaster from '@/components/ui/toast/Toaster.vue'
 import { useParticipantJoinedSubscription } from '@/composables/useParticipantJoinedSubscription'
 import { useVotingStartedSubscription } from '@/composables/useVotingStartedSubscription'
 import { useTaskCreatedSubscription } from '@/composables/useTaskCreatedSubscription'
-import { useVoteCastedSubscription } from '@/composables/useVoteCastedSubscription'
+import { useCastVoteSubscription } from '@/composables/useCastVoteSubscription'
 import { useResetTaskSubscription } from '@/composables/useResetTaskSubscription'
 import { useTaskUpdatedSubscription } from '@/composables/useTaskUpdatedSubscription'
 import { useLeaveSessionSubscription } from '@/composables/useLeaveSessionSubscription'
@@ -15,7 +15,7 @@ import { useDeleteTaskSubscription } from '@/composables/useDeleteTaskSubscripti
 useParticipantJoinedSubscription()
 useVotingStartedSubscription()
 useTaskCreatedSubscription()
-useVoteCastedSubscription()
+useCastVoteSubscription()
 useResetTaskSubscription()
 useTaskUpdatedSubscription()
 useLeaveSessionSubscription()

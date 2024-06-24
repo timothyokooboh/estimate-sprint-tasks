@@ -57,6 +57,7 @@ export async function createSession(_, { input }, { prisma }) {
     const session = await prisma.session.create({
       data: {
         title: input.title,
+        estimationMode: input.estimationMode,
       },
     });
 

@@ -6,8 +6,7 @@ import {
   TASK_CREATED,
   TASK_DELETED,
   TASK_UPDATED,
-  VOTE_CREATED,
-  VOTE_UPDATED,
+  VOTE_CASTED,
   VOTING_STARTED,
   TASK_RESET,
 } from "./constants.js";
@@ -36,12 +35,7 @@ import {
   resetTask,
 } from "./handlers/task.js";
 
-import {
-  createVote,
-  startVoting,
-  updateVote,
-  viewVoteField,
-} from "./handlers/vote.js";
+import { castVote, startVoting, viewVoteField } from "./handlers/vote.js";
 
 export const resolvers = {
   Query: {
@@ -62,8 +56,7 @@ export const resolvers = {
     updateTask,
     deleteTask,
     resetTask,
-    createVote,
-    updateVote,
+    castVote,
     startVoting,
   },
   Session: {
@@ -121,14 +114,9 @@ export const resolvers = {
         return pubsub.asyncIterator([TASK_RESET]);
       },
     },
-    voteCreated: {
+    voteCasted: {
       subscribe() {
-        return pubsub.asyncIterator([VOTE_CREATED]);
-      },
-    },
-    voteUpdated: {
-      subscribe() {
-        return pubsub.asyncIterator([VOTE_UPDATED]);
+        return pubsub.asyncIterator([VOTE_CASTED]);
       },
     },
     votingStarted: {

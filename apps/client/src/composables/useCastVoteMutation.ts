@@ -2,20 +2,9 @@ import { useMutation } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 
 export const useCastVoteMutation = () => {
-  const { mutate: createVote, error } = useMutation(gql`
-    mutation createVote($input: CreateVoteInput!) {
-      createVote(input: $input) {
-        id
-        value
-        taskId
-        participantId
-      }
-    }
-  `)
-
-  const { mutate: updateVote } = useMutation(gql`
-    mutation updateVote($input: UpdateVoteInput!) {
-      updateVote(input: $input) {
+  const { mutate: castVote, error } = useMutation(gql`
+    mutation castVote($input: CastVoteInput!) {
+      castVote(input: $input) {
         id
         value
         taskId
@@ -25,8 +14,7 @@ export const useCastVoteMutation = () => {
   `)
 
   return {
-    createVote,
-    updateVote,
+    castVote,
     error
   }
 }

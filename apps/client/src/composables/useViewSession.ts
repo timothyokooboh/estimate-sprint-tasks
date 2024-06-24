@@ -14,6 +14,7 @@ export const useViewSession = (sessionId: string) => {
           id
           title
           status
+          estimationMode
           currentTaskId
           tasks {
             id
@@ -58,6 +59,8 @@ export const useViewSession = (sessionId: string) => {
 
   const session = computed(() => result.value?.viewSession)
 
+  const estimationMode = computed(() => session.value?.estimationMode)
+
   const participants = computed(() => {
     return session.value?.participants || []
   })
@@ -86,6 +89,7 @@ export const useViewSession = (sessionId: string) => {
     participants,
     activeParticipants,
     tasks,
+    estimationMode,
     currentUser
   }
 }

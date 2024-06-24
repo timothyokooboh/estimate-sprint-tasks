@@ -5,6 +5,5 @@ export const TASK_CREATED = "TASK_CREATED";
 export const TASK_UPDATED = "TASK_UPDATED";
 export const TASK_DELETED = "TASK_DELETED";
 export const TASK_RESET = "TASK_RESET";
-export const VOTE_CREATED = "VOTE_CREATED";
-export const VOTE_UPDATED = "VOTE_UPDATED";
+export const VOTE_CASTED = "VOTE_CASTED";
 export const VOTING_STARTED = "VOTING_STARTED";

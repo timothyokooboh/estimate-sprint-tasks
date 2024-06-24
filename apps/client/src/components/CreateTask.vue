@@ -98,7 +98,7 @@ onUpdatedTask(() => {
         </div>
 
         <DialogFooter>
-          <Button type="submit" :disabled="loading">
+          <Button type="submit" :disabled="loading" class="w-full">
             <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
             {{ isEditing ? 'Update Task' : ' Add Task' }}
           </Button>

@@ -124,7 +124,7 @@ export const typeDefs = gql`
     status: TASK_STATUS
   }
 
-  input CreateVoteInput {
+  input CastVoteInput {
     participantId: ID!
     taskId: ID!
     value: Float!
@@ -154,8 +154,7 @@ export const typeDefs = gql`
     updateTask(input: UpdateTaskInput!): Task
     deleteTask(id: ID!): ID
     resetTask(id: ID!): Task
-    createVote(input: CreateVoteInput!): Vote
-    updateVote(input: UpdateVoteInput!): Vote
+    castVote(input: CastVoteInput!): Vote
     startVoting(input: StartVotingInput): Session @sessionActive
   }
 
@@ -167,8 +166,7 @@ export const typeDefs = gql`
     taskUpdated: Task
     taskDeleted: ID
     taskReset: Task
-    voteCreated: Vote
-    voteUpdated: Vote
+    voteCasted: Vote
     votingStarted: ID # ID of the task being voted for
   }
 `;

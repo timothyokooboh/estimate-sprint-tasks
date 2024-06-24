@@ -1,15 +1,25 @@
 import { pubsub } from "../index.js";
-import { VOTE_CREATED, VOTE_UPDATED, VOTING_STARTED } from "../constants.js";
+import { VOTE_CASTED, VOTING_STARTED } from "../constants.js";
 import { GraphQLError } from "graphql";
 
-export async function createVote(_, { input }, { prisma }) {
+export async function castVote(_, { input }, { prisma }) {
   try {
-    const vote = await prisma.vote.create({
-      data: {
+    const vote = await prisma.vote.upsert({
+      where: {
+        participantId_taskId: {
+          participantId: input.participantId,
+          taskId: input.taskId,
+        },
+      },
+      update: {
+        value: input.value,
+      },
+      create: {
         participantId: input.participantId,
         taskId: input.taskId,
         value: input.value,
       },
+
       include: {
         participant: true,
         task: true,
@@ -17,35 +27,10 @@ export async function createVote(_, { input }, { prisma }) {
     });
 
     // publish vote created
-    await pubsub.publish(VOTE_CREATED, {
+    await pubsub.publish(VOTE_CASTED, {
       voteCreated: vote,
     });
 
-    return vote;
-  } catch (err) {
-    throw new Error(err);
-  }
-}
-
-export async function updateVote(_, { input }, { prisma }) {
-  try {
-    const vote = await prisma.vote.update({
-      where: {
-        id: input.id,
-      },
-      data: {
-        value: input.value,
-      },
-      include: {
-        participant: true,
-        task: true,
-      },
-    });
-
-    // publish vote updated
-    await pubsub.publish(VOTE_UPDATED, {
-      voteUpdated: vote,
-    });
     return vote;
   } catch (err) {
     throw new Error(err);
