@@ -61,8 +61,8 @@ export const typeDefs = gql`
     createdAt: String!
     updatedAt: String!
     value: Float!
-    participantId: ID!
-    participant: Participant!
+    participantId: ID
+    participant: Participant
     taskId: ID!
     task: Task!
   }

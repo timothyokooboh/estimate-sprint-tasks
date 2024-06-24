@@ -72,7 +72,9 @@ const castVote = (score: number) => {
 </script>
 
 <template>
-  <div class="py-4 px-2 border border-[#283244] rounded-[5px] sm:px-4 sm:py-5">
+  <div
+    class="flex flex-col justify-center items-center py-4 px-2 border border-[#283244] rounded-[5px] sm:px-4 sm:py-5"
+  >
     <p class="mb-2 text-sm text-center">{{ currentTask.title }}</p>
     <p class="mb-6 text-sm text-[#64748B] text-center uppercase">Cast your vote</p>
     <div class="flex flex-wrap justify-center gap-[20px] place-items-center">

@@ -45,4 +45,5 @@ export type Task = {
   sessionId: string
   status: TASK_STATUS
   votes: Vote[]
+  averageVote: number
 }

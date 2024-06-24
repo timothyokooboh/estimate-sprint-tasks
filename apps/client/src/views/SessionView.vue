@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, watch } from 'vue'
+import { computed, watch, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import VotingStartPrompt from '@/components/VotingStartPrompt.vue'
@@ -27,9 +27,10 @@ import TheHeader from '@/components/TheHeader.vue'
 const router = useRouter()
 const route = useRoute()
 const { toast } = useToast()
-const { variables, session, activeParticipants, loading, currentUser, tasks, refetch } =
-  useViewSession(route.params.sessionId as string)
-const { activeTasks } = useTasksList()
+const { variables, session, activeParticipants, loading, currentUser, refetch } = useViewSession(
+  route.params.sessionId as string
+)
+const { tasks, activeTasks } = useTasksList()
 const { updateTask, loading: updatingTask, onUpdatedTask } = useUpdateTaskMutation()
 const { resetTask, loading: resettingTask } = useResetTaskMutation()
 const { startVoting, loading: nextTaskLoading } = useStartVoting()
@@ -106,6 +107,7 @@ const setNextTask = () => {
 <template>
   <div class="p-4 md:p-8">
     <TheHeader />
+
     <!-- TODO: USE SKELETON LOADER FOR LOADING STATE-->
     <div class="mt-5 flex flex-col gap-y-[20px] sm:flex-row sm:justify-between sm:items-center">
       <div>

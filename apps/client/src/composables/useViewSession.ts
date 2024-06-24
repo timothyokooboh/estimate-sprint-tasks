@@ -20,6 +20,12 @@ export const useViewSession = (sessionId: string) => {
             title
             averageVote
             status
+            votes {
+              value
+              participant {
+                name
+              }
+            }
           }
           moderator {
             id

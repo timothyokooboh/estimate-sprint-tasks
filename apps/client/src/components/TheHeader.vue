@@ -5,9 +5,10 @@ import { Button } from '@/components/ui/button'
 import { useViewSession } from '@/composables/useViewSession'
 import LeaveSessionConfirmationModal from '@/components/LeaveSessionConfirmationModal.vue'
 import EndSessionConfirmationModal from '@/components/EndSessionConfirmationModal.vue'
+import ExportReport from '@/components/ExportReport.vue'
 
 const route = useRoute()
-const { currentUser, variables } = useViewSession(route.params.sessionId as string)
+const { currentUser, variables, session } = useViewSession(route.params.sessionId as string)
 
 const isLeaveSessionModalOpen = ref(false)
 const isEndSessionModalOpen = ref(false)
@@ -27,22 +28,26 @@ watch(
 
 <template>
   <div>
-    <header class="flex justify-between items-center mb-[50px]">
+    <header class="flex flex-wrap gap-x-[50px] gap-y-[20px] justify-between items-center mb-[50px]">
       <h1 class="text-white font-mono font-extrabold">SprintPoker🚀</h1>
-      <Button
-        v-if="currentUser && currentUser.isModerator"
-        variant="destructive"
-        @click="isEndSessionModalOpen = true"
-      >
-        End session
-      </Button>
-      <Button
-        v-else-if="currentUser && !currentUser.isModerator"
-        variant="destructive"
-        @click="isLeaveSessionModalOpen = true"
-      >
-        Leave session
-      </Button>
+
+      <div class="flex">
+        <ExportReport class="mr-3" />
+        <Button
+          v-if="currentUser && currentUser.isModerator"
+          variant="destructive"
+          @click="isEndSessionModalOpen = true"
+        >
+          End session
+        </Button>
+        <Button
+          v-else-if="currentUser && !currentUser.isModerator"
+          variant="destructive"
+          @click="isLeaveSessionModalOpen = true"
+        >
+          Leave session
+        </Button>
+      </div>
     </header>
 
     <LeaveSessionConfirmationModal

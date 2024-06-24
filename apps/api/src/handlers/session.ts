@@ -15,7 +15,11 @@ export async function viewSession(_, { id }, { prisma }) {
         },
         tasks: {
           include: {
-            votes: true,
+            votes: {
+              include: {
+                participant: true,
+              },
+            },
           },
         },
       },

@@ -27,6 +27,7 @@
     "graphql": "^16.8.1",
     "graphql-tag": "^2.12.6",
     "graphql-ws": "^5.16.0",
+    "jspdf": "^2.5.1",
     "lodash.debounce": "^4.0.8",
     "lodash.get": "^4.4.2",
     "lucide-vue-next": "^0.383.0",
