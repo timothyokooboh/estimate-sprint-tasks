@@ -22,6 +22,8 @@ export const useCreateSession = () => {
     rememberSessionTitleAttrs,
     rememberModeratorName,
     rememberModeratorNameAttrs,
+    estimationMode,
+    estimationModeAttrs,
     errors,
     values,
     handleSubmit
@@ -50,7 +52,7 @@ export const useCreateSession = () => {
   } = useJoinSessionMutation()
 
   const startSession = handleSubmit((values) => {
-    createSession({ input: { title: values.sessionTitle } })
+    createSession({ input: { title: values.sessionTitle, estimationMode: values.estimationMode } })
   })
 
   onCreatedSession((result) => {
@@ -84,6 +86,8 @@ export const useCreateSession = () => {
     rememberSessionTitleAttrs,
     rememberModeratorName,
     rememberModeratorNameAttrs,
+    estimationMode,
+    estimationModeAttrs,
     errors,
     values,
     startSession,

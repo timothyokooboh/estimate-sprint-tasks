@@ -10,14 +10,12 @@ export const useEndSessionSubscription = () => {
 
   const { result } = useSubscription(gql`
     subscription {
-      sessionEnded {
-        id
-        title
-      }
+      sessionEnded
     }
   `)
 
   watch(result, () => {
+    console.log('Done deal', result)
     toast({
       title: 'Session Ended',
       description: 'Moderator has ended the session.'

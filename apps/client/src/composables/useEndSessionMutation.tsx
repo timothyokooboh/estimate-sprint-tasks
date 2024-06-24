@@ -8,10 +8,7 @@ export const useEndSessionMutation = () => {
     error
   } = useMutation(gql`
     mutation endSession($id: ID!) {
-      endSession(id: $id) {
-        id
-        title
-      }
+      endSession(id: $id)
     }
   `)
 

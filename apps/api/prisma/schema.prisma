@@ -28,6 +28,11 @@ enum SESSION_STATUS {
   INACTIVE
 }
 
+enum ESTIMATION_MODE {
+  TIME_ESTIMATES
+  STORY_POINTS
+}
+
 model Participant {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
@@ -46,6 +51,7 @@ model Session {
   updatedAt DateTime @updatedAt
   title String @db.VarChar(255)
   status SESSION_STATUS @default(ACTIVE)
+  estimationMode ESTIMATION_MODE @default(TIME_ESTIMATES)
   participants Participant[]
   tasks Task[]
   currentTaskId String @default("") // ID of the current task being voted for

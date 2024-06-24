@@ -18,6 +18,11 @@ export const typeDefs = gql`
     INACTIVE
   }
 
+  enum ESTIMATION_MODE {
+    TIME_ESTIMATES
+    STORY_POINTS
+  }
+
   type Participant {
     id: ID!
     name: String!
@@ -36,6 +41,7 @@ export const typeDefs = gql`
     id: ID!
     title: String!
     status: SESSION_STATUS
+    estimationMode: ESTIMATION_MODE
     createdAt: String!
     updatedAt: String!
     participants: [Participant]!
@@ -93,6 +99,7 @@ export const typeDefs = gql`
 
   input CreateSessionInput {
     title: String!
+    estimationMode: ESTIMATION_MODE!
   }
 
   input JoinSessionInput {
@@ -139,7 +146,7 @@ export const typeDefs = gql`
 
   type Mutation {
     createSession(input: CreateSessionInput!): Session
-    endSession(id: ID!): Session
+    endSession(id: ID!): ID
     joinSession(input: JoinSessionInput!): Participant @sessionActive
     leaveSession(participant: ID!): Participant
     createTask(input: CreateTaskInput!): Task @sessionActive
@@ -155,7 +162,7 @@ export const typeDefs = gql`
   type Subscription {
     participantJoined: Participant
     participantLeft: Participant
-    sessionEnded: Session
+    sessionEnded: ID
     taskCreated: [Task]
     taskUpdated: Task
     taskDeleted: ID

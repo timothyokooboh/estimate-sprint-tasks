@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogTrigger
 } from '@/components/ui/dialog'
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
@@ -32,6 +33,8 @@ const {
   rememberModeratorNameAttrs,
   moderatorName,
   moderatorNameAttrs,
+  estimationMode,
+  estimationModeAttrs,
   errors,
   isModalOpen
 } = useCreateSession()
@@ -98,8 +101,27 @@ const {
           </div>
         </div>
 
+        <div>
+          <Label for="estimationMode" class="block mb-3"> How would tasks be estimated? </Label>
+          <RadioGroup
+            default-value="TIME_ESTIMATES"
+            v-model="estimationMode"
+            v-bind="estimationModeAttrs"
+          >
+            <div class="flex items-center space-x-2 mb-2">
+              <RadioGroupItem id="time" value="TIME_ESTIMATES" />
+              <Label for="time">Time estimates</Label>
+            </div>
+
+            <div class="flex items-center space-x-2">
+              <RadioGroupItem id="storyPoints" value="STORY_POINTS" />
+              <Label for="storyPoints">Story points</Label>
+            </div>
+          </RadioGroup>
+        </div>
+
         <DialogFooter>
-          <Button type="submit" :disabled="loading" class="w-full mt-3">
+          <Button type="submit" :disabled="loading" class="w-full mt-8">
             <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
             Start Session
           </Button>

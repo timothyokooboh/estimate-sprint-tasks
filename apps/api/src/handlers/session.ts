@@ -68,21 +68,18 @@ export async function createSession(_, { input }, { prisma }) {
 
 export async function endSession(_, { id }, { prisma }) {
   try {
-    const session = await prisma.session.update({
+    await prisma.session.delete({
       where: {
         id,
-      },
-      data: {
-        status: "INACTIVE",
       },
     });
 
     // publish session ended
     await pubsub.publish(SESSION_ENDED, {
-      sessionEnded: session,
+      sessionEnded: id,
     });
 
-    return session;
+    return id;
   } catch (err) {
     throw new Error(err);
   }

@@ -19,7 +19,8 @@ export const useCreateSessionFormValidation = () => {
         .default(localStorage.getItem(PARTICIPANT_NAME) ?? ''),
       rememberModeratorName: z
         .boolean()
-        .default(localStorage.getItem(PARTICIPANT_NAME) ? true : false)
+        .default(localStorage.getItem(PARTICIPANT_NAME) ? true : false),
+      estimationMode: z.enum(['TIME_ESTIMATES', 'STORY_POINTS']).default('TIME_ESTIMATES')
     })
   )
 
@@ -31,6 +32,7 @@ export const useCreateSessionFormValidation = () => {
   const [moderatorName, moderatorNameAttrs] = defineField('moderatorName')
   const [rememberSessionTitle, rememberSessionTitleAttrs] = defineField('rememberSessionTitle')
   const [rememberModeratorName, rememberModeratorNameAttrs] = defineField('rememberModeratorName')
+  const [estimationMode, estimationModeAttrs] = defineField('estimationMode')
 
   return {
     errors,
@@ -43,6 +45,8 @@ export const useCreateSessionFormValidation = () => {
     rememberModeratorName,
     rememberModeratorNameAttrs,
     rememberSessionTitle,
-    rememberSessionTitleAttrs
+    rememberSessionTitleAttrs,
+    estimationMode,
+    estimationModeAttrs
   }
 }
