@@ -34,7 +34,7 @@ const values = computed(() => {
   })
 })
 
-const data = ref({
+const data = ref<any>({
   labels: labels.value,
   datasets: [
     {
