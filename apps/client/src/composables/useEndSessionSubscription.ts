@@ -15,7 +15,6 @@ export const useEndSessionSubscription = () => {
   `)
 
   watch(result, () => {
-    console.log('Done deal', result)
     toast({
       title: 'Session Ended',
       description: 'Moderator has ended the session.'

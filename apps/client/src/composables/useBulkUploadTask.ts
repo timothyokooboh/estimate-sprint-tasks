@@ -6,15 +6,12 @@ import gql from 'graphql-tag'
 import { useToast } from '@/components/ui/toast'
 
 export const useBulkUploadTask = (session: string) => {
-  const file = ref<File>()
-  const tasks = ref<string[]>([])
   const { toast } = useToast()
   const { getInputProps, getRootProps, isDragActive } = useDropzone({ onDrop, accept: '.csv' })
   const {
     mutate: bulkUploadTaskMutation,
     loading,
-    onDone,
-    error
+    onDone
   } = useMutation(gql`
     mutation BulkUploadTask($input: BulkCreateTasksInput!) {
       bulkCreateTasks(input: $input) {
@@ -25,8 +22,14 @@ export const useBulkUploadTask = (session: string) => {
     }
   `)
 
+  const file = ref<File>()
+  const tasks = ref<string[]>([])
+
   const updateTasks = (data: { task: string }[]) => {
-    // Update the tasks array, removing any empty item
+    /**
+     * Use only data on the "task" column of the csv file.
+     * Remove empty tasks.
+     */
     tasks.value = data
       .map((task: { task: string }) => task.task)
       .filter((task: string) => Boolean(task))
@@ -41,7 +44,7 @@ export const useBulkUploadTask = (session: string) => {
     toast({
       title: 'Error',
       variant: 'destructive',
-      description: 'Kindly upload at least one file'
+      description: 'Kindly upload a csv file'
     })
 
     return false
@@ -77,7 +80,7 @@ export const useBulkUploadTask = (session: string) => {
             toast({
               title: 'Error',
               variant: 'destructive',
-              description: 'The CSV file is empty. \n Kindly add at least one task.'
+              description: 'Kindly add at least one task under the "task" column.'
             })
             reject(new Error('No tasks found in CSV'))
           } else {

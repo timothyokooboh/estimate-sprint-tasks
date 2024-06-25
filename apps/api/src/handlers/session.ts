@@ -3,6 +3,7 @@ import { SESSION_ENDED } from "../constants.js";
 
 export async function viewSession(_, { id }, { prisma }) {
   try {
+    if (!id) return null;
     const session = await prisma.session.findUnique({
       where: {
         id,

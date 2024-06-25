@@ -1,15 +1,15 @@
 import { PARTICIPANT_STATUS, type Participant } from '@/types'
-import { useLazyQuery, useQuery } from '@vue/apollo-composable'
+import { useQuery } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 import { computed, watch, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 export const useViewSession = (sessionId: string) => {
   const route = useRoute()
-  // const enabled = ref(false)
-  const { result, loading, refetch, variables } = useQuery(
+
+  const { result, refetch, loading, variables } = useQuery(
     gql`
-      query getSession($id: ID!) {
+      query getSession($id: ID) {
         viewSession(id: $id) {
           id
           title

@@ -27,6 +27,7 @@ import TheHeader from '@/components/TheHeader.vue'
 const router = useRouter()
 const route = useRoute()
 const { toast } = useToast()
+
 const { variables, session, activeParticipants, loading, currentUser, refetch } = useViewSession(
   route.params.sessionId as string
 )
@@ -56,11 +57,6 @@ const showNextTaskButton = computed(() => {
 const currentTask = computed(() => {
   return tasks.value?.find((task: Task) => task.id === session.value?.currentTaskId)
 })
-
-const test = () => {
-  console.log('please')
-  resetTask({ id: currentTask.value.id })
-}
 
 watch(
   () => route.params.sessionId,
@@ -165,7 +161,7 @@ const setNextTask = () => {
           <Button
             v-if="currentUser?.isModerator && currentTask"
             variant="outline"
-            @click="test"
+            @click="resetTask({ id: currentTask.id })"
             :disabled="resettingTask"
           >
             <Loader2 v-if="resettingTask" class="w-4 h-4 mr-2 animate-spin" />

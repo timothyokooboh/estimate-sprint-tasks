@@ -72,7 +72,9 @@ onDone(() => {
       </div>
 
       <div class="text-center">
-        <Button variant="link" class="text-white">Download a template</Button>
+        <a href="/bulk_upload_task_template.csv" download>
+          <Button variant="link" class="text-white">Download a template</Button>
+        </a>
       </div>
     </DialogContent>
   </Dialog>

@@ -92,7 +92,7 @@ export const typeDefs = gql`
     listParticipants(input: listParticipantsInput!): [Participant]
     viewParticipant(input: viewParticipantInput!): Participant
     listSessions: [Session]
-    viewSession(id: ID!): Session
+    viewSession(id: ID): Session
     listTasks(input: listTasksInput): [Task]
     viewTask(id: ID!): Task
   }

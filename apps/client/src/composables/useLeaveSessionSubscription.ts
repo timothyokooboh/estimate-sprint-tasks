@@ -20,7 +20,6 @@ export const useLeaveSessionSubscription = () => {
   `)
 
   watch(result, (data) => {
-    console.log('arguably')
     const newParticipant = data.participantLeft
     toast({
       title: 'Member Left',

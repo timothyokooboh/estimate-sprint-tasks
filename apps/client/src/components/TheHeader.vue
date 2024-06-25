@@ -31,7 +31,7 @@ watch(
     <header class="flex flex-wrap gap-x-[50px] gap-y-[20px] justify-between items-center mb-[50px]">
       <h1 class="text-white font-mono font-extrabold">SprintPoker🚀</h1>
 
-      <div class="flex">
+      <div v-if="session" class="flex">
         <ExportReport class="mr-3" />
         <Button
           v-if="currentUser && currentUser.isModerator"

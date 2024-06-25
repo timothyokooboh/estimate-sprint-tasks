@@ -7,7 +7,7 @@ import { useToast } from '@/components/ui/toast'
 
 export const useTaskCreatedSubscription = () => {
   const route = useRoute()
-  const { refetch } = useViewSession(route.params.sessionId as string)
+  const { refetch, variables } = useViewSession(route.params.sessionId as string)
   const { toast } = useToast()
   const { result } = useSubscription(gql`
     subscription {
@@ -19,6 +19,8 @@ export const useTaskCreatedSubscription = () => {
   `)
 
   watch(result, () => {
+    console.log(refetch)
+    // variables.value = { id: route.params.sessionId as string }
     refetch({ id: route.params.sessionId as string })
     toast({
       title: 'New task',

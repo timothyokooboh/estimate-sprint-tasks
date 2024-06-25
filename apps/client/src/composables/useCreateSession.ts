@@ -57,7 +57,9 @@ export const useCreateSession = () => {
 
   onCreatedSession((result) => {
     const { createSession: session } = result.data
-    addModerator({ input: { name: moderatorName.value, sessionId: session.id, isModerator: true } })
+    addModerator({
+      input: { name: moderatorName.value, sessionId: session.id, isModerator: true }
+    })
     handleRememberSessionTitle(rememberSessionTitle.value!, sessionTitle.value!)
     handleRememberParticipantName(rememberModeratorName.value!, moderatorName.value!)
   })

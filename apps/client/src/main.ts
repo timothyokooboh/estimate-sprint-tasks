@@ -9,13 +9,16 @@ import { HttpLink, split } from '@apollo/client/core'
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions' // <-- This one uses graphql-ws
 import { createClient } from 'graphql-ws'
 import { getMainDefinition } from '@apollo/client/utilities'
+import { useErrorHandling } from '@/composables/useErrorHandling'
+
+const { errorLink } = useErrorHandling()
 
 const httpLink = createHttpLink({
   // You should use an absolute URL here
   uri:
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:4000'
-      : 'https://estimate-sprint-tasks.onrender.com/'
+      : 'https://estimate-sprint-tasks.onrender.com'
 })
 
 // Create a GraphQLWsLink link:
@@ -45,7 +48,7 @@ const cache = new InMemoryCache()
 
 // Create the apollo client
 const apolloClient = new ApolloClient({
-  link,
+  link: errorLink.concat(link),
   cache
 })
 

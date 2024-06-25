@@ -20,7 +20,6 @@ export const useResetTaskSubscription = () => {
   `)
 
   watch(result, () => {
-    console.log('Done deal')
     refetch({ id: route.params.sessionId as string })
     toast({
       title: 'Task reset',

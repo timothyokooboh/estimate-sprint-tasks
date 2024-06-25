@@ -68,6 +68,18 @@ export const startVoting = async (_, { input }, { prisma }) => {
       },
     });
 
+    await prisma.task.update({
+      where: {
+        id: input.taskId,
+      },
+      data: {
+        status: "ACTIVE",
+        votes: {
+          deleteMany: {},
+        },
+      },
+    });
+
     pubsub.publish(VOTING_STARTED, { votingStarted: input.taskId });
     return session;
   } catch (err) {

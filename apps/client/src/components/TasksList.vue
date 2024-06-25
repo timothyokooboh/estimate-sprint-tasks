@@ -23,8 +23,8 @@ defineProps<{
 }>()
 
 const route = useRoute()
-const { tasks, activeTasks, completedTasks } = useTasksList()
-const { startVoting, loading: comencingVoting } = useStartVoting()
+const { activeTasks, completedTasks } = useTasksList()
+const { startVoting } = useStartVoting()
 
 const isCreateTaskModalOpen = ref(false)
 const isBulkUploadModalOpen = ref(false)
@@ -48,7 +48,6 @@ const openModalToEditTask = (task: Task) => {
 }
 
 const openModalToDeleteTask = (task: Task) => {
-  console.log('delete task')
   selectedTask.value = task
   isDeleteTaskModalOpen.value = true
 }
@@ -83,7 +82,7 @@ const closeModal = () => {
         <TabsTrigger value="completed"> Completed </TabsTrigger>
       </TabsList>
 
-      <TabsContent value="active" class="max-h-[200px] overflow-auto">
+      <TabsContent value="active" class="">
         <p v-if="activeTasks.length === 0" class="bg-gray-800 py-3 px-4 mb-2 text-center">
           There are no active tasks
         </p>
@@ -99,7 +98,11 @@ const closeModal = () => {
 
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <MoreVertical :size="20" tabindex="0" />
+              <MoreVertical
+                :size="20"
+                tabindex="0"
+                v-if="getObjectProperty(currentUser, 'isModerator', false)"
+              />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem class="cursor-pointer" @click="commenceVoting(task)"
@@ -116,7 +119,7 @@ const closeModal = () => {
         </div>
       </TabsContent>
 
-      <TabsContent value="completed" class="max-h-[200px] overflow-auto">
+      <TabsContent value="completed" class="">
         <p v-if="completedTasks.length === 0" class="bg-gray-800 py-3 px-4 mb-2 text-center">
           There are no completed tasks
         </p>
@@ -132,11 +135,18 @@ const closeModal = () => {
 
           <DropdownMenu>
             <DropdownMenuTrigger>
-              <MoreVertical :size="20" tabindex="0" />
+              <MoreVertical
+                :size="20"
+                tabindex="0"
+                v-if="getObjectProperty(currentUser, 'isModerator', false)"
+              />
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem class="cursor-pointer" @click="openModalToDeleteTask(task)"
                 >Delete</DropdownMenuItem
+              >
+              <DropdownMenuItem class="cursor-pointer" @click="commenceVoting(task)"
+                >Re-initiate voting</DropdownMenuItem
               >
             </DropdownMenuContent>
           </DropdownMenu>
