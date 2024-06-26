@@ -46,7 +46,7 @@ const isModalOpen = ref(false)
         <div class="grid gap-y-[20px] md:grid-cols-2 md:gap-7">
           <div>
             <p class="text-white leading-[120%] text-[24px] mb-2">Seamless collaboration</p>
-            <p class="text-sm mb-[34px]">
+            <p class="text-sm mb-[34px] max-w-[350px]">
               Start a session, invite
               <span class="text-[#E27600]"> unlimited number of participants </span> and begin
               real-time collaboration for free.
@@ -66,7 +66,7 @@ const isModalOpen = ref(false)
 
           <div class="md:bg-[#313131] md:py-4 md:px-[20px] md:rounded-lg">
             <p class="text-white leading-[120%] text-[24px] mb-2">Create tasks</p>
-            <p class="text-sm mb-[34px]">
+            <p class="text-sm mb-[34px] max-w-[350px]">
               Add tasks to your session either
               <span class="text-[#E27600]"> manually or by bulk uploading</span> a csv file.
             </p>
@@ -83,7 +83,7 @@ const isModalOpen = ref(false)
 
           <div class="md:bg-[#313131] md:py-4 md:px-[20px] md:rounded-lg">
             <p class="text-white leading-[120%] text-[24px] mb-2">Estimate sprint tasks</p>
-            <p class="text-sm mb-[34px]">
+            <p class="text-sm mb-[34px] max-w-[350px]">
               Provide estimates for sprint tasks either in
               <span class="text-[#E27600]"> time estimates or story points. </span>
             </p>
@@ -101,7 +101,7 @@ const isModalOpen = ref(false)
 
           <div>
             <p class="text-white leading-[120%] text-[24px] mb-2">Download PDF report.</p>
-            <p class="text-sm mb-[34px]">
+            <p class="text-sm mb-[34px] max-w-[350px]">
               Download a PDF report containing
               <span class="text-[#E27600]"> relevant data captured during the session </span> such
               as participants, tasks, votes per participant and average votes per task.

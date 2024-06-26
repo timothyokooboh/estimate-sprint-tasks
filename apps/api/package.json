@@ -9,6 +9,7 @@
     "@graphql-tools/schema": "^10.0.4",
     "@prisma/client": "^5.14.0",
     "apollo-server": "^3.13.0",
+    "connect-history-api-fallback": "^2.0.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "graphql": "^16.8.1",
