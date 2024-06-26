@@ -28,7 +28,8 @@ const { endSession, loading: endingSession } = useEndSessionMutation()
       <AlertDialogHeader>
         <AlertDialogTitle>End Session</AlertDialogTitle>
         <AlertDialogDescription>
-          Are you sure you want to end this session?
+          Are you sure you want to end this session? You can first download the report incase you
+          have not done so.
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>

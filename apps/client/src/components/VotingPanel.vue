@@ -72,7 +72,7 @@ const handleCastVote = (score: number) => {
 
 <template>
   <div
-    class="flex flex-col justify-center items-center py-4 px-2 border border-[#283244] rounded-[5px] sm:px-4 sm:py-5"
+    class="flex flex-col justify-center items-center py-4 px-2 border border-[#283244] rounded-md sm:px-4 sm:py-5"
   >
     <p class="mb-2 text-sm text-center">{{ currentTask.title }}</p>
     <p class="mb-6 text-xs text-[#64748B] text-center uppercase">

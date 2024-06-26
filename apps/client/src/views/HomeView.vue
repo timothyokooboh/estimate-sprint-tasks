@@ -3,32 +3,157 @@ import { ref } from 'vue'
 
 import CreateSessionModal from '@/components/CreateSessionModal.vue'
 import Button from '@/components/ui/button/Button.vue'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { MoveRight, Heart } from 'lucide-vue-next'
 
 const isModalOpen = ref(false)
 </script>
 
 <template>
-  <main class="min-h-screen py-4 px-4 sm:px-10">
-    <h1 class="font-mono font-extrabold">SprintPoker🚀</h1>
-    <div class="mt-[70px] p flex flex-wrap justify-center items-center gap-x-[100px] gap-y-[50px]">
-      <div class="mb-4 flex flex-col items-center">
-        <p
-          class="text-[28px] text-center font-[K2D] leading-[120%] mb-2 sm:text-[32px] md:text-[43px]"
+  <div class="min-h-screen bg-[#313131] text-white">
+    <header class="py-4 px-[20px] mb-[30px] flex items-center border-b-[2px] border-[#3E3E3E]">
+      <div class="flex items-center justify-center h-[35px] w-[35px] bg-white rounded-[50%]">
+        <p class="text-[#161616] text-xs">Poker</p>
+      </div>
+      <div class="flex-grow flex justify-center">
+        <h1 class="font-bold text-2xl font-mono">SprintPoker</h1>
+      </div>
+    </header>
+
+    <div class="max-w-[1612px] mx-auto">
+      <div class="flex flex-col items-center px-5 mb-[48px] text-center">
+        <h2
+          class="text-white text-[32px] leading-[140%] mb-2 sm:text-[40px] sm:max-w-[550px] md:text-[63px] md:max-w-[750px]"
         >
-          Estimate Sprint Tasks
-        </p>
-        <p class="max-w-[350px] text-sm text-center mb-5">
-          Collaborate in realtime with your product teammates to provide estimates for agile sprint
-          tasks.
-        </p>
+          Effortless Task Estimation for Agile Teams
+        </h2>
 
-        <Button @click="isModalOpen = true">Start a session 🚀</Button>
-
-        <CreateSessionModal :is-open="isModalOpen" @close:modal="isModalOpen = false" />
+        <p class="mb-5">Simplify sprint task estimation process with SprintPoker 🚀.</p>
+        <Button
+          variant="secondary"
+          class="rounded-[27px] mb-[34px] px-10"
+          @click="isModalOpen = true"
+          >Start a session</Button
+        >
+        <img src="/demo.svg" class="mx-auto mb-[32px]" />
       </div>
 
-      <img src="/demo.svg" class="hidden sm:block h-[500px]" />
-      <img src="/demo-mobile.svg" class="sm:hidden h-[500px]" />
+      <section class="bg-[#161616] py-[48px] px-5 mb-5 md:px-10">
+        <p class="uppercase text-white mb-3">Features</p>
+
+        <div class="grid gap-y-[20px] md:grid-cols-2 md:gap-7">
+          <div>
+            <p class="text-white leading-[120%] text-[24px] mb-2">Seamless collaboration</p>
+            <p class="text-sm mb-[34px]">
+              Start a session, invite
+              <span class="text-[#E27600]"> unlimited number of participants </span> and begin
+              real-time collaboration for free.
+            </p>
+
+            <a
+              href="#"
+              class="w-fit flex items-center gap-x-[10px] mb-3 duration-200 hover:text-blue-500"
+              @click.prevent="isModalOpen = true"
+            >
+              <MoveRight />
+              <span>Start a session</span>
+            </a>
+
+            <img src="/collaboration.png" class="mx-auto mb-4" />
+          </div>
+
+          <div class="md:bg-[#313131] md:py-4 md:px-[20px] md:rounded-lg">
+            <p class="text-white leading-[120%] text-[24px] mb-2">Create tasks</p>
+            <p class="text-sm mb-[34px]">
+              Add tasks to your session either
+              <span class="text-[#E27600]"> manually or by bulk uploading</span> a csv file.
+            </p>
+            <a
+              href="#"
+              class="w-fit flex items-center gap-x-[10px] mb-3 duration-200 hover:text-blue-500"
+              @click.prevent="isModalOpen = true"
+            >
+              <MoveRight />
+              <span>Start a session</span>
+            </a>
+            <img src="/tasks-board.png" class="mx-auto mb-4" />
+          </div>
+
+          <div class="md:bg-[#313131] md:py-4 md:px-[20px] md:rounded-lg">
+            <p class="text-white leading-[120%] text-[24px] mb-2">Estimate sprint tasks</p>
+            <p class="text-sm mb-[34px]">
+              Provide estimates for sprint tasks either in
+              <span class="text-[#E27600]"> time estimates or story points. </span>
+            </p>
+            <a
+              href="#"
+              class="w-fit flex items-center gap-x-[10px] mb-3 duration-200 hover:text-blue-500"
+              @click.prevent="isModalOpen = true"
+            >
+              <MoveRight />
+              <span>Start a session</span>
+            </a>
+
+            <img src="/estimates.png" class="mx-auto mb-4" />
+          </div>
+
+          <div>
+            <p class="text-white leading-[120%] text-[24px] mb-2">Download PDF report.</p>
+            <p class="text-sm mb-[34px]">
+              Download a PDF report containing
+              <span class="text-[#E27600]"> relevant data captured during the session </span> such
+              as participants, tasks, votes per participant and average votes per task.
+            </p>
+            <a
+              href="#"
+              class="w-fit flex items-center gap-x-[10px] mb-3 duration-200 hover:text-blue-500"
+              @click.prevent="isModalOpen = true"
+            >
+              <MoveRight />
+              <span>Start a session</span>
+            </a>
+            <img src="/report.png" class="mx-auto mb-4" />
+          </div>
+        </div>
+      </section>
+
+      <section class="py-[48px] px-5 mb-10 md:max-w-[900px] md:mx-auto">
+        <p class="uppercase text-white mb-1">Feedback</p>
+        <p class="text-white text-sm mb-4">Have any feedback? Let us know!</p>
+        <form>
+          <div class="mb-4">
+            <Label for="name" class="block mb-2">Your name</Label>
+            <Input id="name" placeholder="e.g. John Doe" class="bg-[#161616] border-0" />
+          </div>
+
+          <div class="mb-4">
+            <Label for="email" class="block mb-2">Your email address</Label>
+            <Input id="email" placeholder="e.g. John Doe" class="bg-[#161616] border-0" />
+          </div>
+
+          <div class="mb-6">
+            <Label for="feedback" class="block mb-2">Your feedback</Label>
+            <Textarea id="feedback" class="bg-[#161616] border-0" />
+          </div>
+
+          <Button class="w-full rounded-[27px]">Submit</Button>
+        </form>
+      </section>
     </div>
-  </main>
+
+    <footer
+      class="bg-[#161616] flex justify-between items-center flex-wrap gap-x-[30px] gap-y-[20px] py-[48px] px-5 text-white text-xs md:px-10"
+    >
+      <p>&copy; SprintPoker 2024</p>
+      <div class="flex items-center">
+        <span> Made with <Heart fill="red" class="inline mx-2 w-4 text-red-900" /> by &nbsp;</span>
+
+        <a href="https://github.com/timothyokooboh" target="_blank"> Timothy</a>
+      </div>
+    </footer>
+
+    <CreateSessionModal :is-open="isModalOpen" @close:modal="isModalOpen = false" />
+  </div>
 </template>

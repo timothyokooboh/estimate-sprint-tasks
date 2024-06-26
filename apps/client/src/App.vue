@@ -24,7 +24,7 @@ useDeleteTaskSubscription()
 </script>
 
 <template>
-  <div class="min-h-screen max-w-[1512px] mx-auto text-white">
+  <div class="text-white">
     <div>
       <Toaster />
       <RouterView />

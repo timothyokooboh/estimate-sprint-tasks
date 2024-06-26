@@ -6,6 +6,7 @@ import { useViewSession } from '@/composables/useViewSession'
 import LeaveSessionConfirmationModal from '@/components/LeaveSessionConfirmationModal.vue'
 import EndSessionConfirmationModal from '@/components/EndSessionConfirmationModal.vue'
 import ExportReport from '@/components/ExportReport.vue'
+import { Ban } from 'lucide-vue-next'
 
 const route = useRoute()
 const { currentUser, variables, session } = useViewSession(route.params.sessionId as string)
@@ -38,14 +39,14 @@ watch(
           variant="destructive"
           @click="isEndSessionModalOpen = true"
         >
-          End session
+          <Ban class="w-4 mr-2" /> End session
         </Button>
         <Button
           v-else-if="currentUser && !currentUser.isModerator"
           variant="destructive"
           @click="isLeaveSessionModalOpen = true"
         >
-          Leave session
+          <Ban class="w-4 mr-2" /> Leave session
         </Button>
       </div>
     </header>

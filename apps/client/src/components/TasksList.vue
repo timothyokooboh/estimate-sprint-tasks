@@ -59,7 +59,7 @@ const closeModal = () => {
 </script>
 
 <template>
-  <div class="border border-[#283244] rounded-[5px] py-4 px-4 mt-5">
+  <div class="border border-[#283244] rounded-md py-4 px-4 mt-5">
     <div class="flex justify-between items-center border-b-[1px] border-b-[#283244] pb-2">
       <span>Tasks</span>
 
@@ -90,7 +90,7 @@ const closeModal = () => {
         <div
           v-for="task in activeTasks"
           :key="task.id"
-          class="flex justify-between items-center bg-gray-800 py-3 px-4 mb-2"
+          class="bg-gray-800 flex justify-between items-center py-3 px-4 mb-2"
         >
           <p>
             {{ task.title }}
@@ -127,7 +127,7 @@ const closeModal = () => {
         <div
           v-for="task in completedTasks"
           :key="task.id"
-          class="flex justify-between items-center bg-gray-800 py-3 px-4 mb-2"
+          class="bg-gray-800 flex justify-between items-center py-3 px-4 mb-2"
         >
           <p>
             {{ task.title }}
