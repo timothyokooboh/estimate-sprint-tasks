@@ -104,7 +104,7 @@ const isModalOpen = ref(false)
             <p class="text-sm mb-[34px] max-w-[350px]">
               Download a PDF report containing
               <span class="text-[#E27600]"> relevant data captured during the session </span> such
-              as participants, tasks, votes per participant and average votes per task.
+              as participants, tasks, votes per participant and average vote per task.
             </p>
             <a
               href="#"

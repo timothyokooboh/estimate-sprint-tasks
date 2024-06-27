@@ -1,16 +1,15 @@
 import { useMutation } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
 import { useCreateSessionFormValidation } from '@/composables/useCreateSessionFormValidation'
-import { useJoinSessionMutation } from '@/composables/useJoinSessionMutation'
 import { useHandleRememberSessionTitle } from '@/composables/useHandleRememberSessionTitle'
 import { useHandleRememberParticipantName } from '@/composables/useHandleRememberParticipantName'
 import { useToast } from '@/components/ui/toast/use-toast'
 import { useRouter } from 'vue-router'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
+import type { Participant } from '@/types'
 
 export const useCreateSession = () => {
   const router = useRouter()
-  const { toast } = useToast()
   const isModalOpen = ref(true)
 
   const {
@@ -41,43 +40,36 @@ export const useCreateSession = () => {
       createSession(input: $input) {
         id
         title
+        participants {
+          id
+          isModerator
+        }
       }
     }
   `)
 
-  const {
-    joinSession: addModerator,
-    joiningSession: addingModerator,
-    onJoinedSession: onAddedModerator
-  } = useJoinSessionMutation()
-
   const startSession = handleSubmit((values) => {
-    createSession({ input: { title: values.sessionTitle, estimationMode: values.estimationMode } })
+    createSession({
+      input: {
+        title: values.sessionTitle,
+        moderator: moderatorName.value,
+        estimationMode: values.estimationMode
+      }
+    })
   })
 
   onCreatedSession((result) => {
-    const { createSession: session } = result.data
-    addModerator({
-      input: { name: moderatorName.value, sessionId: session.id, isModerator: true }
-    })
     handleRememberSessionTitle(rememberSessionTitle.value!, sessionTitle.value!)
     handleRememberParticipantName(rememberModeratorName.value!, moderatorName.value!)
-  })
 
-  onAddedModerator((result) => {
-    toast({
-      title: 'Success',
-      description: 'Your session has been created'
-    })
+    const { createSession: session } = result.data
+    const moderator = session.participants.find((user: Participant) => user.isModerator)
 
-    const { joinSession: participant } = result.data
     router.push({
       name: 'SessionView',
-      params: { sessionId: participant.session.id, participantId: participant.id }
+      params: { sessionId: session.id, participantId: moderator.id }
     })
   })
-
-  const loading = computed(() => creatingSession.value || addingModerator.value)
 
   return {
     sessionTitle,
@@ -93,7 +85,7 @@ export const useCreateSession = () => {
     errors,
     values,
     startSession,
-    loading,
+    loading: creatingSession,
     isModalOpen
   }
 }

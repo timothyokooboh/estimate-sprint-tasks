@@ -99,6 +99,7 @@ export const typeDefs = gql`
 
   input CreateSessionInput {
     title: String!
+    moderator: String!
     estimationMode: ESTIMATION_MODE!
   }
 
