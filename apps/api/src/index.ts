@@ -17,7 +17,6 @@ import history from "connect-history-api-fallback";
 
 dotenv.config();
 const app = express();
-app.use(history());
 const httpServer = http.createServer(app);
 const prisma = new PrismaClient();
 export const pubsub = new PubSub();

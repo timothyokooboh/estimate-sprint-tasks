@@ -2,7 +2,7 @@ import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router
 import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
@@ -10,14 +10,14 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/session/:sessionId/participant/:participantId',
-      name: 'SessionView',
-      component: () => import('@/views/SessionView.vue')
-    },
-    {
       path: '/session/:sessionId/join',
       name: 'JoinSession',
       component: () => import('@/views/JoinSession.vue')
+    },
+    {
+      path: '/session/:sessionId/participant/:participantId',
+      name: 'SessionView',
+      component: () => import('@/views/SessionView.vue')
     }
   ]
 })
