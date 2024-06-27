@@ -13,7 +13,6 @@ import { WebSocketServer } from "ws";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { useServer } from "graphql-ws/lib/use/ws";
 import { sessionActiveDirectiveTransformer } from "./directives.js";
-import history from "connect-history-api-fallback";
 
 dotenv.config();
 const app = express();
