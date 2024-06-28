@@ -30,45 +30,45 @@ onDone(() => {
 <template>
   <form @submit.prevent="submit">
     <div class="mb-4">
-      <Label for="name" class="block mb-2">Your name</Label>
+      <Label for="name" class="block mb-1">Your name</Label>
       <Input
         id="name"
         placeholder="e.g. John Doe"
-        class="bg-[#161616] border-0 mb-2"
+        class="bg-[#161616] border-0 mb-1"
         v-model="fullName"
         v-bind="fullNameAttrs"
       />
-      <p v-if="errors['fullName']" class="text-red-400">{{ errors['fullName'] }}</p>
+      <p v-if="errors['fullName']" class="text-sm text-red-400">{{ errors['fullName'] }}</p>
     </div>
 
     <div class="mb-4">
-      <Label for="email" class="block mb-2">Your email address</Label>
+      <Label for="email" class="block mb-1">Your email address</Label>
       <Input
         id="email"
         placeholder="e.g. John Doe"
-        class="bg-[#161616] border-0 mb-2"
+        class="bg-[#161616] border-0 mb-1"
         v-model="email"
         v-bind="emailAttrs"
       />
-      <p v-if="errors['email']" class="text-red-400">{{ errors['email'] }}</p>
+      <p v-if="errors['email']" class="text-sm text-red-400">{{ errors['email'] }}</p>
     </div>
 
     <div class="mb-6">
-      <Label for="feedback" class="block mb-2">Your feedback</Label>
+      <Label for="feedback" class="block mb-1">Your feedback</Label>
       <Textarea
         id="feedback"
         maxlength="500"
         placeholder="Type your feedback here"
-        class="bg-[#161616] border-0 mb-2"
+        class="bg-[#161616] border-0 mb-1 resize-none"
         v-model="message"
         v-bind="messageAttrs"
       />
-      <p v-if="errors['message']" class="text-red-400">{{ errors['message'] }}</p>
+      <p v-if="errors['message']" class="text-sm text-red-400">{{ errors['message'] }}</p>
     </div>
 
     <Button type="submit" :disabled="loading" class="w-full rounded-[27px]">
       <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
-      Submit
+      Send
     </Button>
   </form>
 </template>
