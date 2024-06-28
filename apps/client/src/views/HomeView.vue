@@ -3,10 +3,8 @@ import { ref } from 'vue'
 
 import CreateSessionModal from '@/components/CreateSessionModal.vue'
 import Button from '@/components/ui/button/Button.vue'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
 import { MoveRight, Heart } from 'lucide-vue-next'
+import FeedbackForm from '@/components/FeedbackForm.vue'
 
 const isModalOpen = ref(false)
 </script>
@@ -37,7 +35,7 @@ const isModalOpen = ref(false)
           @click="isModalOpen = true"
           >Start a session</Button
         >
-        <img src="/demo.svg" class="mx-auto mb-[32px]" />
+        <img src="@/assets/demo.svg" class="mx-auto mb-[32px]" />
       </div>
 
       <section class="bg-[#161616] py-[48px] px-5 mb-5 md:px-10">
@@ -122,24 +120,7 @@ const isModalOpen = ref(false)
       <section class="py-[48px] px-5 mb-10 md:max-w-[900px] md:mx-auto">
         <p class="uppercase text-white mb-1">Feedback</p>
         <p class="text-white text-sm mb-4">Have any feedback? Let us know!</p>
-        <form>
-          <div class="mb-4">
-            <Label for="name" class="block mb-2">Your name</Label>
-            <Input id="name" placeholder="e.g. John Doe" class="bg-[#161616] border-0" />
-          </div>
-
-          <div class="mb-4">
-            <Label for="email" class="block mb-2">Your email address</Label>
-            <Input id="email" placeholder="e.g. John Doe" class="bg-[#161616] border-0" />
-          </div>
-
-          <div class="mb-6">
-            <Label for="feedback" class="block mb-2">Your feedback</Label>
-            <Textarea id="feedback" class="bg-[#161616] border-0" />
-          </div>
-
-          <Button class="w-full rounded-[27px]">Submit</Button>
-        </form>
+        <FeedbackForm />
       </section>
     </div>
 
@@ -150,7 +131,9 @@ const isModalOpen = ref(false)
       <div class="flex items-center">
         <span> Made with <Heart fill="red" class="inline mx-2 w-4 text-red-900" /> by &nbsp;</span>
 
-        <a href="https://github.com/timothyokooboh" target="_blank"> Timothy</a>
+        <a href="https://github.com/timothyokooboh" target="_blank" class="hover:text-blue-500">
+          Timothy</a
+        >
       </div>
     </footer>
 

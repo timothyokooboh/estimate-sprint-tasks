@@ -6,8 +6,7 @@ import {
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger
+  DialogTitle
 } from '@/components/ui/dialog'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Input } from '@/components/ui/input'
@@ -41,11 +40,7 @@ const {
 </script>
 
 <template>
-  <Dialog
-    :open="props.isOpen"
-    @update:open="$emit('close:modal')"
-    class="backdrop-opacity-0 backdrop-brightness-0"
-  >
+  <Dialog :open="props.isOpen" @update:open="$emit('close:modal')">
     <DialogContent class="w-[90%] max-w-[425px]">
       <DialogHeader>
         <DialogTitle class="mb-3">Start a session</DialogTitle>

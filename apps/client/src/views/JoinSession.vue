@@ -38,7 +38,7 @@ const isModalOpen = ref(false)
           @click="isModalOpen = true"
           >Join session</Button
         >
-        <img src="/demo.svg" class="mx-auto" />
+        <img src="@/assets/demo.svg" class="mx-auto" />
       </div>
     </div>
 

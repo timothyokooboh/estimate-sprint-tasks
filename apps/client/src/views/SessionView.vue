@@ -1,17 +1,12 @@
 <script lang="ts" setup>
-import { computed, watch, ref } from 'vue'
+import { computed, watch, ref, defineAsyncComponent } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-import VotingStartPrompt from '@/components/VotingStartPrompt.vue'
-import WaitingForModerator from '@/components/WaitingForModerator.vue'
 import ParticipantsList from '@/components/ParticipantsList.vue'
-import NoTask from '@/components/NoTask.vue'
 import InviteParticipant from '@/components/InviteParticipant.vue'
 import TasksList from '@/components/TasksList.vue'
 import Button from '@/components/ui/button/Button.vue'
-import BarChart from '@/components/BarChart.vue'
 import { useToast } from '@/components/ui/toast'
-import VotingPanel from '@/components/VotingPanel.vue'
 
 import { Loader2 } from 'lucide-vue-next'
 import { useViewSession } from '@/composables/useViewSession'
@@ -23,6 +18,16 @@ import { getObjectProperty } from '@/helpers'
 import { SESSION_STATUS, TASK_STATUS, type Participant, type Task } from '@/types'
 import { useStartVoting } from '@/composables/useStartVoting'
 import TheHeader from '@/components/TheHeader.vue'
+import SessionLoader from '@/components/SessionLoader.vue'
+
+// Async components
+const NoTask = defineAsyncComponent(() => import('@/components/NoTask.vue'))
+const VotingStartPrompt = defineAsyncComponent(() => import('@/components/VotingStartPrompt.vue'))
+const VotingPanel = defineAsyncComponent(() => import('@/components/VotingPanel.vue'))
+const WaitingForModerator = defineAsyncComponent(
+  () => import('@/components/WaitingForModerator.vue')
+)
+const BarChart = defineAsyncComponent(() => import('@/components/BarChart.vue'))
 
 const router = useRouter()
 const route = useRoute()
@@ -102,89 +107,93 @@ const setNextTask = () => {
 
 <template>
   <div class="bg-[#161616] min-h-screen p-4 md:p-8">
-    <TheHeader />
+    <SessionLoader v-if="loading" />
 
-    <div class="max-w-[1612px] mx-auto">
-      <!-- TODO: USE SKELETON LOADER FOR LOADING STATE-->
-      <div class="mt-5 flex flex-col gap-y-[20px] sm:flex-row sm:justify-between sm:items-center">
-        <div>
-          <p class="text-white text-[18px] sm:text-2xl">
-            Hello, {{ getObjectProperty(currentUser, 'name') }}!
-          </p>
-          <p class="text-[#64748B]">Welcome to {{ getObjectProperty(session, 'title') }}.</p>
-        </div>
+    <div v-else class="max-w-[1512px] mx-auto">
+      <TheHeader />
 
-        <InviteParticipant class="sm:w-[300px]" />
-      </div>
-
-      <div class="mt-5 grid gap-x-[40px] gap-y-[20px] md:grid-cols-2">
-        <NoTask v-if="showNoTasks" />
-
-        <VotingStartPrompt
-          v-if="showVotingStartPrompt"
-          :task-id="tasks[0]?.id"
-          :session-id="route.params.sessionId as string"
-        />
-
-        <WaitingForModerator
-          v-if="isWaitingForModerator"
-          :moderatorName="getObjectProperty(session, 'moderator.name', '')"
-          class="flex flex-col items-center justify-center py-8 px-4 border border-[#283244] rounded-md"
-        />
-
-        <VotingPanel
-          v-if="currentTask?.status === TASK_STATUS['ACTIVE']"
-          :current-task="currentTask"
-        />
-
-        <BarChart
-          v-if="currentTask?.status === TASK_STATUS['COMPLETED']"
-          :current-task="currentTask"
-          :participants="activeParticipants"
-          :average-vote="Number(currentTask?.averageVote)"
-          class="mt-3"
-        />
-
-        <div class="border border-[#283244] rounded-md py-5 px-4 h-fit">
-          <div class="flex gap-x-[10px] mb-4">
-            <Button
-              v-if="currentUser?.isModerator && isVotingOngoing"
-              variant="outline"
-              :disabled="updatingTask"
-              @click="
-                updateTask({ input: { id: currentTask?.id, status: TASK_STATUS['COMPLETED'] } })
-              "
-            >
-              <Loader2 v-if="updatingTask" class="w-4 h-4 mr-2 animate-spin" />
-              End voting
-            </Button>
-
-            <Button
-              v-if="currentUser?.isModerator && currentTask"
-              variant="outline"
-              @click="resetTask({ id: currentTask.id })"
-              :disabled="resettingTask"
-            >
-              <Loader2 v-if="resettingTask" class="w-4 h-4 mr-2 animate-spin" />
-              Clear votes
-            </Button>
-
-            <Button v-if="showNextTaskButton" variant="outline" @click="setNextTask">
-              <Loader2 v-if="nextTaskLoading" class="w-4 h-4 mr-2 animate-spin" />
-              Next Task
-            </Button>
+      <div>
+        <!-- TODO: USE SKELETON LOADER FOR LOADING STATE-->
+        <div class="mt-5 flex flex-col gap-y-[20px] sm:flex-row sm:justify-between sm:items-center">
+          <div>
+            <p class="text-white text-[18px] sm:text-2xl">
+              Hello, {{ getObjectProperty(currentUser, 'name') }}!
+            </p>
+            <p class="text-[#64748B]">Welcome to {{ getObjectProperty(session, 'title') }}.</p>
           </div>
 
-          <ParticipantsList
-            :participants="activeParticipants"
-            :is-moderator="isModerator"
-            :tasks="tasks"
-            :current-task-id="getObjectProperty(session, 'currentTaskId', null)"
-          />
+          <InviteParticipant class="sm:w-[300px]" />
         </div>
-      </div>
 
-      <TasksList :currentUser="currentUser" />
+        <div class="mt-5 grid gap-x-[40px] gap-y-[20px] md:grid-cols-2">
+          <NoTask v-if="showNoTasks" />
+
+          <VotingStartPrompt
+            v-if="showVotingStartPrompt"
+            :task-id="tasks[0]?.id"
+            :session-id="route.params.sessionId as string"
+          />
+
+          <WaitingForModerator
+            v-if="isWaitingForModerator"
+            :moderatorName="getObjectProperty(session, 'moderator.name', '')"
+            class="flex flex-col items-center justify-center py-8 px-4 border border-[#283244] rounded-md"
+          />
+
+          <VotingPanel
+            v-if="currentTask?.status === TASK_STATUS['ACTIVE']"
+            :current-task="currentTask"
+          />
+
+          <BarChart
+            v-if="currentTask?.status === TASK_STATUS['COMPLETED']"
+            :current-task="currentTask"
+            :participants="activeParticipants"
+            :average-vote="Number(currentTask?.averageVote)"
+            class="mt-3"
+          />
+
+          <div class="border border-[#283244] rounded-md py-5 px-4 h-fit">
+            <div class="flex gap-x-[10px] mb-4">
+              <Button
+                v-if="currentUser?.isModerator && isVotingOngoing"
+                variant="outline"
+                :disabled="updatingTask"
+                @click="
+                  updateTask({ input: { id: currentTask?.id, status: TASK_STATUS['COMPLETED'] } })
+                "
+              >
+                <Loader2 v-if="updatingTask" class="w-4 h-4 mr-2 animate-spin" />
+                End voting
+              </Button>
+
+              <Button
+                v-if="currentUser?.isModerator && currentTask"
+                variant="outline"
+                @click="resetTask({ id: currentTask.id })"
+                :disabled="resettingTask"
+              >
+                <Loader2 v-if="resettingTask" class="w-4 h-4 mr-2 animate-spin" />
+                Clear votes
+              </Button>
+
+              <Button v-if="showNextTaskButton" variant="outline" @click="setNextTask">
+                <Loader2 v-if="nextTaskLoading" class="w-4 h-4 mr-2 animate-spin" />
+                Next Task
+              </Button>
+            </div>
+
+            <ParticipantsList
+              :participants="activeParticipants"
+              :is-moderator="isModerator"
+              :tasks="tasks"
+              :current-task-id="getObjectProperty(session, 'currentTaskId', null)"
+            />
+          </div>
+        </div>
+
+        <TasksList :currentUser="currentUser" />
+      </div>
     </div>
   </div>
 </template>

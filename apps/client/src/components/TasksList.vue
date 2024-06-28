@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import {
   DropdownMenu,
@@ -7,16 +8,21 @@ import {
   DropdownMenuContent,
   DropdownMenuItem
 } from '@/components/ui/dropdown-menu'
-import CreateTask from '@/components/CreateTask.vue'
-import BulkUploadTask from '@/components/BulkUploadTask.vue'
-import DeleteTaskConfirmationModal from '@/components/DeleteTaskConfirmationModal.vue'
+
 import { MoreVertical } from 'lucide-vue-next'
 import { useTasksList } from '@/composables/useTasksList'
 import { getObjectProperty } from '@/helpers'
-import type { Participant, Task } from '@/types'
-import { useDeleteTaskMutation } from '@/composables/useDeleteTaskMutation'
 import { useStartVoting } from '@/composables/useStartVoting'
-import { useRoute } from 'vue-router'
+import type { Participant, Task } from '@/types'
+
+// Async components
+const CreateTaskModal = defineAsyncComponent(() => import('@/components/CreateTaskModal.vue'))
+const BulkUploadTaskModal = defineAsyncComponent(
+  () => import('@/components/BulkUploadTaskModal.vue')
+)
+const DeleteTaskConfirmationModal = defineAsyncComponent(
+  () => import('@/components/DeleteTaskConfirmationModal.vue')
+)
 
 defineProps<{
   currentUser: Participant
@@ -155,18 +161,24 @@ const closeModal = () => {
     </Tabs>
   </div>
 
-  <CreateTask
+  <CreateTaskModal
+    v-if="isCreateTaskModalOpen"
     :is-editing="isEditing"
     :is-open="isCreateTaskModalOpen"
     @close:modal="closeModal"
     :default-task="selectedTask"
   />
 
-  <BulkUploadTask :is-open="isBulkUploadModalOpen" @close:modal="isBulkUploadModalOpen = false" />
+  <BulkUploadTaskModal
+    v-if="isBulkUploadModalOpen"
+    :is-open="isBulkUploadModalOpen"
+    @close:modal="isBulkUploadModalOpen = false"
+  />
 
   <DeleteTaskConfirmationModal
+    v-if="isDeleteTaskModalOpen && selectedTask"
     :is-open="isDeleteTaskModalOpen"
-    :task="selectedTask!"
+    :task="selectedTask"
     @close:modal="isDeleteTaskModalOpen = false"
   />
 </template>

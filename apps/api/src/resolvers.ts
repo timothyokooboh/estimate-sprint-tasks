@@ -36,6 +36,7 @@ import {
 } from "./handlers/task.js";
 
 import { castVote, startVoting, viewVoteField } from "./handlers/vote.js";
+import { sendFeedback } from "./handlers/feedback..js";
 
 export const resolvers = {
   Query: {
@@ -58,6 +59,7 @@ export const resolvers = {
     resetTask,
     castVote,
     startVoting,
+    sendFeedback,
   },
   Session: {
     moderator(session) {

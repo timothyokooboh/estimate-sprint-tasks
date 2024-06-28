@@ -56,26 +56,21 @@ export async function listSessions(_, __, { prisma }) {
 export async function createSession(_, { input }, { prisma }) {
   try {
     // create a session and a participant (moderator) to the session
-
     const session = await prisma.session.create({
       data: {
         title: input.title,
         estimationMode: input.estimationMode,
+        participants: {
+          create: {
+            name: input.moderator,
+            isModerator: true,
+          },
+        },
       },
       include: {
         participants: true,
       },
     });
-
-    const participant = await prisma.participant.create({
-      data: {
-        name: input.moderator,
-        sessionId: session.id,
-        isModerator: true,
-      },
-    });
-
-    session.participants.push(participant);
 
     return session;
   } catch (err) {

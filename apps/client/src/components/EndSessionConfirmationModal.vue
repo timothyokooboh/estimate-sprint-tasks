@@ -18,6 +18,8 @@ const props = defineProps<{
   isOpen: boolean
 }>()
 
+defineEmits(['close:modal'])
+
 const route = useRoute()
 const { endSession, loading: endingSession } = useEndSessionMutation()
 </script>

@@ -18,6 +18,8 @@ const props = defineProps<{
   task: Task
 }>()
 
+defineEmits(['close:modal'])
+
 const { deleteTask, loading: deletingTask } = useDeleteTaskMutation()
 </script>
 

@@ -1,8 +1,12 @@
 <script lang="ts" setup>
-import CreateTask from '@/components/CreateTask.vue'
-import BulkUploadTask from '@/components/BulkUploadTask.vue'
-import Button from './ui/button/Button.vue'
-import { ref } from 'vue'
+import { defineAsyncComponent, ref } from 'vue'
+import Button from '@/components/ui/button/Button.vue'
+
+// Async components
+const CreateTaskModal = defineAsyncComponent(() => import('@/components/CreateTaskModal.vue'))
+const BulkUploadTaskModal = defineAsyncComponent(
+  () => import('@/components/BulkUploadTaskModal.vue')
+)
 
 const isCreateTaskModalOpen = ref(false)
 const isBulkUploadModalOpen = ref(false)
@@ -20,7 +24,16 @@ const isBulkUploadModalOpen = ref(false)
       </Button>
     </div>
 
-    <CreateTask :is-open="isCreateTaskModalOpen" @close:modal="isCreateTaskModalOpen = false" />
-    <BulkUploadTask :is-open="isBulkUploadModalOpen" @close:modal="isBulkUploadModalOpen = false" />
+    <CreateTaskModal
+      v-if="isCreateTaskModalOpen"
+      :is-open="isCreateTaskModalOpen"
+      @close:modal="isCreateTaskModalOpen = false"
+    />
+
+    <BulkUploadTaskModal
+      v-if="isBulkUploadModalOpen"
+      :is-open="isBulkUploadModalOpen"
+      @close:modal="isBulkUploadModalOpen = false"
+    />
   </div>
 </template>

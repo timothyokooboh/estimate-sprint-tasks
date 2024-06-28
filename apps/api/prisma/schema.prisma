@@ -81,3 +81,11 @@ model Vote {
   @@unique([participantId, taskId])
 }
 
+model Feedback {
+  id String @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  fullName String
+  email String
+  message String @db.VarChar(500)
+}

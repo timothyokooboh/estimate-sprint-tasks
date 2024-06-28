@@ -73,6 +73,15 @@ export const typeDefs = gql`
     task: Task!
   }
 
+  type Feedback {
+    id: ID!
+    createdAt: String!
+    updatedAt: String!
+    fullName: String!
+    email: String!
+    message: String!
+  }
+
   input listParticipantsInput {
     sessionId: ID!
     taskId: ID
@@ -145,6 +154,12 @@ export const typeDefs = gql`
     taskId: ID!
   }
 
+  input SendFeedbackInput {
+    fullName: String!
+    email: String!
+    message: String!
+  }
+
   type Mutation {
     createSession(input: CreateSessionInput!): Session
     endSession(id: ID!): ID
@@ -157,6 +172,7 @@ export const typeDefs = gql`
     resetTask(id: ID!): Task
     castVote(input: CastVoteInput!): Vote
     startVoting(input: StartVotingInput): Session @sessionActive
+    sendFeedback(input: SendFeedbackInput!): Feedback
   }
 
   type Subscription {

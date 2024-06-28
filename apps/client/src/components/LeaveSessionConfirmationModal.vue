@@ -17,6 +17,8 @@ const props = defineProps<{
   isOpen: boolean
 }>()
 
+defineEmits(['close:modal'])
+
 const route = useRoute()
 const { leaveSession, loading: leavingSession } = useLeaveSessionMutation()
 </script>
