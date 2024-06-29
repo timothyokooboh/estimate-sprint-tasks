@@ -68,7 +68,7 @@ defineEmits(['open:modal'])
       <div class="border border-[#313131] py-3 px-5 rounded-lg">
         <p class="text-white leading-[120%] text-[24px] mb-2">Download PDF report.</p>
         <p class="text-sm mb-[34px] max-w-[350px]">
-          Download a PDF report containing
+          Download a basic PDF report capturing
           <span class="text-[#E27600]"> relevant data captured during the session </span> such as
           participants, tasks, votes per participant and average vote per task.
         </p>

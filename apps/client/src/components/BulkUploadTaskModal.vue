@@ -11,7 +11,7 @@ import {
 import { UploadCloud, Loader2 } from 'lucide-vue-next'
 import { useBulkUploadTask } from '@/composables/useBulkUploadTask'
 import { useRoute } from 'vue-router'
-import BaseTransition from './BaseTransition.vue'
+import AppTransition from '@/components/AppTransition.vue'
 import { useToast } from '@/components/ui/toast'
 
 const route = useRoute()
@@ -49,7 +49,7 @@ onDone(() => {
         <div class="flex flex-col items-center justify-center py-4">
           <UploadCloud class="mb-3" />
 
-          <BaseTransition from="bottom">
+          <AppTransition from="bottom">
             <div v-if="loading" key="loader" class="flex items-center gap-x-[10px]">
               <Loader2 :size="40" class="animate-spin" />
               <p>Uploading tasks...</p>
@@ -59,7 +59,7 @@ onDone(() => {
               <p class="text-sm">Drag file here or click to upload.</p>
               <p class="text-xs mb-2">.csv file only.</p>
             </div>
-          </BaseTransition>
+          </AppTransition>
 
           <p v-if="fileName" class="text-sm">{{ fileName }}</p>
         </div>

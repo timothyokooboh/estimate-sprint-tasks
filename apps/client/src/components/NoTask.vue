@@ -16,7 +16,7 @@ const isBulkUploadModalOpen = ref(false)
   <div
     class="flex flex-col items-center justify-center border border-[#283244] rounded-md py-8 px-4"
   >
-    <p class="mb-5">You are yet to create any tasks</p>
+    <p class="mb-5">Create Tasks</p>
     <div class="flex flex-wrap items-center justify-center gap-[10px]">
       <Button class="grow" @click="isCreateTaskModalOpen = true">Add Task</Button>
       <Button variant="outline" class="grow" @click="isBulkUploadModalOpen = true">

@@ -1,23 +1,20 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { computed } from 'vue'
+
 const props = withDefaults(
   defineProps<{
     from?: 'top' | 'bottom' | 'left' | 'right'
   }>(),
   {
-    from: 'top'
+    from: 'bottom'
   }
 )
 
 const transform = computed(() => {
-  if (props.from === 'top') {
-    return 'translateY(-10px)'
-  } else if (props.from === 'bottom') {
-    return 'translateY(10px)'
-  } else if (props.from === 'left') {
-    return 'translateX(-10px)'
-  }
-  return 'translateX(10px)'
+  if (props.from === 'top') return 'translateY(-30px)'
+  else if (props.from === 'bottom') return 'translateY(30px)'
+  else if (props.from === 'left') return 'translateX(-30px)'
+  return 'translateX(30px)'
 })
 </script>
 
@@ -27,10 +24,10 @@ const transform = computed(() => {
   </Transition>
 </template>
 
-<style scoped>
+<style>
 .slide-enter-active,
 .slide-leave-active {
-  transition: all 200s ease;
+  transition: all 0.3s ease-in-out;
 }
 
 .slide-enter-from,

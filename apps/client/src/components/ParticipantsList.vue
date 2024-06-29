@@ -41,10 +41,14 @@ const numberOfParticipantsYetToVote = computed(() => {
         class="text-[#64748B] text-sm mt-2"
       >
         <span v-if="isModerator"
-          >Everyone has voted. End voting to reveal the votes or clear votes to restart
-          voting.</span
+          >Everyone has voted! <br />
+          Reveal their votes by clicking "End Voting" or clear their votes by clicking "Clear
+          votes".</span
         >
-        <span v-else>Everyone has voted.</span>
+        <span v-else
+          >Everyone has voted! <br />
+          Waiting for moderator to either reveal or clear the votes.</span
+        >
       </p>
     </div>
 

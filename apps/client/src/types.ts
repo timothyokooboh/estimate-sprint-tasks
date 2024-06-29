@@ -52,3 +52,10 @@ export type Task = {
   votes: Vote[]
   averageVote: number
 }
+
+export type Activity =
+  | 'No task'
+  | 'Start voting'
+  | 'Waiting for moderator'
+  | 'Voting panel'
+  | 'Bar chart'

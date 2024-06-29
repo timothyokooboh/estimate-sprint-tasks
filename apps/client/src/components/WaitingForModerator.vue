@@ -12,7 +12,7 @@ defineProps<{
   >
     <Clock :size="50" class="mb-3" />
     <p class="max-w-[200px] text-center">
-      Waiting for {{ moderatorName }} to start the voting session
+      Waiting for {{ moderatorName }} to open the voting activity
     </p>
   </div>
 </template>

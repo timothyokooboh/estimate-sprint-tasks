@@ -59,7 +59,7 @@ const options = ref({
 
 <template>
   <div>
-    <p>{{ currentTask.title }}</p>
+    <p>{{ currentTask?.title }}</p>
     <p class="text-[#64748B]" v-if="averageVote">Average vote: {{ averageVote.toFixed(2) }}</p>
     <Bar :data="data" :options="options" />
   </div>

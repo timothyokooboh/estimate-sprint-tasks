@@ -15,10 +15,11 @@ import { useUpdateTaskMutation } from '@/composables/useUpdateTaskMutation'
 import { useTasksList } from '@/composables/useTasksList'
 
 import { getObjectProperty } from '@/helpers'
-import { SESSION_STATUS, TASK_STATUS, type Participant, type Task } from '@/types'
+import { SESSION_STATUS, TASK_STATUS, type Activity, type Participant, type Task } from '@/types'
 import { useStartVoting } from '@/composables/useStartVoting'
 import TheHeader from '@/components/TheHeader.vue'
 import SessionLoader from '@/components/SessionLoader.vue'
+import AppTransition from '@/components/AppTransition.vue'
 
 // Async components
 const NoTask = defineAsyncComponent(() => import('@/components/NoTask.vue'))
@@ -44,7 +45,7 @@ const { startVoting, loading: nextTaskLoading } = useStartVoting()
 const isModerator = computed(() => getObjectProperty(currentUser.value, 'isModerator', false))
 const showNoTasks = computed(() => isModerator.value && tasks.value?.length === 0)
 const showVotingStartPrompt = computed(() => {
-  return isModerator.value && tasks.value?.length > 0 && !currentTask.value
+  return isModerator.value && activeTasks.value?.length > 0 && !currentTask.value
 })
 const isWaitingForModerator = computed(() => !isModerator.value && !currentTask.value)
 const isVotingOngoing = computed(() => {
@@ -61,6 +62,16 @@ const showNextTaskButton = computed(() => {
 
 const currentTask = computed(() => {
   return tasks.value?.find((task: Task) => task.id === session.value?.currentTaskId)
+})
+
+const activity = computed<Activity>(() => {
+  if (showNoTasks.value) return 'No task'
+  if (showVotingStartPrompt.value) return 'Start voting'
+  if (isWaitingForModerator.value) return 'Waiting for moderator'
+  if (currentTask.value && currentTask.value.status === TASK_STATUS['ACTIVE']) return 'Voting panel'
+  else if (currentTask.value && currentTask.value.status === TASK_STATUS['COMPLETED'])
+    return 'Bar chart'
+  return 'No task'
 })
 
 watch(
@@ -113,7 +124,6 @@ const setNextTask = () => {
       <TheHeader />
 
       <div>
-        <!-- TODO: USE SKELETON LOADER FOR LOADING STATE-->
         <div class="mt-5 flex flex-col gap-y-[20px] sm:flex-row sm:justify-between sm:items-center">
           <div>
             <p class="text-white text-[18px] sm:text-2xl">
@@ -126,46 +136,47 @@ const setNextTask = () => {
         </div>
 
         <div class="mt-5 grid gap-x-[40px] gap-y-[20px] md:grid-cols-2">
-          <NoTask v-if="showNoTasks" />
+          <AppTransition>
+            <NoTask v-if="activity === 'No task'" />
 
-          <VotingStartPrompt
-            v-if="showVotingStartPrompt"
-            :task-id="tasks[0]?.id"
-            :session-id="route.params.sessionId as string"
-          />
+            <VotingStartPrompt
+              v-if="activity === 'Start voting'"
+              :task-id="tasks[0]?.id"
+              :session-id="route.params.sessionId as string"
+            />
 
-          <WaitingForModerator
-            v-if="isWaitingForModerator"
-            :moderatorName="getObjectProperty(session, 'moderator.name', '')"
-            class="flex flex-col items-center justify-center py-8 px-4 border border-[#283244] rounded-md"
-          />
+            <WaitingForModerator
+              v-if="activity === 'Waiting for moderator'"
+              :moderatorName="getObjectProperty(session, 'moderator.name', '')"
+              class="flex flex-col items-center justify-center py-8 px-4 border border-[#283244] rounded-md"
+            />
 
-          <VotingPanel
-            v-if="currentTask?.status === TASK_STATUS['ACTIVE']"
-            :current-task="currentTask"
-          />
+            <VotingPanel v-if="activity === 'Voting panel'" :current-task="currentTask" />
 
-          <BarChart
-            v-if="currentTask?.status === TASK_STATUS['COMPLETED']"
-            :current-task="currentTask"
-            :participants="activeParticipants"
-            :average-vote="Number(currentTask?.averageVote)"
-            class="mt-3"
-          />
+            <BarChart
+              v-if="activity === 'Bar chart'"
+              :current-task="currentTask"
+              :participants="activeParticipants"
+              :average-vote="Number(currentTask?.averageVote)"
+              class="mt-3"
+            />
+          </AppTransition>
 
           <div class="border border-[#283244] rounded-md py-5 px-4 h-fit">
             <div class="flex gap-x-[10px] mb-4">
-              <Button
-                v-if="currentUser?.isModerator && isVotingOngoing"
-                variant="outline"
-                :disabled="updatingTask"
-                @click="
-                  updateTask({ input: { id: currentTask?.id, status: TASK_STATUS['COMPLETED'] } })
-                "
-              >
-                <Loader2 v-if="updatingTask" class="w-4 h-4 mr-2 animate-spin" />
-                End voting
-              </Button>
+              <AppTransition from="top">
+                <Button
+                  v-if="currentUser?.isModerator && isVotingOngoing"
+                  variant="outline"
+                  :disabled="updatingTask"
+                  @click="
+                    updateTask({ input: { id: currentTask?.id, status: TASK_STATUS['COMPLETED'] } })
+                  "
+                >
+                  <Loader2 v-if="updatingTask" class="w-4 h-4 mr-2 animate-spin" />
+                  End voting
+                </Button>
+              </AppTransition>
 
               <Button
                 v-if="currentUser?.isModerator && currentTask"
