@@ -13,7 +13,7 @@ const isOpen = ref(true)
   <Collapsible v-model:open="isOpen">
     <CollapsibleTrigger class="w-full mb-3">
       <div class="flex justify-between items-center">
-        <p>Invite a teammate</p>
+        <p>Invite your teammates</p>
         <button>
           <ChevronDown />
           <span class="sr-only">Toggle</span>

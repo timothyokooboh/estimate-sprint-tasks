@@ -8,6 +8,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem
 } from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
 
 import { MoreVertical } from 'lucide-vue-next'
 import { useTasksList } from '@/composables/useTasksList'
