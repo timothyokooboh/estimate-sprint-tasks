@@ -6,10 +6,12 @@ import { useViewSession } from '@/composables/useViewSession'
 import LeaveSessionConfirmationModal from '@/components/LeaveSessionConfirmationModal.vue'
 import EndSessionConfirmationModal from '@/components/EndSessionConfirmationModal.vue'
 import ExportReport from '@/components/ExportReport.vue'
-import { Ban } from 'lucide-vue-next'
+import { Ban, RefreshCcw, Loader2 } from 'lucide-vue-next'
 
 const route = useRoute()
-const { currentUser, variables, session } = useViewSession(route.params.sessionId as string)
+const { currentUser, variables, session, refetch, loading } = useViewSession(
+  route.params.sessionId as string
+)
 
 const isLeaveSessionModalOpen = ref(false)
 const isEndSessionModalOpen = ref(false)
@@ -32,7 +34,17 @@ watch(
     <header class="flex flex-wrap gap-x-[50px] gap-y-[20px] justify-between items-center mb-[50px]">
       <h1 class="text-white font-mono font-extrabold">SprintPoker🚀</h1>
 
-      <div v-if="session" class="flex">
+      <div v-if="session" class="flex flex-wrap gap-y-3">
+        <!-- <Button
+          class="mr-3"
+          variant="outline"
+          :disabled="loading"
+          @click="refetch({ id: route.params.sessionId })"
+        >
+          <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
+          Refresh <RefreshCcw class="w-4 ml-2" />
+        </Button> -->
+
         <ExportReport class="mr-3" />
         <Button
           v-if="currentUser && currentUser.isModerator"

@@ -22,8 +22,8 @@ export const useResetTaskSubscription = () => {
   watch(result, () => {
     refetch({ id: route.params.sessionId as string })
     toast({
-      title: 'Task reset',
-      description: `A task has been reset`
+      title: 'Votes reset',
+      description: `Votes for the current task has been cleared.`
     })
   })
 }

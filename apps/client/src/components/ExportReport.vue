@@ -1,15 +1,19 @@
 <script setup lang="ts">
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 import { getObjectProperty } from '@/helpers'
 import jsPDF from 'jspdf'
 import { Button } from '@/components/ui/button'
-import { useRoute } from 'vue-router'
 import { useViewSession } from '@/composables/useViewSession'
-import { DownloadCloud } from 'lucide-vue-next'
+import { DownloadCloud, Loader2 } from 'lucide-vue-next'
 
 const route = useRoute()
 const { activeParticipants, tasks, session } = useViewSession(route.params.sessionId as string)
 
-const exportReport = () => {
+const loading = ref(false)
+
+const exportReport = async () => {
+  loading.value = true
   const container = document.querySelector('#container')
   const html = container?.innerHTML!
 
@@ -22,6 +26,7 @@ const exportReport = () => {
   doc.html(html, {
     callback: function (doc) {
       doc.save('report.pdf')
+      loading.value = false
     }
   })
 }
@@ -29,8 +34,9 @@ const exportReport = () => {
 
 <template>
   <div>
-    <Button variant="outline" @click="exportReport"
-      >Download report <DownloadCloud class="ml-2" />
+    <Button variant="outline" :disabled="loading" @click="exportReport">
+      <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
+      Download report <DownloadCloud class="ml-2" />
     </Button>
 
     <div class="hidden" id="container">

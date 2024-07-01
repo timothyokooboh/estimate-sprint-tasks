@@ -45,7 +45,7 @@ const { submit, loading, rememberName, rememberNameAttrs, name, nameAttrs, error
               placeholder="e.g. John Doe"
               class="mb-2 bg-transparent"
             />
-            <p class="text-xs text-[#94A3B8] mb-2">{{ errors['name'] }}</p>
+            <p class="text-xs text-red-500 mb-2">{{ errors['name'] }}</p>
             <div class="flex items-center space-x-2">
               <Checkbox
                 type="checkbox"
