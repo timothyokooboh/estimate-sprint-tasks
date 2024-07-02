@@ -74,7 +74,9 @@ const handleCastVote = (score: number) => {
   <div
     class="flex flex-col justify-center items-center py-4 px-2 border border-[#283244] rounded-md sm:px-4 sm:py-5"
   >
-    <p class="mb-2 text-sm text-center">{{ currentTask.title }}</p>
+    <p class="mb-2 text-[20px] text-center">
+      {{ currentTask.title }}
+    </p>
     <p class="mb-6 text-xs text-[#64748B] text-center uppercase">
       Cast your vote (in
       {{ estimationMode === ESTIMATION_MODE['STORY_POINTS'] ? 'story points' : 'hours' }})

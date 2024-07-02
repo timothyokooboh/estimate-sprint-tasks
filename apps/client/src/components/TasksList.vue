@@ -31,7 +31,7 @@ defineProps<{
 
 const route = useRoute()
 const { activeTasks, completedTasks } = useTasksList()
-const { startVoting } = useStartVoting()
+const { startVoting, loading: initiatingVoting } = useStartVoting()
 
 const isCreateTaskModalOpen = ref(false)
 const isBulkUploadModalOpen = ref(false)
@@ -182,4 +182,6 @@ const closeModal = () => {
     :task="selectedTask"
     @close:modal="isDeleteTaskModalOpen = false"
   />
+
+  <ModalSpinner :is-open="initiatingVoting" />
 </template>
