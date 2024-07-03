@@ -1,8 +1,5 @@
 # sprint-task-estimates
 
-## Installation
-`git clone`
-
 ## Install dependencies
 `yarn install`
 
