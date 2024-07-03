@@ -1,7 +1,7 @@
 import { useRoute } from 'vue-router'
 import { useViewSession } from '@/composables/useViewSession'
 import { useSubscription } from '@vue/apollo-composable'
-import { watch } from 'vue'
+import { onUnmounted, watch } from 'vue'
 import gql from 'graphql-tag'
 import { useToast } from '@/components/ui/toast'
 
@@ -10,7 +10,7 @@ export const useResetTaskSubscription = () => {
   const { toast } = useToast()
   const { refetch } = useViewSession(route.params.sessionId as string)
 
-  const { result } = useSubscription(gql`
+  const { result, stop } = useSubscription(gql`
     subscription {
       taskReset {
         id
@@ -25,5 +25,9 @@ export const useResetTaskSubscription = () => {
       title: 'Votes reset',
       description: `Votes for the current task has been cleared.`
     })
+  })
+
+  onUnmounted(() => {
+    stop()
   })
 }

@@ -1,7 +1,7 @@
 import { useRoute } from 'vue-router'
 import { useViewSession } from '@/composables/useViewSession'
 import { useSubscription } from '@vue/apollo-composable'
-import { watch } from 'vue'
+import { onUnmounted, watch } from 'vue'
 import gql from 'graphql-tag'
 import { useToast } from '@/components/ui/toast'
 
@@ -10,7 +10,7 @@ export const useVotingStartedSubscription = () => {
   const { toast } = useToast()
   const { refetch } = useViewSession(route.params.sessionId as string)
 
-  const { result } = useSubscription(gql`
+  const { result, stop } = useSubscription(gql`
     subscription {
       votingStarted
     }
@@ -22,5 +22,9 @@ export const useVotingStartedSubscription = () => {
       title: 'Voting started',
       description: 'Voting has started'
     })
+  })
+
+  onUnmounted(() => {
+    stop()
   })
 }

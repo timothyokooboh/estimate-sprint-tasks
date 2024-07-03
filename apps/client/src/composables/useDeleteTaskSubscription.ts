@@ -1,6 +1,6 @@
 import { useSubscription } from '@vue/apollo-composable'
 import gql from 'graphql-tag'
-import { watch } from 'vue'
+import { onUnmounted, watch } from 'vue'
 import { useViewSession } from '@/composables/useViewSession'
 import { useRoute } from 'vue-router'
 import { useToast } from '@/components/ui/toast'
@@ -9,7 +9,7 @@ export const useDeleteTaskSubscription = () => {
   const route = useRoute()
   const { toast } = useToast()
   const { refetch } = useViewSession(route.params.sessionId as string)
-  const { result } = useSubscription(gql`
+  const { result, stop } = useSubscription(gql`
     subscription {
       taskDeleted
     }
@@ -21,5 +21,9 @@ export const useDeleteTaskSubscription = () => {
       title: 'Task deleted',
       description: 'A task has been deleted'
     })
+  })
+
+  onUnmounted(() => {
+    stop()
   })
 }
