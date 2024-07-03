@@ -6,6 +6,7 @@ import jsPDF from 'jspdf'
 import { Button } from '@/components/ui/button'
 import { useViewSession } from '@/composables/useViewSession'
 import { DownloadCloud, Loader2 } from 'lucide-vue-next'
+import { format } from 'date-fns'
 
 const route = useRoute()
 const { activeParticipants, tasks, session } = useViewSession(route.params.sessionId as string)
@@ -50,7 +51,7 @@ const exportReport = async () => {
             <span>{{ getObjectProperty(session, 'title') }}</span>
           </p>
           <p>
-            {{ new Date(Number(session.createdAt)) }}
+            {{ format(Number(session.createdAt), 'dd MMM yyyy') }}
           </p>
         </div>
 
