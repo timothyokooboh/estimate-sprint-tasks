@@ -1,4 +1,5 @@
 # sprint-task-estimates
+A web application that simplifies sprint task estimations for agile team members.
 
 ## Install dependencies
 `yarn install`
