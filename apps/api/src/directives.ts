@@ -25,8 +25,8 @@ export function sessionActiveDirectiveTransformer(schema, directiveName) {
             },
           });
 
-          if (session.status !== "ACTIVE") {
-            throw new GraphQLError("Session is not active", {
+          if (!session) {
+            throw new GraphQLError("This session no longer exists", {
               extensions: {
                 code: "FORBIDDEN",
               },

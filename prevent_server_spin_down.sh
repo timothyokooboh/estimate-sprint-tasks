@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# SprintPoker API is hosted on a free server instance on render.com.
+# One limitation is that free server instances spin down after 15 minutes of inactivity.
+# This script prevents that by exceuting an operation that creates a test session and then deletes it.
+# The script is then run via a cron job on GitHub Actions that execeutes every 10 minutes.
+
 # Define the endpoint URL
 URL="https://estimate-sprint-tasks.onrender.com"
 
