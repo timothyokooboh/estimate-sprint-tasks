@@ -22,7 +22,7 @@ jobs:
           cache: yarn
 
       - name: install dependencies
-        run: yarn install
+        run: corepack enable && yarn install
 
       - name: deploy
         run: yarn deploy
