@@ -11,9 +11,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog'
-import { useEndSessionMutation } from '@/composables/useEndSessionMutation'
-import { Loader2 } from 'lucide-vue-next'
 import ModalSpinner from '@/components/ModalSpinner.vue'
+import { Loader2 } from 'lucide-vue-next'
+import { useEndSessionMutation } from '@/composables/useEndSessionMutation'
 
 const props = defineProps<{
   isOpen: boolean

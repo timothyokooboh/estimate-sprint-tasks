@@ -3,10 +3,10 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { getObjectProperty } from '@/helpers'
 import jsPDF from 'jspdf'
-import { Button } from '@/components/ui/button'
-import { useViewSession } from '@/composables/useViewSession'
-import { DownloadCloud, Loader2 } from 'lucide-vue-next'
 import { format } from 'date-fns'
+import { Button } from '@/components/ui/button'
+import { DownloadCloud, Loader2 } from 'lucide-vue-next'
+import { useViewSession } from '@/composables/useViewSession'
 
 const route = useRoute()
 const { activeParticipants, tasks, session } = useViewSession(route.params.sessionId as string)

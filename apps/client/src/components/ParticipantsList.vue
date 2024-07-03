@@ -1,10 +1,10 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import InviteParticipant from '@/components/InviteParticipant.vue'
 import { User, Check, Settings } from 'lucide-vue-next'
-import { TASK_STATUS, type Participant, type Task } from '@/types'
-import { computed } from 'vue'
 import { getObjectProperty } from '@/helpers'
+import { TASK_STATUS, type Participant, type Task } from '@/types'
 
 const props = defineProps<{
   participants: Participant[]

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -7,11 +8,10 @@ import {
   DialogTitle,
   DialogDescription
 } from '@/components/ui/dialog'
-import { UploadCloud, Loader2 } from 'lucide-vue-next'
-import { useBulkUploadTask } from '@/composables/useBulkUploadTask'
-import { useRoute } from 'vue-router'
 import AppTransition from '@/components/AppTransition.vue'
 import { useToast } from '@/components/ui/toast'
+import { UploadCloud, Loader2 } from 'lucide-vue-next'
+import { useBulkUploadTask } from '@/composables/useBulkUploadTask'
 
 const route = useRoute()
 const { getInputProps, getRootProps, isDragActive, fileName, loading, onDone } = useBulkUploadTask(

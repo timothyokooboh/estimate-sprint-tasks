@@ -1,7 +1,7 @@
 <script setup lang="ts">
+import { ref, watchEffect } from 'vue'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { Loader2 } from 'lucide-vue-next'
-import { ref, computed, watchEffect } from 'vue'
 
 const props = defineProps<{
   isOpen: boolean

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-
 import Button from '@/components/ui/button/Button.vue'
 import JoinSessionModal from '@/components/JoinSessionModal.vue'
 import { Heart } from 'lucide-vue-next'

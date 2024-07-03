@@ -2,10 +2,10 @@
 import { watch, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { Button } from '@/components/ui/button'
-import { useViewSession } from '@/composables/useViewSession'
 import LeaveSessionConfirmationModal from '@/components/LeaveSessionConfirmationModal.vue'
 import EndSessionConfirmationModal from '@/components/EndSessionConfirmationModal.vue'
 import ExportReport from '@/components/ExportReport.vue'
+import { useViewSession } from '@/composables/useViewSession'
 import { Ban } from 'lucide-vue-next'
 
 const route = useRoute()

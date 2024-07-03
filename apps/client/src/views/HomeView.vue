@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-
 import CreateSessionModal from '@/components/CreateSessionModal.vue'
 import HeroSection from '@/components/landingPage/HeroSection.vue'
 import FeaturesSection from '@/components/landingPage/FeaturesSection.vue'

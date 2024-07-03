@@ -1,9 +1,9 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import { ChevronDown, Copy } from 'lucide-vue-next'
 import { useInviteParticipant } from '@/composables/useInviteParticipant'
-import { ref } from 'vue'
 
 const { inviteURL, copyToClipboard, copied } = useInviteParticipant()
 const isOpen = ref(true)

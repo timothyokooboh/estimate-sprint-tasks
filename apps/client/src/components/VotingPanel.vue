@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { Input } from '@/components/ui/input'
 import { useCastVoteMutation } from '@/composables/useCastVoteMutation'
+import { useViewSession } from '@/composables/useViewSession'
 import debounce from 'lodash.debounce'
 import { ESTIMATION_MODE, type Task } from '@/types'
-import { useViewSession } from '@/composables/useViewSession'
-import { useRoute } from 'vue-router'
 
 const props = defineProps<{
   currentTask: Task

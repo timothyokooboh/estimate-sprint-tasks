@@ -3,10 +3,10 @@ import Button from '@/components/ui/button/Button.vue'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
+import { useToast } from '@/components/ui/toast'
 import { useFeedbackFormMutation } from '@/composables/useFeedbackFormMutation'
 import { useFeedbackFormValidation } from '@/composables/useFeedbackFormValidation'
 import { Loader2 } from 'lucide-vue-next'
-import { useToast } from '@/components/ui/toast'
 
 const { toast } = useToast()
 const { fullName, fullNameAttrs, email, emailAttrs, message, messageAttrs, errors, handleSubmit } =

@@ -10,9 +10,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog'
+import ModalSpinner from '@/components/ModalSpinner.vue'
 import { useLeaveSessionMutation } from '@/composables/useLeaveSessionMutation'
 import { Loader2 } from 'lucide-vue-next'
-import ModalSpinner from '@/components/ModalSpinner.vue'
 
 const props = defineProps<{
   isOpen: boolean

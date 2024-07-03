@@ -9,9 +9,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog'
-import { useDeleteTaskMutation } from '@/composables/useDeleteTaskMutation'
-import { Loader2 } from 'lucide-vue-next'
 import ModalSpinner from '@/components/ModalSpinner.vue'
+import { Loader2 } from 'lucide-vue-next'
+import { useDeleteTaskMutation } from '@/composables/useDeleteTaskMutation'
 import type { Task } from '@/types'
 
 const props = defineProps<{

@@ -1,25 +1,22 @@
 <script lang="ts" setup>
 import { computed, watch, defineAsyncComponent } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-
 import ParticipantsList from '@/components/ParticipantsList.vue'
 import InviteParticipant from '@/components/InviteParticipant.vue'
 import TasksList from '@/components/TasksList.vue'
 import Button from '@/components/ui/button/Button.vue'
 import { useToast } from '@/components/ui/toast'
-
+import TheHeader from '@/components/TheHeader.vue'
+import SessionLoader from '@/components/SessionLoader.vue'
+import AppTransition from '@/components/AppTransition.vue'
 import { Loader2 } from 'lucide-vue-next'
 import { useViewSession } from '@/composables/useViewSession'
 import { useResetTaskMutation } from '@/composables/useResetTaskMutation'
 import { useUpdateTaskMutation } from '@/composables/useUpdateTaskMutation'
+import { useStartVoting } from '@/composables/useStartVoting'
 import { useTasksList } from '@/composables/useTasksList'
-
 import { getObjectProperty } from '@/helpers'
 import { SESSION_STATUS, TASK_STATUS, type Activity, type Task } from '@/types'
-import { useStartVoting } from '@/composables/useStartVoting'
-import TheHeader from '@/components/TheHeader.vue'
-import SessionLoader from '@/components/SessionLoader.vue'
-import AppTransition from '@/components/AppTransition.vue'
 
 // Async components
 const NoTask = defineAsyncComponent(() => import('@/components/NoTask.vue'))

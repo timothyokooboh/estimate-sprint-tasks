@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -9,13 +11,11 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Loader2 } from 'lucide-vue-next'
 import { useCreateTaskMutation } from '@/composables/useCreateTaskMutation'
 import { useCreateTaskFormValidation } from '@/composables/useCreateTaskFormValidation'
-import { Loader2 } from 'lucide-vue-next'
-import { computed, watch } from 'vue'
 import { useUpdateTaskMutation } from '@/composables/useUpdateTaskMutation'
 import type { Task } from '@/types'
-import { useRoute } from 'vue-router'
 
 const props = defineProps<{
   isOpen: boolean
