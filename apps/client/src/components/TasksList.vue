@@ -9,7 +9,8 @@ import {
   DropdownMenuItem
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
-
+import ModalSpinner from '@/components/ModalSpinner.vue'
+import DeleteTaskConfirmationModal from '@/components/DeleteTaskConfirmationModal.vue'
 import { MoreVertical } from 'lucide-vue-next'
 import { useTasksList } from '@/composables/useTasksList'
 import { getObjectProperty } from '@/helpers'
@@ -20,9 +21,6 @@ import type { Participant, Task } from '@/types'
 const CreateTaskModal = defineAsyncComponent(() => import('@/components/CreateTaskModal.vue'))
 const BulkUploadTaskModal = defineAsyncComponent(
   () => import('@/components/BulkUploadTaskModal.vue')
-)
-const DeleteTaskConfirmationModal = defineAsyncComponent(
-  () => import('@/components/DeleteTaskConfirmationModal.vue')
 )
 
 defineProps<{
@@ -177,7 +175,7 @@ const closeModal = () => {
   />
 
   <DeleteTaskConfirmationModal
-    v-if="isDeleteTaskModalOpen && selectedTask"
+    v-if="selectedTask"
     :is-open="isDeleteTaskModalOpen"
     :task="selectedTask"
     @close:modal="isDeleteTaskModalOpen = false"

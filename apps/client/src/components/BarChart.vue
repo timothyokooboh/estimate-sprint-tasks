@@ -20,6 +20,7 @@ const props = defineProps<{
   averageVote: number
   currentTask: Task
   participants: Participant[]
+  estimationMode: 'TIME_ESTIMATES' | 'STORY_POINTS'
 }>()
 
 const labels = computed(() =>
@@ -60,7 +61,10 @@ const options = ref({
 <template>
   <div>
     <p>{{ currentTask?.title }}</p>
-    <p class="text-[#64748B]" v-if="averageVote">Average vote: {{ averageVote.toFixed(2) }}</p>
+    <p class="text-[#64748B]" v-if="averageVote">
+      Average vote: {{ averageVote.toFixed(2) }}
+      {{ props.estimationMode === 'STORY_POINTS' ? 'SP' : 'hr' }}
+    </p>
     <Bar :data="data" :options="options" />
   </div>
 </template>

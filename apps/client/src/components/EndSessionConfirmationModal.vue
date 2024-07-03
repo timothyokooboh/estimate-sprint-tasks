@@ -1,5 +1,6 @@
 v
 <script lang="ts" setup>
+import { useRoute } from 'vue-router'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,7 +13,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { useEndSessionMutation } from '@/composables/useEndSessionMutation'
 import { Loader2 } from 'lucide-vue-next'
-import { useRoute } from 'vue-router'
+import ModalSpinner from '@/components/ModalSpinner.vue'
 
 const props = defineProps<{
   isOpen: boolean
@@ -50,4 +51,6 @@ const { endSession, loading: endingSession } = useEndSessionMutation()
       </AlertDialogFooter>
     </AlertDialogContent>
   </AlertDialog>
+
+  <ModalSpinner :is-open="endingSession" />
 </template>

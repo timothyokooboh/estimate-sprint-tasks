@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { useRoute } from 'vue-router'
 import {
   AlertDialog,
   AlertDialogAction,
@@ -11,7 +12,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { useLeaveSessionMutation } from '@/composables/useLeaveSessionMutation'
 import { Loader2 } from 'lucide-vue-next'
-import { useRoute } from 'vue-router'
+import ModalSpinner from '@/components/ModalSpinner.vue'
 
 const props = defineProps<{
   isOpen: boolean
@@ -48,4 +49,6 @@ const { leaveSession, loading: leavingSession } = useLeaveSessionMutation()
       </AlertDialogFooter>
     </AlertDialogContent>
   </AlertDialog>
+
+  <ModalSpinner :is-open="leavingSession" />
 </template>

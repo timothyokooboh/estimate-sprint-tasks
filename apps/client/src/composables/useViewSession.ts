@@ -9,9 +9,10 @@ export const useViewSession = (sessionId: string) => {
 
   const { result, refetch, loading, variables } = useQuery(
     gql`
-      query getSession($id: ID) {
+      query viewSession($id: ID) {
         viewSession(id: $id) {
           id
+          createdAt
           title
           status
           estimationMode

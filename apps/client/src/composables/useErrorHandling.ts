@@ -7,6 +7,8 @@ export const useErrorHandling = () => {
   const errorLink = onError(({ graphQLErrors, networkError }) => {
     if (graphQLErrors) {
       const { message, extensions } = graphQLErrors[0]
+      // if (extensions.code === '') return;
+
       let toastMessage = message
       if (extensions.code === ApolloServerErrorCode.INTERNAL_SERVER_ERROR) {
         toastMessage = 'Unable to process request at this time. Please try again.'

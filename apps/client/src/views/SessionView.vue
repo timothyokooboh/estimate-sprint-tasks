@@ -158,6 +158,7 @@ const setNextTask = () => {
               :current-task="currentTask"
               :participants="activeParticipants"
               :average-vote="Number(currentTask?.averageVote)"
+              :estimation-mode="session.estimationMode"
               class="mt-3"
             />
           </AppTransition>

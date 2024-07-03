@@ -36,7 +36,7 @@ const exportReport = async () => {
   <div>
     <Button variant="outline" :disabled="loading" @click="exportReport">
       <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
-      Download report <DownloadCloud class="ml-2" />
+      <DownloadCloud class="w-4 h-4 mr-2" /> Download report
     </Button>
 
     <div class="hidden" id="container">
@@ -45,9 +45,12 @@ const exportReport = async () => {
           class="flex flex-col justify-center mb-3 bg-slate-900 text-white pt-2 pb-5 px-3 h-[150px]"
         >
           <p class="mb-2">SprintPoker</p>
-          <p>
+          <p class="mb-2">
             <span class="font-bold">Title: </span>
             <span>{{ getObjectProperty(session, 'title') }}</span>
+          </p>
+          <p>
+            {{ new Date(Number(session.createdAt)) }}
           </p>
         </div>
 
@@ -85,9 +88,11 @@ const exportReport = async () => {
                 class="text-gray-700 text-[10px]"
               >
                 {{ vote.participant.name }} => {{ vote.value }}
+                {{ session.estimationMode === 'STORY_POINTS' ? 'SP' : 'hr' }}
               </p>
               <p class="text-gray-700 font-bold text-[10px]">
                 Average vote => {{ task.averageVote ? Number(task.averageVote).toFixed(2) : 0 }}
+                {{ session.estimationMode === 'STORY_POINTS' ? 'SP' : 'hr' }}
               </p>
             </div>
           </div>

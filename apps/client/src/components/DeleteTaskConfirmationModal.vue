@@ -10,8 +10,9 @@ import {
   AlertDialogTitle
 } from '@/components/ui/alert-dialog'
 import { useDeleteTaskMutation } from '@/composables/useDeleteTaskMutation'
-import type { Task } from '@/types'
 import { Loader2 } from 'lucide-vue-next'
+import ModalSpinner from '@/components/ModalSpinner.vue'
+import type { Task } from '@/types'
 
 const props = defineProps<{
   isOpen: boolean
@@ -33,12 +34,14 @@ const { deleteTask, loading: deletingTask } = useDeleteTaskMutation()
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>
-        <AlertDialogCancel>Cancel</AlertDialogCancel>
-        <AlertDialogAction @click="deleteTask({ id: task.id })">
+        <AlertDialogCancel class="border border-gray-300">Cancel</AlertDialogCancel>
+        <AlertDialogAction class="bg-red-500 hover:bg-red-600" @click="deleteTask({ id: task.id })">
           <Loader2 v-if="deletingTask" class="w-4 h-4 mr-2 animate-spin" />
           Continue
         </AlertDialogAction>
       </AlertDialogFooter>
     </AlertDialogContent>
   </AlertDialog>
+
+  <ModalSpinner :is-open="deletingTask" />
 </template>

@@ -7,6 +7,7 @@ import LeaveSessionConfirmationModal from '@/components/LeaveSessionConfirmation
 import EndSessionConfirmationModal from '@/components/EndSessionConfirmationModal.vue'
 import ExportReport from '@/components/ExportReport.vue'
 import { Ban, RefreshCcw, Loader2 } from 'lucide-vue-next'
+import { getObjectProperty } from '@/helpers'
 
 const route = useRoute()
 const { currentUser, variables, session, refetch, loading } = useViewSession(

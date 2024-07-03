@@ -13,7 +13,7 @@ export const useBulkUploadTask = (session: string) => {
     loading,
     onDone
   } = useMutation(gql`
-    mutation BulkUploadTask($input: BulkCreateTasksInput!) {
+    mutation bulkUploadTask($input: BulkCreateTasksInput!) {
       bulkCreateTasks(input: $input) {
         id
         title
