@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, watch, ref, defineAsyncComponent } from 'vue'
+import { computed, watch, defineAsyncComponent } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 import ParticipantsList from '@/components/ParticipantsList.vue'
@@ -15,7 +15,7 @@ import { useUpdateTaskMutation } from '@/composables/useUpdateTaskMutation'
 import { useTasksList } from '@/composables/useTasksList'
 
 import { getObjectProperty } from '@/helpers'
-import { SESSION_STATUS, TASK_STATUS, type Activity, type Participant, type Task } from '@/types'
+import { SESSION_STATUS, TASK_STATUS, type Activity, type Task } from '@/types'
 import { useStartVoting } from '@/composables/useStartVoting'
 import TheHeader from '@/components/TheHeader.vue'
 import SessionLoader from '@/components/SessionLoader.vue'

@@ -8,7 +8,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem
 } from '@/components/ui/dropdown-menu'
-import { Input } from '@/components/ui/input'
 import ModalSpinner from '@/components/ModalSpinner.vue'
 import DeleteTaskConfirmationModal from '@/components/DeleteTaskConfirmationModal.vue'
 import { MoreVertical } from 'lucide-vue-next'

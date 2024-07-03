@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import InviteParticipant from '@/components/InviteParticipant.vue'
-import { User, UserCheck, Check, Settings } from 'lucide-vue-next'
-import { PARTICIPANT_STATUS, TASK_STATUS, type Participant, type Task } from '@/types'
+import { User, Check, Settings } from 'lucide-vue-next'
+import { TASK_STATUS, type Participant, type Task } from '@/types'
 import { computed } from 'vue'
 import { getObjectProperty } from '@/helpers'
 

@@ -5,7 +5,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogDescription
 } from '@/components/ui/dialog'
 import { UploadCloud, Loader2 } from 'lucide-vue-next'

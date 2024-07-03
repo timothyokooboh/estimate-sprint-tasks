@@ -1,13 +1,5 @@
 <script setup lang="ts">
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogClose,
-  DialogTrigger
-} from '@/components/ui/dialog'
+import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { Loader2 } from 'lucide-vue-next'
 import { ref, computed, watchEffect } from 'vue'
 
