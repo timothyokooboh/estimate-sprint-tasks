@@ -1,9 +1,17 @@
 import { pubsub } from "../index.js";
 import { SESSION_ENDED } from "../constants.js";
+import { GraphQLError } from "graphql";
 
 export async function viewSession(_, { id }, { prisma }) {
   try {
-    if (!id) return null;
+    // if (!id) {
+    //   throw new GraphQLError("Session id is required", {
+    //     extensions: {
+    //       code: "BAD_USER_INPUT",
+    //     },
+    //   });
+    // }
+
     const session = await prisma.session.findUnique({
       where: {
         id,
