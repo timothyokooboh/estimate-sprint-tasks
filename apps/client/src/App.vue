@@ -10,6 +10,7 @@ import { useTaskUpdatedSubscription } from '@/composables/useTaskUpdatedSubscrip
 import { useLeaveSessionSubscription } from '@/composables/useLeaveSessionSubscription'
 import { useEndSessionSubscription } from '@/composables/useEndSessionSubscription'
 import { useDeleteTaskSubscription } from '@/composables/useDeleteTaskSubscription'
+import { onMounted } from 'vue'
 
 // subscriptions
 useParticipantJoinedSubscription()
@@ -21,6 +22,22 @@ useTaskUpdatedSubscription()
 useLeaveSessionSubscription()
 useEndSessionSubscription()
 useDeleteTaskSubscription()
+
+function sendPathToParent() {
+  window.parent.postMessage({ path: window.location.pathname }, '*')
+}
+
+onMounted(() => {
+  // Listen for route changes
+  window.addEventListener('popstate', sendPathToParent)
+  // if using a library that triggers pushstate
+  window.addEventListener('pushstate', sendPathToParent)
+  // if using a library that triggers replacestate
+  window.addEventListener('replacestate', sendPathToParent)
+})
+
+// Initial path on load
+sendPathToParent()
 </script>
 
 <template>
