@@ -30,14 +30,7 @@ function sendPathToParent() {
 onMounted(() => {
   // Listen for route changes
   window.addEventListener('popstate', sendPathToParent)
-  // if using a library that triggers pushstate
-  window.addEventListener('pushstate', sendPathToParent)
-  // if using a library that triggers replacestate
-  window.addEventListener('replacestate', sendPathToParent)
 })
-
-// Initial path on load
-sendPathToParent()
 </script>
 
 <template>
