@@ -23,14 +23,6 @@ useTaskUpdatedSubscription()
 useLeaveSessionSubscription()
 useEndSessionSubscription()
 useDeleteTaskSubscription()
-
-const router = useRouter()
-
-router.afterEach((to, from) => {
-  const currentPath = to.fullPath
-  console.log(currentPath)
-  parent.postMessage(currentPath, '*')
-})
 </script>
 
 <template>
