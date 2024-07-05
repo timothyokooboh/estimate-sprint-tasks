@@ -11,6 +11,7 @@ import { useLeaveSessionSubscription } from '@/composables/useLeaveSessionSubscr
 import { useEndSessionSubscription } from '@/composables/useEndSessionSubscription'
 import { useDeleteTaskSubscription } from '@/composables/useDeleteTaskSubscription'
 import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 // subscriptions
 useParticipantJoinedSubscription()
@@ -23,14 +24,13 @@ useLeaveSessionSubscription()
 useEndSessionSubscription()
 useDeleteTaskSubscription()
 
-function sendPathToParent() {
-  window.postMessage({ path: window.location.pathname }, '*')
-}
+const router = useRouter()
 
-onMounted(() => {
-  console.log(window.origin)
-  // Listen for route changes
-  window.addEventListener('popstate', sendPathToParent)
+router.afterEach((to, from) => {
+  const currentPath = to.fullPath
+  console.log('fuck off')
+  console.log(currentPath)
+  parent.postMessage(currentPath, '*')
 })
 </script>
 
