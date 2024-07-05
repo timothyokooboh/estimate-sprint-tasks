@@ -24,10 +24,11 @@ useEndSessionSubscription()
 useDeleteTaskSubscription()
 
 function sendPathToParent() {
-  window.parent.postMessage({ path: window.location.pathname }, '*')
+  window.postMessage({ path: window.location.pathname }, '*')
 }
 
 onMounted(() => {
+  console.log(window.origin)
   // Listen for route changes
   window.addEventListener('popstate', sendPathToParent)
 })
