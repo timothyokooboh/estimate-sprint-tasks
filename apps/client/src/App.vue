@@ -28,7 +28,6 @@ const router = useRouter()
 
 router.afterEach((to, from) => {
   const currentPath = to.fullPath
-  console.log('fuck off')
   console.log(currentPath)
   parent.postMessage(currentPath, '*')
 })
