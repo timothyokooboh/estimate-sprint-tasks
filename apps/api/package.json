@@ -12,12 +12,16 @@
     "connect-history-api-fallback": "^2.0.0",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-session": "^1.18.0",
     "graphql": "^16.8.1",
+    "graphql-passport": "^0.6.8",
     "graphql-subscriptions": "^2.0.0",
     "graphql-tag": "^2.12.6",
     "graphql-ws": "^5.16.0",
     "jsonwebtoken": "^9.0.2",
-    "ws": "^8.17.0"
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@types/node": "^20.13.0",
