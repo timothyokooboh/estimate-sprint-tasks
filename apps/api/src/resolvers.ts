@@ -1,4 +1,5 @@
 import { pubsub } from "./index.js";
+import jwt from "jsonwebtoken";
 import {
   PARTICIPANT_JOINED,
   PARTICIPANT_LEFT,
@@ -37,6 +38,12 @@ import {
 
 import { castVote, startVoting, viewVoteField } from "./handlers/vote.js";
 import { sendFeedback } from "./handlers/feedback..js";
+import { OAuth2Client } from "google-auth-library";
+
+const client = new OAuth2Client({
+  clientId:
+    "46365325780-5gpiltf802fr0ml56ohm9srm5sqg7gc5.apps.googleusercontent.com",
+});
 
 export const resolvers = {
   Query: {
@@ -60,6 +67,47 @@ export const resolvers = {
     castVote,
     startVoting,
     sendFeedback,
+    async googleSignIn(parent, { access_token }, { prisma }, info) {
+      client.setCredentials({ access_token: access_token });
+      const googleUserInfo = await client.request({
+        url: "https://www.googleapis.com/oauth2/v3/userinfo",
+      });
+
+      console.log(googleUserInfo);
+      const payload = googleUserInfo.data as {
+        sub: string;
+        name: string;
+        email: string;
+        picture: string;
+      };
+
+      const { sub, email, name, picture } = payload;
+
+      let user = await prisma.user.findUnique({
+        where: { googleId: sub },
+      });
+
+      if (!user) {
+        user = await prisma.user.create({
+          data: {
+            googleId: sub,
+            email,
+            name,
+            picture,
+          },
+        });
+      }
+
+      // Create a JWT token for your own authentication
+      const jwtToken = jwt.sign({ userId: user.id }, process.env.SECRET_KEY, {
+        expiresIn: "1d",
+      });
+
+      return {
+        token: jwtToken,
+        user,
+      };
+    },
   },
   Session: {
     moderator(session) {

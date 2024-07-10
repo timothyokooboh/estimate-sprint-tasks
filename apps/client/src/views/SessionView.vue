@@ -15,7 +15,7 @@ import { useResetTaskMutation } from '@/composables/useResetTaskMutation'
 import { useUpdateTaskMutation } from '@/composables/useUpdateTaskMutation'
 import { useStartVoting } from '@/composables/useStartVoting'
 import { useTasksList } from '@/composables/useTasksList'
-import { getObjectProperty } from '@/helpers'
+import { getObjectProperty } from '@/helpers/getObjectProperty'
 import { SESSION_STATUS, TASK_STATUS, type Activity, type Task } from '@/types'
 
 // Async components

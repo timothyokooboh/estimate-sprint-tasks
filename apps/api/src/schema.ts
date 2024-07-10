@@ -23,6 +23,18 @@ export const typeDefs = gql`
     STORY_POINTS
   }
 
+  type User {
+    id: ID!
+    email: String!
+    name: String
+    picture: String
+  }
+
+  type AuthPayload {
+    token: String!
+    user: User!
+  }
+
   type Participant {
     id: ID!
     name: String!
@@ -161,6 +173,7 @@ export const typeDefs = gql`
   }
 
   type Mutation {
+    googleSignIn(access_token: String!): AuthPayload!
     createSession(input: CreateSessionInput!): Session
     endSession(id: ID!): ID
     joinSession(input: JoinSessionInput!): Participant @sessionActive

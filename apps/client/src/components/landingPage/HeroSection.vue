@@ -1,6 +1,23 @@
 <script setup lang="ts">
 import Button from '@/components/ui/button/Button.vue'
-defineEmits(['open:modal'])
+import { useAuth } from '@/store/useAuth'
+import { storeToRefs } from 'pinia'
+
+const { login } = useAuth()
+const { isLoggedIn } = storeToRefs(useAuth())
+
+const emit = defineEmits(['open:modal'])
+
+const handleStartSession = async () => {
+  if (isLoggedIn.value) {
+    console.log('a lot america')
+    emit('open:modal')
+  } else {
+    console.log('a lot yoo')
+    await login()
+    emit('open:modal')
+  }
+}
 </script>
 
 <template>
@@ -12,9 +29,11 @@ defineEmits(['open:modal'])
     </h2>
 
     <p class="mb-5">Simplify sprint task estimation process with SprintPoker 🚀.</p>
-    <Button variant="secondary" class="rounded-[27px] mb-[34px] px-10" @click="$emit('open:modal')"
+
+    <Button variant="secondary" class="rounded-[27px] mb-[34px] px-10" @click="handleStartSession"
       >Start a session</Button
     >
+
     <img src="@/assets/demo.svg" class="mx-auto mb-[32px]" />
   </div>
 </template>

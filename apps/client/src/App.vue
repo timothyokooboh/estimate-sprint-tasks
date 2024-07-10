@@ -10,8 +10,6 @@ import { useTaskUpdatedSubscription } from '@/composables/useTaskUpdatedSubscrip
 import { useLeaveSessionSubscription } from '@/composables/useLeaveSessionSubscription'
 import { useEndSessionSubscription } from '@/composables/useEndSessionSubscription'
 import { useDeleteTaskSubscription } from '@/composables/useDeleteTaskSubscription'
-import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 
 // subscriptions
 useParticipantJoinedSubscription()

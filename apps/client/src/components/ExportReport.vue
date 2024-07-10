@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { getObjectProperty } from '@/helpers'
+import { getObjectProperty } from '@/helpers/getObjectProperty'
 import jsPDF from 'jspdf'
 import { format } from 'date-fns'
 import { Button } from '@/components/ui/button'

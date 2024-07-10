@@ -13,7 +13,7 @@ import DeleteTaskConfirmationModal from '@/components/DeleteTaskConfirmationModa
 import { MoreVertical } from 'lucide-vue-next'
 import { useTasksList } from '@/composables/useTasksList'
 import { useStartVoting } from '@/composables/useStartVoting'
-import { getObjectProperty } from '@/helpers'
+import { getObjectProperty } from '@/helpers/getObjectProperty'
 import type { Participant, Task } from '@/types'
 
 // Async components

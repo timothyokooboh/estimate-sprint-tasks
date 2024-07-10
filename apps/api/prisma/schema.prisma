@@ -33,6 +33,14 @@ enum ESTIMATION_MODE {
   STORY_POINTS
 }
 
+model User {
+  id String @id @default(uuid())
+  googleId String @unique
+  email String
+  name String
+  picture String
+}
+
 model Participant {
   id String @id @default(uuid())
   createdAt DateTime @default(now())
