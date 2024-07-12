@@ -16,7 +16,6 @@ export const useErrorHandling = () => {
       }
 
       if (extensions.code === 'UNAUTHENTICATED') {
-        console.log('unauthenticated')
         setTimeout(() => {
           localEncrypt.removeData('authUser')
           window.location.reload()

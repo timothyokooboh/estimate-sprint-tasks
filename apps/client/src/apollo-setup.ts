@@ -42,8 +42,6 @@ const authLink = new ApolloLink((operation, forward) => {
   // Retrieve the authorization token from wherever you have it stored
   const token = localEncrypt.getData('authUser')?.token || ''
 
-  console.log('TOKEN', token)
-
   // Use the setContext method to set the HTTP headers
   operation.setContext({
     headers: {
@@ -56,7 +54,6 @@ const authLink = new ApolloLink((operation, forward) => {
 })
 
 const interceptViewSessionQuery = new ApolloLink((operation, forward) => {
-  console.log('SHEPE')
   const { operationName, variables } = operation
 
   // Cancel request if 'id' is not present in variables

@@ -19,7 +19,6 @@ export const useTaskCreatedSubscription = () => {
   `)
 
   watch(result, () => {
-    console.log(refetch)
     // variables.value = { id: route.params.sessionId as string }
     refetch({ id: route.params.sessionId as string })
     toast({

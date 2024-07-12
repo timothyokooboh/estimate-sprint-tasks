@@ -30,9 +30,7 @@ export function isAuthenticated(schema, directiveName) {
             });
           } else {
             try {
-              const decoded = await jwt.verify(token, process.env.SECRET_KEY);
-              console.log("decoded", decoded);
-              console.log("now", Date.now());
+              await jwt.verify(token, process.env.SECRET_KEY);
               const result = await resolve(source, args, context, info);
               return result;
             } catch (err) {

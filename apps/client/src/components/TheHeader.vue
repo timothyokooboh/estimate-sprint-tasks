@@ -24,7 +24,6 @@ const { login, logout } = useAuth()
       <div v-if="isLoggedIn" class="flex items-center">
         <img
           v-if="authUser?.user?.picture"
-          onerror="() => console.log('image no load')"
           :src="authUser?.user?.picture"
           width="30px"
           height="30px"
