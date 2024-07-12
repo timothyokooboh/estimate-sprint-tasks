@@ -5,24 +5,31 @@ import HeroSection from '@/components/landingPage/HeroSection.vue'
 import FeaturesSection from '@/components/landingPage/FeaturesSection.vue'
 import FooterSection from '@/components/landingPage/FooterSection.vue'
 import FeedbackForm from '@/components/FeedbackForm.vue'
+import TheHeader from '@/components/TheHeader.vue'
+import { useAuth } from '@/store/useAuth'
+import { storeToRefs } from 'pinia'
 
+const { isLoggedIn } = storeToRefs(useAuth())
+const { login } = useAuth()
 const isModalOpen = ref(false)
+
+const handleStartSession = async () => {
+  if (isLoggedIn.value) {
+    isModalOpen.value = true
+  } else {
+    await login()
+    isModalOpen.value = true
+  }
+}
 </script>
 
 <template>
   <div class="min-h-screen bg-[#313131] text-white">
-    <header class="py-4 px-[20px] mb-[30px] flex items-center border-b-[2px] border-[#3E3E3E]">
-      <div class="flex items-center justify-center h-[35px] w-[35px] bg-white rounded-[50%]">
-        <p class="text-[#161616] text-xs">Poker</p>
-      </div>
-      <div class="flex-grow flex justify-center">
-        <h1 class="font-bold text-2xl font-mono">SprintPoker</h1>
-      </div>
-    </header>
+    <TheHeader />
 
     <main class="max-w-[1612px] mx-auto">
-      <HeroSection @open:modal="isModalOpen = true" />
-      <FeaturesSection @open:modal="isModalOpen = true" />
+      <HeroSection @open:modal="handleStartSession" />
+      <FeaturesSection @open:modal="handleStartSession" />
       <section class="py-[48px] px-5 mb-10 md:max-w-[800px] md:mx-auto">
         <p class="uppercase text-white mb-1">Feedback</p>
         <p class="text-white text-sm mb-4">Have any feedback? Let us know!</p>

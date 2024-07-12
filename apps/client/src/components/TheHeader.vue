@@ -1,76 +1,45 @@
 <script setup lang="ts">
-import { watch, ref } from 'vue'
-import { useRoute } from 'vue-router'
-import { Button } from '@/components/ui/button'
-import LeaveSessionConfirmationModal from '@/components/LeaveSessionConfirmationModal.vue'
-import EndSessionConfirmationModal from '@/components/EndSessionConfirmationModal.vue'
-import ExportReport from '@/components/ExportReport.vue'
-import { useViewSession } from '@/composables/useViewSession'
-import { Ban } from 'lucide-vue-next'
+import Button from '@/components/ui/button/Button.vue'
+import AppTransition from '@/components/AppTransition.vue'
+import { Loader2 } from 'lucide-vue-next'
+import { useAuth } from '@/store/useAuth'
+import { storeToRefs } from 'pinia'
 
-const route = useRoute()
-const { currentUser, variables, session, refetch, loading } = useViewSession(
-  route.params.sessionId as string
-)
-
-const isLeaveSessionModalOpen = ref(false)
-const isEndSessionModalOpen = ref(false)
-
-watch(
-  () => route.params.sessionId,
-  (newValue) => {
-    if (newValue) {
-      variables.value = { id: newValue as string }
-    }
-  },
-  {
-    immediate: true
-  }
-)
+const { isLoggedIn, authUser, loading } = storeToRefs(useAuth())
+const { login, logout } = useAuth()
 </script>
 
 <template>
-  <div>
-    <header class="flex flex-wrap gap-x-[50px] gap-y-[20px] justify-between items-center mb-[50px]">
-      <h1 class="text-white font-mono font-extrabold">SprintPoker🚀</h1>
+  <header
+    class="py-4 px-[20px] mb-[30px] flex justify-between items-center border-b-[2px] border-[#3E3E3E]"
+  >
+    <div class="flex items-center justify-center h-[35px] w-[35px] bg-white rounded-[50%]">
+      <p class="text-[#161616] text-xs">Poker</p>
+    </div>
+    <div class="hidden sm:flex sm:flex-grow sm:justify-center">
+      <h1 class="font-bold text-2xl font-mono">SprintPoker</h1>
+    </div>
 
-      <div v-if="session" class="flex flex-wrap gap-y-3">
-        <!-- <Button
-          class="mr-3"
-          variant="outline"
-          :disabled="loading"
-          @click="refetch({ id: route.params.sessionId })"
-        >
-          <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
-          Refresh <RefreshCcw class="w-4 ml-2" />
-        </Button> -->
-
-        <ExportReport class="mr-3" />
-        <Button
-          v-if="currentUser && currentUser.isModerator"
-          variant="destructive"
-          @click="isEndSessionModalOpen = true"
-        >
-          <Ban class="w-4 mr-2" /> End session
-        </Button>
-        <Button
-          v-else-if="currentUser && !currentUser.isModerator"
-          variant="destructive"
-          @click="isLeaveSessionModalOpen = true"
-        >
-          <Ban class="w-4 mr-2" /> Leave session
-        </Button>
+    <AppTransition>
+      <div v-if="isLoggedIn" class="flex items-center">
+        <img
+          v-if="authUser?.user?.picture"
+          :src="authUser?.user?.picture"
+          width="30px"
+          height="30px"
+          class="rounded-[50%]"
+        />
+        <div v-else class="w-[30px] h-[30px] bg-white rounded-[50%]">
+          {{ authUser?.user?.name?.[0] }} {{ authUser?.user?.name?.[1] }}
+        </div>
+        <Button variant="outline" class="ml-3" @click="logout">Sign out</Button>
       </div>
-    </header>
-
-    <LeaveSessionConfirmationModal
-      :is-open="isLeaveSessionModalOpen"
-      @close:modal="isLeaveSessionModalOpen = false"
-    />
-
-    <EndSessionConfirmationModal
-      :is-open="isEndSessionModalOpen"
-      @close:modal="isEndSessionModalOpen = false"
-    />
-  </div>
+      <div v-else>
+        <Button variant="outline" @click="login">
+          <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
+          Sign in with Google</Button
+        >
+      </div>
+    </AppTransition>
+  </header>
 </template>

@@ -1,7 +1,8 @@
 import gql from "graphql-tag";
 
 export const typeDefs = gql`
-  directive @sessionActive on FIELD_DEFINITION
+  directive @isSessionActive on FIELD_DEFINITION
+  directive @isAuthenticated on FIELD_DEFINITION
 
   enum TASK_STATUS {
     ACTIVE
@@ -21,6 +22,18 @@ export const typeDefs = gql`
   enum ESTIMATION_MODE {
     TIME_ESTIMATES
     STORY_POINTS
+  }
+
+  type User {
+    id: ID!
+    email: String!
+    name: String
+    picture: String
+  }
+
+  type AuthPayload {
+    token: String!
+    user: User!
   }
 
   type Participant {
@@ -161,17 +174,18 @@ export const typeDefs = gql`
   }
 
   type Mutation {
-    createSession(input: CreateSessionInput!): Session
+    googleSignIn(access_token: String!): AuthPayload!
+    createSession(input: CreateSessionInput!): Session @isAuthenticated
     endSession(id: ID!): ID
-    joinSession(input: JoinSessionInput!): Participant @sessionActive
+    joinSession(input: JoinSessionInput!): Participant @isSessionActive
     leaveSession(participant: ID!): Participant
-    createTask(input: CreateTaskInput!): Task @sessionActive
-    bulkCreateTasks(input: BulkCreateTasksInput!): [Task] @sessionActive
+    createTask(input: CreateTaskInput!): Task @isSessionActive
+    bulkCreateTasks(input: BulkCreateTasksInput!): [Task] @isSessionActive
     updateTask(input: UpdateTaskInput!): Task
     deleteTask(id: ID!): ID
     resetTask(id: ID!): Task
     castVote(input: CastVoteInput!): Vote
-    startVoting(input: StartVotingInput): Session @sessionActive
+    startVoting(input: StartVotingInput): Session @isSessionActive
     sendFeedback(input: SendFeedbackInput!): Feedback
   }
 

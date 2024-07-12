@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import Button from '@/components/ui/button/Button.vue'
 import JoinSessionModal from '@/components/JoinSessionModal.vue'
+import TheHeader from '@/components/TheHeader.vue'
 import { Heart } from 'lucide-vue-next'
 
 const isModalOpen = ref(false)
@@ -9,18 +10,7 @@ const isModalOpen = ref(false)
 
 <template>
   <div class="min-h-screen flex flex-col bg-[#313131] text-white">
-    <header class="py-4 px-[20px] mb-[30px] flex items-center border-b-[2px] border-[#3E3E3E]">
-      <RouterLink :to="{ name: 'HomeView' }">
-        <div class="flex items-center justify-center h-[35px] w-[35px] bg-white rounded-[50%]">
-          <p class="text-[#161616] text-xs">Poker</p>
-        </div>
-      </RouterLink>
-      <div class="flex-grow flex justify-center">
-        <RouterLink :to="{ name: 'HomeView' }">
-          <h1 class="font-bold text-2xl font-mono">SprintPoker</h1>
-        </RouterLink>
-      </div>
-    </header>
+    <TheHeader />
 
     <div class="max-w-[1612px] mx-auto">
       <div class="flex flex-col items-center px-5 mb-[48px] text-center">

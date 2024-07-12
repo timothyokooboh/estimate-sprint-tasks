@@ -9,13 +9,15 @@ import { PrismaClient } from "@prisma/client";
 import cors from "cors";
 import express from "express";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
-import { WebSocketServer } from "ws";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { useServer } from "graphql-ws/lib/use/ws";
-import { sessionActiveDirectiveTransformer } from "./directives.js";
+import { isSessionActive } from "./directives/isSessionActive.js";
+import { isAuthenticated } from "./directives/isAuthenticated.js";
+import { WebSocketServer } from "ws";
 
 dotenv.config();
 const app = express();
+
 const httpServer = http.createServer(app);
 const prisma = new PrismaClient();
 export const pubsub = new PubSub();
@@ -25,7 +27,8 @@ let schema = makeExecutableSchema({
   resolvers,
 });
 
-schema = sessionActiveDirectiveTransformer(schema, "sessionActive");
+schema = isSessionActive(schema, "isSessionActive");
+schema = isAuthenticated(schema, "isAuthenticated");
 
 const server = new ApolloServer({
   schema,
@@ -68,10 +71,7 @@ app.use(
   express.json(),
   expressMiddleware(server, {
     async context({ req }) {
-      return {
-        prisma,
-        req,
-      };
+      return { prisma, req };
     },
   }),
 );

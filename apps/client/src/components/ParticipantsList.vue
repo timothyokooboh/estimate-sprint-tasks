@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import InviteParticipant from '@/components/InviteParticipant.vue'
 import { User, Check, Settings } from 'lucide-vue-next'
-import { getObjectProperty } from '@/helpers'
+import { getObjectProperty } from '@/helpers/getObjectProperty'
 import { TASK_STATUS, type Participant, type Task } from '@/types'
 
 const props = defineProps<{

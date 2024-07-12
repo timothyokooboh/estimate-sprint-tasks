@@ -6,7 +6,7 @@ import InviteParticipant from '@/components/InviteParticipant.vue'
 import TasksList from '@/components/TasksList.vue'
 import Button from '@/components/ui/button/Button.vue'
 import { useToast } from '@/components/ui/toast'
-import TheHeader from '@/components/TheHeader.vue'
+import SessionHeader from '@/components/SessionHeader.vue'
 import SessionLoader from '@/components/SessionLoader.vue'
 import AppTransition from '@/components/AppTransition.vue'
 import { Loader2 } from 'lucide-vue-next'
@@ -15,7 +15,7 @@ import { useResetTaskMutation } from '@/composables/useResetTaskMutation'
 import { useUpdateTaskMutation } from '@/composables/useUpdateTaskMutation'
 import { useStartVoting } from '@/composables/useStartVoting'
 import { useTasksList } from '@/composables/useTasksList'
-import { getObjectProperty } from '@/helpers'
+import { getObjectProperty } from '@/helpers/getObjectProperty'
 import { SESSION_STATUS, TASK_STATUS, type Activity, type Task } from '@/types'
 
 // Async components
@@ -118,7 +118,7 @@ const setNextTask = () => {
     <SessionLoader v-if="loading" />
 
     <div v-else class="max-w-[1512px] mx-auto">
-      <TheHeader />
+      <SessionHeader />
 
       <div>
         <div class="mt-5 flex flex-col gap-y-[20px] sm:flex-row sm:justify-between sm:items-center">

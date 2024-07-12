@@ -1,4 +1,5 @@
 import { pubsub } from "./index.js";
+import jwt from "jsonwebtoken";
 import {
   PARTICIPANT_JOINED,
   PARTICIPANT_LEFT,
@@ -37,6 +38,7 @@ import {
 
 import { castVote, startVoting, viewVoteField } from "./handlers/vote.js";
 import { sendFeedback } from "./handlers/feedback..js";
+import { googleSignIn } from "./handlers/auth.js";
 
 export const resolvers = {
   Query: {
@@ -60,6 +62,7 @@ export const resolvers = {
     castVote,
     startVoting,
     sendFeedback,
+    googleSignIn,
   },
   Session: {
     moderator(session) {

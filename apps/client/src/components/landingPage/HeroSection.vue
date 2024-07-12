@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Button from '@/components/ui/button/Button.vue'
+
 defineEmits(['open:modal'])
 </script>
 
@@ -12,9 +13,11 @@ defineEmits(['open:modal'])
     </h2>
 
     <p class="mb-5">Simplify sprint task estimation process with SprintPoker 🚀.</p>
+
     <Button variant="secondary" class="rounded-[27px] mb-[34px] px-10" @click="$emit('open:modal')"
       >Start a session</Button
     >
+
     <img src="@/assets/demo.svg" class="mx-auto mb-[32px]" />
   </div>
 </template>

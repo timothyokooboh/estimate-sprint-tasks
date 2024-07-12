@@ -8,7 +8,7 @@ import { GraphQLError, defaultFieldResolver } from "graphql";
  * @returns an error if the session is not active on a field that is annotated with       @sessionActive but if the session is active the field will be resolved
  */
 
-export function sessionActiveDirectiveTransformer(schema, directiveName) {
+export function isSessionActive(schema, directiveName) {
   return mapSchema(schema, {
     [MapperKind.OBJECT_FIELD]: (fieldConfig) => {
       const directive = getDirective(schema, fieldConfig, directiveName)?.[0];

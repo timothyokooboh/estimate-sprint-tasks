@@ -4,6 +4,7 @@ import { GraphQLWsLink } from '@apollo/client/link/subscriptions'
 import { createClient } from 'graphql-ws'
 import { getMainDefinition } from '@apollo/client/utilities'
 import { useErrorHandling } from '@/composables/useErrorHandling'
+import { localEncrypt } from '@/helpers/localEncrypt'
 
 const { errorLink } = useErrorHandling()
 
@@ -36,12 +37,28 @@ const link = split(
   httpLink
 )
 
+// Create an Apollo Link to set the authorization header
+const authLink = new ApolloLink((operation, forward) => {
+  // Retrieve the authorization token from wherever you have it stored
+  const token = localEncrypt.getData('authUser')?.token || ''
+
+  // Use the setContext method to set the HTTP headers
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  })
+
+  // Call the next link in the middleware chain
+  return forward(operation)
+})
+
 const interceptViewSessionQuery = new ApolloLink((operation, forward) => {
   const { operationName, variables } = operation
 
   // Cancel request if 'id' is not present in variables
   if (operationName === 'viewSession' && !variables?.id) {
-    console.warn(`Cancelling request for ${operationName} because 'id' is not present`)
+    console.warn(`Cancelling request for ${operationName} because variable 'id' is not present`)
     return null
   }
   // If the condition is not met, forward the request
@@ -53,6 +70,6 @@ const cache = new InMemoryCache()
 
 // Create the apollo client
 export const apolloClient = new ApolloClient({
-  link: ApolloLink.from([interceptViewSessionQuery, errorLink, link]),
+  link: ApolloLink.from([authLink, interceptViewSessionQuery, errorLink, link]),
   cache
 })
