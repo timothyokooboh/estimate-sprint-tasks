@@ -53,6 +53,11 @@ export type Task = {
   averageVote: number
 }
 
+export type AuthUser = {
+  user: { id: string; email: string; name: string; picture: string }
+  token: string
+}
+
 export type Activity =
   | 'No task'
   | 'Start voting'

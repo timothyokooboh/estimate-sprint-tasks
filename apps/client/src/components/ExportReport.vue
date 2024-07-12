@@ -51,7 +51,7 @@ const exportReport = async () => {
             <span>{{ getObjectProperty(session, 'title') }}</span>
           </p>
           <p>
-            {{ format(Number(session.createdAt), 'dd MMM yyyy') }}
+            {{ format(Number(session.createdAt), 'dd MMM, yyyy') }}
           </p>
         </div>
 

@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue'
-import { Dialog, DialogContent } from '@/components/ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription
+} from '@/components/ui/dialog'
+import { VisuallyHidden } from 'radix-vue'
 import { Loader2 } from 'lucide-vue-next'
 
 const props = defineProps<{
@@ -17,9 +24,16 @@ watchEffect(() => {
 <template>
   <Dialog :open="isShown" @update:open="isShown = false">
     <DialogContent class="w-[90%] max-w-[425px]">
-      <div class="flex justify-center items-center py-10">
-        <Loader2 class="w-8 h-8 mr-2 animate-spin" /> Processing...
-      </div>
+      <VisuallyHidden>
+        <DialogHeader>
+          <DialogTitle />
+        </DialogHeader>
+      </VisuallyHidden>
+      <DialogDescription>
+        <div class="flex justify-center items-center py-10">
+          <Loader2 class="w-8 h-8 mr-2 animate-spin" /> Processing...
+        </div>
+      </DialogDescription>
     </DialogContent>
   </Dialog>
 </template>

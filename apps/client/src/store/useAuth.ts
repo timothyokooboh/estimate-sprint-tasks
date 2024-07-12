@@ -4,16 +4,16 @@ import { useGoogleAuthMutation } from '@/composables/useGoogleAuthMutation'
 import { ref, computed, onMounted } from 'vue'
 import { getObjectProperty } from '@/helpers/getObjectProperty'
 import { localEncrypt } from '@/helpers/localEncrypt'
+import type { AuthUser } from '@/types'
 
 export const useAuth = defineStore('auth', () => {
   const { mutate, loading } = useGoogleAuthMutation()
-  const authUser = ref<null | { user: any; token: string }>(null)
+  const authUser = ref<null | AuthUser>(null)
   const isLoggedIn = computed(() => !!authUser.value)
 
   const setAuthUser = () => {
-    console.log('mounted')
     const user = localEncrypt.getData('authUser')
-    console.log('fetch', user)
+
     authUser.value = user ? user : null
   }
 

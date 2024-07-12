@@ -11,9 +11,9 @@ import express from "express";
 import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHttpServer";
 import { makeExecutableSchema } from "@graphql-tools/schema";
 import { useServer } from "graphql-ws/lib/use/ws";
-import { sessionActiveDirectiveTransformer } from "./directives.js";
+import { isSessionActive } from "./directives/isSessionActive.js";
+import { isAuthenticated } from "./directives/isAuthenticated.js";
 import { WebSocketServer } from "ws";
-import { OAuth2Client } from "google-auth-library";
 
 dotenv.config();
 const app = express();
@@ -27,7 +27,8 @@ let schema = makeExecutableSchema({
   resolvers,
 });
 
-schema = sessionActiveDirectiveTransformer(schema, "sessionActive");
+schema = isSessionActive(schema, "isSessionActive");
+schema = isAuthenticated(schema, "isAuthenticated");
 
 const server = new ApolloServer({
   schema,
