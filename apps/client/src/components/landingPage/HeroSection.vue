@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import Button from '@/components/ui/button/Button.vue'
+import { Loader2 } from 'lucide-vue-next'
+import { useAuth } from '@/store/useAuth'
+import { storeToRefs } from 'pinia'
 
 defineEmits(['open:modal'])
+
+const { loading } = storeToRefs(useAuth())
 </script>
 
 <template>
@@ -14,8 +19,14 @@ defineEmits(['open:modal'])
 
     <p class="mb-5">Simplify sprint task estimation process with SprintPoker 🚀.</p>
 
-    <Button variant="secondary" class="rounded-[27px] mb-[34px] px-10" @click="$emit('open:modal')"
-      >Start a session</Button
+    <Button
+      variant="secondary"
+      class="rounded-[27px] mb-[34px] px-10"
+      :disabled="loading"
+      @click="$emit('open:modal')"
+    >
+      <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
+      Start a session</Button
     >
 
     <img src="@/assets/demo.svg" class="mx-auto mb-[32px]" />

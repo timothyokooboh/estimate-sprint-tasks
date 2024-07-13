@@ -35,7 +35,7 @@ const { login, logout } = useAuth()
         <Button variant="outline" class="ml-3" @click="logout">Sign out</Button>
       </div>
       <div v-else>
-        <Button variant="outline" @click="login">
+        <Button variant="outline" :disabled="loading" @click="login">
           <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
           Sign in with Google</Button
         >

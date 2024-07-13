@@ -35,7 +35,6 @@ export async function googleSignIn(parent, { access_token }, { prisma }, info) {
     });
   }
 
-  // Create a JWT token for your own authentication
   const jwtToken = jwt.sign({ userId: user.id }, process.env.SECRET_KEY, {
     expiresIn: "7d",
   });

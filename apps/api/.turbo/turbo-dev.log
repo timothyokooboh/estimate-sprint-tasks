@@ -1,28 +1,28 @@
 [2mEnvironment variables loaded from .env[22m
 [2mPrisma schema loaded from prisma/schema.prisma[22m
 
-✔ Generated [1mPrisma Client[22m (v5.15.0)[2m to ./../../node_modules/@prisma/client[22m in 79ms
+✔ Generated [1mPrisma Client[22m (v5.16.1)[2m to ./../../node_modules/@prisma/client[22m in 96ms
 
-Start using Prisma Client in Node.js (See: [4mhttps://pris.ly/d/client[24m)
+Start using Prisma Client in Node.js (See: ]8;;https://pris.ly/d/clienthttps://pris.ly/d/client]8;;)
 [2m```[22m
 [36mimport[39m [34m{[39m PrismaClient [34m}[39m [36mfrom[39m [1m[32m'@prisma/client'[39m[22m
 [36mconst[39m prisma = [36mnew[39m PrismaClient[34m([39m[34m)[39m
 [2m```[22m
-or start using Prisma Client at the edge (See: [4mhttps://pris.ly/d/accelerate[24m)
+or start using Prisma Client at the edge (See: ]8;;https://pris.ly/d/acceleratehttps://pris.ly/d/accelerate]8;;)
 [2m```[22m
 [36mimport[39m [34m{[39m PrismaClient [34m}[39m [36mfrom[39m [1m[32m'@prisma/client/edge'[39m[22m
 [36mconst[39m prisma = [36mnew[39m PrismaClient[34m([39m[34m)[39m
 [2m```[22m
 
-See other ways of importing Prisma Client: [4mhttp://pris.ly/d/importing-client[24m
+See other ways of importing Prisma Client: ]8;;http://pris.ly/d/importing-clienthttp://pris.ly/d/importing-client]8;;
 
 [90m[90m┌─[39m[90m[90m────────────────────────────────────────────────────────────┐[39m[90m
 [90m│[39m[90m  [0mDeploying your app to serverless or edge functions?[0m        [90m│[39m[90m
 [90m│[39m[90m  [0mTry Prisma Accelerate for connection pooling and caching.[0m  [90m│[39m[90m
-[90m│[39m[90m  [0m[4mhttps://pris.ly/cli/--accelerate[24m[0m                           [90m│[39m[90m
+[90m│[39m[90m  [0m]8;;https://pris.ly/cli/--acceleratehttps://pris.ly/cli/--accelerate]8;;[0m                           [90m│[39m[90m
 └─────────────────────────────────────────────────────────────┘[39m
 
-[33m[nodemon] 3.1.3[39m
+[33m[nodemon] 3.1.4[39m
 [33m[nodemon] to restart at any time, enter `rs`[39m
 [33m[nodemon] watching path(s): *.*[39m
 [33m[nodemon] watching extensions: js,mjs,cjs,json[39m

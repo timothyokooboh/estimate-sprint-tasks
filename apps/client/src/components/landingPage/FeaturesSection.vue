@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import Button from '@/components/ui/button/Button.vue'
-import { MoveRight } from 'lucide-vue-next'
+import { useAuth } from '@/store/useAuth'
+import { MoveRight, Loader2 } from 'lucide-vue-next'
+import { storeToRefs } from 'pinia'
 
 defineEmits(['open:modal'])
+const { loading } = storeToRefs(useAuth())
 </script>
 
 <template>
@@ -21,7 +24,7 @@ defineEmits(['open:modal'])
         <a
           href="#"
           class="w-fit flex items-center gap-x-[10px] mb-3 duration-200 hover:text-blue-500"
-          @click="$emit('open:modal')"
+          @click.prevent="$emit('open:modal')"
         >
           <MoveRight />
           <span>Start a session</span>
@@ -39,7 +42,7 @@ defineEmits(['open:modal'])
         <a
           href="#"
           class="w-fit flex items-center gap-x-[10px] mb-3 duration-200 hover:text-blue-500"
-          @click="$emit('open:modal')"
+          @click.prevent="$emit('open:modal')"
         >
           <MoveRight />
           <span>Start a session</span>
@@ -56,7 +59,7 @@ defineEmits(['open:modal'])
         <a
           href="#"
           class="w-fit flex items-center gap-x-[10px] mb-3 duration-200 hover:text-blue-500"
-          @click="$emit('open:modal')"
+          @click.prevent="$emit('open:modal')"
         >
           <MoveRight />
           <span>Start a session</span>
@@ -75,7 +78,7 @@ defineEmits(['open:modal'])
         <a
           href="#"
           class="w-fit flex items-center gap-x-[10px] mb-3 duration-200 hover:text-blue-500"
-          @click="$emit('open:modal')"
+          @click.prevent="$emit('open:modal')"
         >
           <MoveRight />
           <span>Start a session</span>
@@ -92,7 +95,10 @@ defineEmits(['open:modal'])
       >
         Simplify sprint task estimation process with SprintPoker
       </p>
-      <Button class="px-10 rounded-[27px]" @click="$emit('open:modal')">Start a session</Button>
+      <Button class="px-10 rounded-[27px]" :disabled="loading" @click="$emit('open:modal')">
+        <Loader2 v-if="loading" class="w-4 h-4 mr-2 animate-spin" />
+        Start a session</Button
+      >
     </div>
   </section>
 </template>
