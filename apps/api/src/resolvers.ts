@@ -37,7 +37,7 @@ import {
 } from "./handlers/task.js";
 
 import { castVote, startVoting, viewVoteField } from "./handlers/vote.js";
-import { sendFeedback } from "./handlers/feedback..js";
+import { sendFeedback } from "./handlers/feedback.js";
 import { googleSignIn } from "./handlers/auth.js";
 
 export const resolvers = {
